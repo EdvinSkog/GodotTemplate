@@ -1,0 +1,27 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Godot Template"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://assets/icon.svg"
+
+[autoload]
+
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+AudioManager="*res://scenes/global/audio_manager.tscn"
+PlayerVariables="*res://scenes/global/player_variables.tscn"
+SceneManager="*res://scenes/global/scene_manager.tscn"
+GameManager="*res://scenes/global/game_manager.tscn"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
