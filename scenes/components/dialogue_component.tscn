@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dw2jkky2yq8n4"]
 
 [ext_resource type="Script" path="res://scenes/components/dialogue_component.gd" id="1_cdwgm"]
-[ext_resource type="Resource" uid="uid://dq1ebry8eu45l" path="res://assets/dialogues/intro.dialogue" id="2_df6wv"]
+[ext_resource type="Resource" uid="uid://h7hk182awthl" path="res://assets/dialogue/intro.dialogue" id="2_df6wv"]
 
 [node name="DialogueComponent" type="Node"]
 script = ExtResource("1_cdwgm")
