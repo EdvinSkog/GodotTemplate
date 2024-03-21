@@ -22,13 +22,18 @@ PlayerVariables="*res://scenes/global/player_variables.tscn"
 SceneManager="*res://scenes/global/scene_manager.tscn"
 GameManager="*res://scenes/global/game_manager.tscn"
 
+[dialogue_manager]
+
+general/states=["SceneManager", "AudioManager"]
+general/balloon_path="res://scenes/user_interface/dialogue_balloon.tscn"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [gui]
 
-theme/custom="res://scenes/ui/main_theme.tres"
+theme/custom="res://scenes/user_interface/main_theme.tres"
 
 [internationalization]
 

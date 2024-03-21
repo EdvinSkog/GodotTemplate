@@ -18,10 +18,7 @@ func dialogue_finished(used_resource):
 		# Code for finished dialogue
 		pass
 
-func change_scene(scene: String):
-	SceneManager.change_scene(scene)
-
 func _on_timer_timeout():
-	#play_dialogue("intro")
+	play_dialogue("start")
 	pass
 	# For some reason, a timer had to be used instead of ready
