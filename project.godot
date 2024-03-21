@@ -31,6 +31,14 @@ general/balloon_path="res://scenes/user_interface/dialogue_balloon.tscn"
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://scenes/global/": "yellow",
+"res://scenes/user_interface/": "pink"
+}
+
 [gui]
 
 theme/custom="res://scenes/user_interface/main_theme.tres"
