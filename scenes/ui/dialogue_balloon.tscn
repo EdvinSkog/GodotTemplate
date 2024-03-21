@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c6rsb6g2tykrm"]
+[gd_scene load_steps=9 format=3 uid="uid://dtstjuyvgjw6n"]
 
 [ext_resource type="Script" path="res://scenes/UI/dialogue_balloon.gd" id="1_qmcs6"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_1cmdm"]
-[ext_resource type="FontFile" uid="uid://dtxul862qx2hb" path="res://assets/fonts/CodeSquaredRegular-AYRg.ttf" id="2_7nfu1"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_uawhs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
@@ -47,14 +46,13 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.8, 0.0901961, 0.8, 1)
+border_color = Color(0.6, 0.6, 0.6, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="Theme" id="Theme_qq3yp"]
-default_font = ExtResource("2_7nfu1")
 default_font_size = 22
 Button/styles/disabled = SubResource("StyleBoxFlat_spyqn")
 Button/styles/focus = SubResource("StyleBoxFlat_ri4m3")
@@ -72,14 +70,13 @@ script = ExtResource("1_qmcs6")
 
 [node name="Balloon" type="Panel" parent="."]
 unique_name_in_owner = true
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -50.0
-offset_bottom = 114.0
+anchor_bottom = 1.0
+offset_top = -181.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme = SubResource("Theme_qq3yp")
 
 [node name="Dialogue" type="MarginContainer" parent="Balloon"]
@@ -91,7 +88,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Balloon/Dialogue"]
-modulate = Color(0.705882, 0.470588, 0.505882, 1)
 layout_mode = 2
 
 [node name="CharacterLabel" type="RichTextLabel" parent="Balloon/Dialogue/VBoxContainer"]

@@ -1,7 +1,6 @@
 extends Node
 
 const Balloon = preload("res://scenes/UI/dialogue_balloon.tscn") # UI element
-
 @export var dialogue_resource: DialogueResource
 
 func _ready():
