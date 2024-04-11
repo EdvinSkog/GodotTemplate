@@ -22,7 +22,6 @@ func play(stream: AudioStream, local_volume_change: float = 0):
 func play_music(path: String, local_volume_change: float = 0):
 	music.stream = load(path)
 	music.volume_db = volume_music + local_volume_change
-	print("volume_db = ", music.volume_db)
 	music.play()
 
 #This function uses paths, because of how Dialogue Manager works
@@ -47,4 +46,4 @@ func change_local_music_volume(db, fade_time: float = 0):
 	db = music.volume_db + db
 	var tween = get_tree().create_tween()
 	tween.tween_property(music, "volume_db", db, fade_time)
-	print("volume_db = ", music.volume_db, " and ", db)
+	#print("volume_db = ", music.volume_db, " and ", db)
