@@ -21,6 +21,7 @@ AudioManager="*res://scenes/global/audio_manager.tscn"
 PlayerVariables="*res://scenes/global/player_variables.tscn"
 SceneManager="*res://scenes/global/scene_manager.tscn"
 GameManager="*res://scenes/global/game_manager.tscn"
+SignalManager="*res://scenes/global/signal_manager.gd"
 
 [dialogue_manager]
 
