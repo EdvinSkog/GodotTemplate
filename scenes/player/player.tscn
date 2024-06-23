@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://btirmxspwffmv"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_w8e3p"]
+[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/user_interface/GameplayInterface.tscn" id="2_ypxyr"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ljy8c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i1jxd"]
+size = Vector3(1, 2.04224, 1)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 3
+script = ExtResource("1_w8e3p")
+speed = 15.0
+acceleration = 50.0
+jump_height = 2.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameplayInterface" parent="CanvasLayer" instance=ExtResource("2_ypxyr")]
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.674377, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ljy8c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0487061, 0)
+shape = SubResource("BoxShape3D_i1jxd")

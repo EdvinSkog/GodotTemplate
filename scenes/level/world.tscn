@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwlnrh4so38wo"]
+
+[ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="1_rpnup"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y4a6l"]
+panorama = ExtResource("1_rpnup")
+
+[sub_resource type="Sky" id="Sky_hh17t"]
+sky_material = SubResource("PanoramaSkyMaterial_y4a6l")
+
+[sub_resource type="Environment" id="Environment_s64kd"]
+background_mode = 2
+sky = SubResource("Sky_hh17t")
+sky_custom_fov = 41.7
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s64kd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3.20544, 0)

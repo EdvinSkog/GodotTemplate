@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv5vvs1nxjg8m"]
+
+[ext_resource type="PackedScene" uid="uid://dwlnrh4so38wo" path="res://scenes/level/world.tscn" id="1_3q0ro"]
+[ext_resource type="PackedScene" uid="uid://btirmxspwffmv" path="res://scenes/player/player.tscn" id="1_wqmfo"]
+
+[node name="TestLevel" type="Node3D"]
+transform = Transform3D(1, -0.000519715, -0.000108098, 0.000519762, 1, 0.000453403, 0.000107868, -0.000453458, 1, 0, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_wqmfo")]
+transform = Transform3D(1, 9.97638e-11, 0, -1.91029e-11, 1, -5.82077e-11, 1.45519e-11, -5.82077e-11, 1, 0.00198949, 3.82769, 0.00173548)
+
+[node name="World" parent="." instance=ExtResource("1_3q0ro")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+use_collision = true
+size = Vector3(50, 1, 50)
