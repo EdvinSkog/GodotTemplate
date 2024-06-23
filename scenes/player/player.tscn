@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://btirmxspwffmv"]
+[gd_scene load_steps=6 format=3 uid="uid://btirmxspwffmv"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_w8e3p"]
-[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/user_interface/GameplayInterface.tscn" id="2_ypxyr"]
+[ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://scenes/user_interface/debug_interface.tscn" id="2_gfi6w"]
+[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/user_interface/gameplay_interface.tscn" id="2_pa87n"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ljy8c"]
 
@@ -17,7 +18,10 @@ jump_height = 2.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GameplayInterface" parent="CanvasLayer" instance=ExtResource("2_ypxyr")]
+[node name="GameplayInterface" parent="CanvasLayer" instance=ExtResource("2_pa87n")]
+
+[node name="DebugUi" parent="CanvasLayer/GameplayInterface" instance=ExtResource("2_gfi6w")]
+layout_mode = 1
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.674377, 0)
