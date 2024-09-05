@@ -7,6 +7,20 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 
+@export var weapon_sway_amount : float = 5
+@export var weapon_rotation_amount : float = 0.1
+
+@export var camera_speed: float = 5
+@export var camera_rotation_amount : float = 0.03
+
+@export_category("Audio")
+@export var sfx_shoot : AudioStream
+@export var sfx_reload : AudioStream
+
+@onready var hand_camera: Camera3D = $CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera
+@onready var camera: Camera3D = $CanvasLayerFPS/Camera
+@onready var hand: Node3D = $CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera/Hand
+
 var jumping: bool = false
 var mouse_captured: bool = false
 
@@ -19,10 +33,15 @@ var walk_vel: Vector3 # Walking velocity
 var grav_vel: Vector3 # Gravity velocity 
 var jump_vel: Vector3 # Jumping velocity
 
-@onready var camera: Camera3D = $Camera
+
+
 
 func _ready() -> void:
 	capture_mouse()
+	
+func _process(delta):
+	camera.position = Vector3(self.position.x, self.position.y + 0.85, + self.position.z)
+	hand_camera.transform = camera.transform
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -35,6 +54,9 @@ func _physics_process(delta: float) -> void:
 	#if mouse_captured: _handle_joypad_camera_rotation(delta)
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
 	move_and_slide()
+	cam_tilt(move_dir.x, delta)
+	weapon_tilt(move_dir.x, delta)
+	
 
 func capture_mouse() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -71,3 +93,10 @@ func _jump(delta: float) -> Vector3:
 		return jump_vel
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
+
+func cam_tilt(input_x, delta):
+	if camera:
+		camera.rotation.z = lerp(camera.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
+
+func weapon_tilt(input_x, delta):
+	hand.rotation.z = lerp(hand.rotation.z, -input_x * weapon_rotation_amount, 10 * delta)

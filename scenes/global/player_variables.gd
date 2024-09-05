@@ -4,3 +4,4 @@ extends Node
 
 # Movement
 var allow_move: bool = true
+var aiming_target

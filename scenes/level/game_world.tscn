@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhgfs17rqhbw5"]
+
+[ext_resource type="Environment" uid="uid://cr1nv142vyc03" path="res://scenes/level/game_world.tres" id="2_nq346"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ra8vh"]
+dof_blur_far_distance = 1.7
+dof_blur_amount = 0.03
+
+[node name="GameWorld" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.939148, -0.181963, -0.291359, 0, -0.848177, 0.529712, -0.343512, -0.497478, -0.796564, -1, 13.8924, -8.54089)
+light_color = Color(0.362829, 0.362829, 0.362829, 1)
+light_energy = 1.969
+shadow_enabled = true
+shadow_transmittance_bias = -0.303
+shadow_opacity = 0.19
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = ExtResource("2_nq346")
+camera_attributes = SubResource("CameraAttributesPractical_ra8vh")
