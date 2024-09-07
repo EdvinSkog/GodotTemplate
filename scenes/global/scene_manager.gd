@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-var current_level : Node3D
+var current_level : Node
 signal level_changed
 
 ## Loading
@@ -29,7 +29,7 @@ func load_scene(scene_path: String, style : int = 0) -> void:
 	
 	_scene_path = scene_path
 	
-	var new_loading_screen = _load_screen.instantiate()
+	var new_loading_screen: LoadingScreen = _load_screen.instantiate()
 	get_tree().get_root().add_child(new_loading_screen)
 	
 	self.progress_changed.connect(new_loading_screen._update_progress_bar)
@@ -40,7 +40,7 @@ func load_scene(scene_path: String, style : int = 0) -> void:
 	await Signal(self, "load_done")
 	if(current_level != null):
 		current_level.queue_free() # Remove current level
-	await Signal(new_loading_screen, "pressed_key")
+	await Signal(new_loading_screen, "finished_waiting")
 	current_level = _loaded_resource.instantiate() # Set the new one as current
 	level_changed.emit() # Adds new level in App script
 
@@ -65,7 +65,7 @@ func _process(delta):
 
 
 
-func set_current_level(level : Node3D):
+func set_current_level(level : Node):
 	if(current_level != null):
 		current_level.queue_free() # Remove current level
 	current_level = level # Set the new one as current

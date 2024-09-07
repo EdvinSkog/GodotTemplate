@@ -2,13 +2,6 @@
 
 [ext_resource type="Script" path="res://scenes/user_interface/loading_screen.gd" id="1_ngitd"]
 
-[sub_resource type="Gradient" id="Gradient_fsk4x"]
-offsets = PackedFloat32Array(0, 0.99)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_84y1j"]
-gradient = SubResource("Gradient_fsk4x")
-
 [sub_resource type="Animation" id="Animation_kqxr8"]
 length = 0.001
 tracks/0/type = "value"
@@ -23,9 +16,34 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_g8dlt"]
 resource_name = "end_load"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_x6m65"]
 resource_name = "start_load"
@@ -63,10 +81,24 @@ _data = {
 "start_load": SubResource("Animation_x6m65")
 }
 
+[sub_resource type="Gradient" id="Gradient_fsk4x"]
+offsets = PackedFloat32Array(0, 0.99)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_84y1j"]
+gradient = SubResource("Gradient_fsk4x")
+
 [node name="LoadingScreen" type="CanvasLayer"]
 layer = 10
 follow_viewport_enabled = true
 script = ExtResource("1_ngitd")
+await_player_input = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nxhgp")
+}
+autoplay = "start_load"
 
 [node name="Panel" type="Panel" parent="."]
 anchors_preset = 15
@@ -100,13 +132,6 @@ grow_vertical = 2
 pivot_offset = Vector2(134, 29)
 text = "LOADING"
 horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_nxhgp")
-}
-autoplay = "start_load"
 
 [node name="ProgressBar" type="ProgressBar" parent="Panel"]
 layout_mode = 1
