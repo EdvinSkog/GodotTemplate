@@ -1,4 +1,4 @@
-extends CanvasLayer
+class_name DialogueBalloon extends CanvasLayer
 
 
 @onready var balloon: Panel = %Balloon
