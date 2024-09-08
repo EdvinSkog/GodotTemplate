@@ -19,7 +19,7 @@ func _ready():
 			selected_script = GameManager
 		1:
 			selected_script = PlayerVariables
-	expression.parse(what_property)
+	expression.parse(what_property) # Security risk?
 
 func _process(delta):
 	var result = expression.execute([], selected_script)
