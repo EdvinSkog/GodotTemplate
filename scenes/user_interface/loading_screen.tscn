@@ -147,7 +147,6 @@ gradient = SubResource("Gradient_fsk4x")
 layer = 10
 follow_viewport_enabled = true
 script = ExtResource("1_ngitd")
-await_player_input = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

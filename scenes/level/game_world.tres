@@ -1,10 +1,6 @@
-[gd_resource type="Environment" load_steps=5 format=3 uid="uid://cr1nv142vyc03"]
-
-[ext_resource type="Texture2D" uid="uid://rumwouw23770" path="res://assets/textures/skybox/AllSkyFree_Sky_MoonBurst_Equirect.png" id="1_rarbl"]
-[ext_resource type="Texture2D" uid="uid://c1jdgapiyfyya" path="res://scenes/environment/color_correction.tres" id="1_xboo3"]
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://cr1nv142vyc03"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ien80"]
-panorama = ExtResource("1_rarbl")
 
 [sub_resource type="Sky" id="Sky_smtwq"]
 sky_material = SubResource("PanoramaSkyMaterial_ien80")
@@ -34,4 +30,3 @@ volumetric_fog_length = 85.56
 volumetric_fog_detail_spread = 2.07053
 volumetric_fog_sky_affect = 0.526
 adjustment_enabled = true
-adjustment_color_correction = ExtResource("1_xboo3")

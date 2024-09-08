@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://myyiddj025wp"]
+
+[ext_resource type="Script" path="res://scenes/level/main.gd" id="1_mf647"]
+[ext_resource type="Shader" path="res://assets/shaders/dithering.gdshader" id="2_yg5mx"]
+[ext_resource type="Texture2D" uid="uid://cqx2j8hwlicrh" path="res://assets/shaders/dithering_pattern.png" id="3_apd4m"]
+[ext_resource type="PackedScene" uid="uid://bv5vvs1nxjg8m" path="res://scenes/level/test_level.tscn" id="4_kqyin"]
+[ext_resource type="Shader" path="res://assets/shaders/filmgrain.gdshader" id="5_v6qxb"]
+[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/user_interface/gameplay_interface.tscn" id="6_8vecn"]
+[ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://scenes/user_interface/debug_interface.tscn" id="7_x4i8c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3mi0"]
+shader = ExtResource("2_yg5mx")
+shader_parameter/color_depth = 0.0
+shader_parameter/dithering_pattern_texture = ExtResource("3_apd4m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_023e1"]
+shader = ExtResource("5_v6qxb")
+shader_parameter/grain_amount = 0.07
+shader_parameter/grain_size = 0.437
+shader_parameter/animate = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bb3p5"]
+seamless = true
+
+[node name="Main" type="Node"]
+script = ExtResource("1_mf647")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_s3mi0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(1152, 648)
+size_2d_override = Vector2i(1920, 1080)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="LevelHolder" type="Node" parent="SubViewportContainer/SubViewport"]
+
+[node name="TestLevel" parent="SubViewportContainer/SubViewport/LevelHolder" instance=ExtResource("4_kqyin")]
+
+[node name="Noise" type="TextureRect" parent="SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_023e1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_bb3p5")
+expand_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="GameplayInterface" parent="CanvasLayer" instance=ExtResource("6_8vecn")]
+
+[node name="DebugUi" parent="CanvasLayer/GameplayInterface" instance=ExtResource("7_x4i8c")]
+visible = false
+layout_mode = 1
