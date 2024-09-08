@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/level/main.gd" id="1_mf647"]
 [ext_resource type="Shader" path="res://assets/shaders/dithering.gdshader" id="2_yg5mx"]
 [ext_resource type="Texture2D" uid="uid://cqx2j8hwlicrh" path="res://assets/shaders/dithering_pattern.png" id="3_apd4m"]
-[ext_resource type="PackedScene" uid="uid://bv5vvs1nxjg8m" path="res://scenes/level/test_level.tscn" id="4_kqyin"]
+[ext_resource type="PackedScene" uid="uid://buyd1pr0u2e5" path="res://scenes/user_interface/menus/title_screen.tscn" id="4_8y452"]
 [ext_resource type="Shader" path="res://assets/shaders/filmgrain.gdshader" id="5_v6qxb"]
 [ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/user_interface/gameplay_gui.tscn" id="6_8vecn"]
 [ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://scenes/user_interface/debug/debug_gui.tscn" id="7_x4i8c"]
@@ -45,7 +45,7 @@ render_target_update_mode = 4
 
 [node name="LevelHolder" type="Node" parent="SubViewportContainer/SubViewport"]
 
-[node name="TestLevel" parent="SubViewportContainer/SubViewport/LevelHolder" instance=ExtResource("4_kqyin")]
+[node name="TitleScreen" parent="SubViewportContainer/SubViewport/LevelHolder" instance=ExtResource("4_8y452")]
 
 [node name="Noise" type="TextureRect" parent="SubViewportContainer/SubViewport"]
 material = SubResource("ShaderMaterial_023e1")
@@ -54,6 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("NoiseTexture2D_bb3p5")
 expand_mode = 2
 metadata/_edit_use_anchors_ = true

@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://buyd1pr0u2e5"]
+
+[ext_resource type="Script" path="res://scenes/user_interface/menus/title_screen.gd" id="1_d3lub"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d3lub")
+
+[node name="VSplitContainer" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -281.0
+offset_right = 48.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 200
+
+[node name="Label" type="Label" parent="VSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 74
+text = "Game Name"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VSplitContainer"]
+layout_mode = 2
+
+[node name="ButtonStart" type="Button" parent="VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "START"
+
+[node name="ButtonSettings" type="Button" parent="VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="ButtonCredits" type="Button" parent="VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "CREDITS"
+
+[connection signal="pressed" from="VSplitContainer/VBoxContainer/ButtonStart" to="." method="_on_button_start_pressed"]
+[connection signal="pressed" from="VSplitContainer/VBoxContainer/ButtonSettings" to="." method="_on_button_settings_pressed"]
+[connection signal="pressed" from="VSplitContainer/VBoxContainer/ButtonCredits" to="." method="_on_button_credits_pressed"]
