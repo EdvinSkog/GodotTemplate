@@ -1,4 +1,10 @@
-[gd_scene format=3 uid="uid://c6il1s350bauj"]
+[gd_scene load_steps=3 format=3 uid="uid://c6il1s350bauj"]
+
+[sub_resource type="Gradient" id="Gradient_r7xpb"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1kc0w"]
+gradient = SubResource("Gradient_r7xpb")
 
 [node name="GameplayInterface" type="Control"]
 layout_mode = 3
@@ -8,3 +14,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 80.0
+grow_horizontal = 2
+texture = SubResource("GradientTexture1D_1kc0w")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 546.0
+offset_bottom = 652.0
+grow_horizontal = 2
+texture = SubResource("GradientTexture1D_1kc0w")

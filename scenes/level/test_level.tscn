@@ -1,24 +1,129 @@
-[gd_scene load_steps=4 format=3 uid="uid://bv5vvs1nxjg8m"]
+[gd_scene load_steps=14 format=3 uid="uid://bv5vvs1nxjg8m"]
 
-[ext_resource type="PackedScene" uid="uid://dwlnrh4so38wo" path="res://scenes/level/world.tscn" id="1_3q0ro"]
 [ext_resource type="Script" path="res://scenes/level/test_level.gd" id="1_ppvos"]
 [ext_resource type="PackedScene" uid="uid://bswim5p31he8y" path="res://scenes/player/fps_controller.tscn" id="1_wqmfo"]
+[ext_resource type="Texture2D" uid="uid://bvgk6cn54mu2c" path="res://assets/textures/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" id="4_w2s62"]
+[ext_resource type="Texture2D" uid="uid://dv57t0h0fxx8j" path="res://assets/textures/dark_oak_1.jpg" id="4_w6wju"]
+[ext_resource type="Texture2D" uid="uid://byhw8noqlwdoa" path="res://assets/textures/800px-The_Scream.jpg" id="5_jwj7x"]
+[ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="6_3b5s3"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_2vliv"]
+albedo_texture = ExtResource("4_w2s62")
+orm_texture = ExtResource("4_w2s62")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cd8w7"]
+albedo_texture = ExtResource("5_jwj7x")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0eb2"]
+albedo_color = Color(0.241156, 0.241156, 0.241156, 1)
+albedo_texture = ExtResource("4_w6wju")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g0y3r"]
+albedo_texture = ExtResource("4_w6wju")
+uv1_scale = Vector3(2, 2, 2)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gaxfg"]
+panorama = ExtResource("6_3b5s3")
+
+[sub_resource type="Sky" id="Sky_hh17t"]
+sky_material = SubResource("PanoramaSkyMaterial_gaxfg")
+
+[sub_resource type="Environment" id="Environment_b8kec"]
+background_mode = 1
+background_color = Color(0.187176, 0.187176, 0.187176, 1)
+sky = SubResource("Sky_hh17t")
+sky_custom_fov = 41.7
+fog_enabled = true
+fog_light_color = Color(0.566461, 0.404872, 0.323522, 1)
+fog_light_energy = 1.12
+fog_density = 0.006
+fog_sky_affect = 0.214
+fog_height = 0.5
+adjustment_enabled = true
+adjustment_brightness = 1.12
+adjustment_contrast = 1.3
+adjustment_saturation = 0.25
 
 [node name="TestLevel" type="Node3D"]
 transform = Transform3D(1, -0.000519715, -0.000108098, 0.000519762, 1, 0.000453403, 0.000107868, -0.000453458, 1, 0, 0, 0)
 script = ExtResource("1_ppvos")
 
 [node name="Player" parent="." instance=ExtResource("1_wqmfo")]
-transform = Transform3D(1, -1.65912e-11, 0, -1.9277e-11, 1, -2.91038e-11, -7.27596e-12, 2.91038e-11, 1, 0.00103953, 2, 0.000906803)
+transform = Transform3D(1, -1.65876e-11, 0, -1.92735e-11, 1, -5.82077e-11, -1.45519e-11, 5.82077e-11, 1, -1.35322, 2.0007, 0.0010532)
 
-[node name="World" parent="." instance=ExtResource("1_3q0ro")]
+[node name="Graphics" type="Node3D" parent="."]
+transform = Transform3D(1, -1.65912e-11, 0, -1.9277e-11, 1, -2.91038e-11, -7.27596e-12, 2.91038e-11, 1, 0, 0, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(0.383002, -0.000628021, 0.000411645, -0.000157651, 2.35217e-07, 1.00007, -0.000240451, -1.00032, -2.2148e-08, -10.6993, 3.25504, 1.97395)
+material_override = SubResource("ORMMaterial3D_2vliv")
+use_collision = true
+size = Vector3(1, 4.91962, 4.20285)
+
+[node name="Painting" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(-0.0185795, 0.99913, -0.00579728, -1.66594e-05, -0.0058077, -1.00006, -0.382552, -0.0485252, 0.000325111, -6.56439, 5.11768, -21.6438)
+material_override = SubResource("StandardMaterial3D_cd8w7")
+use_collision = true
+size = Vector3(1, 5.76414, 7.45543)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(1, -1.65912e-11, 0, -1.92735e-11, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_v0eb2")
 use_collision = true
 size = Vector3(50, 1, 50)
 
+[node name="CSGBox3D3" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(1, -1.65876e-11, 0, -1.92735e-11, 1, -2.91038e-11, -7.27596e-12, 2.91038e-11, 1, 0.00503724, 9.6914, 0.0043941)
+material_override = SubResource("StandardMaterial3D_v0eb2")
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(1, 0.00482152, 0.00288286, -0.000519713, 9.27636, -0.0121197, -0.000108104, 0.00420592, 26.7272, -11.0453, 5.19746, 0.00354827)
+material_override = SubResource("StandardMaterial3D_g0y3r")
+use_collision = true
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(1, 0.00482152, 0.00288286, -0.000519713, 9.27636, -0.0121197, -0.000108104, 0.00420592, 26.7272, 0.237488, 5.19159, 0.00232855)
+material_override = SubResource("StandardMaterial3D_g0y3r")
+use_collision = true
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(0.0213581, 0.00482155, 26.7213, 0.000442203, 9.27636, -0.0141476, -0.999772, 0.00420596, 0.570839, -1.02087, 5.20241, -22.4009)
+material_override = SubResource("StandardMaterial3D_g0y3r")
+use_collision = true
+size = Vector3(1, 1, 1.21973)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(-0.0153265, 0.00482152, 26.7241, 0.000461316, 9.27636, -0.0137044, -0.999882, 0.00420592, -0.409642, -6.51727, 5.189, 13.4531)
+material_override = SubResource("StandardMaterial3D_g0y3r")
+use_collision = true
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.5
+one_shot = true
 autostart = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_b8kec")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.861204, 0.50826, -8.14388e-08, 0.484661, -0.821218, -0.301172, -0.153074, 0.25937, -0.95357, 0, 26.4795, 0)
+sky_mode = 2
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 1.90429e-09, -5.63159e-09, -1.92593e-11, 1, -1.30967e-09, -3.63798e-11, 1.45519e-10, 1, -9.89073, 2.67206, 0.995583)
+omni_range = 16.269
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 1.90431e-09, -5.58066e-09, -1.92379e-11, 1, -1.5134e-09, -8.73115e-11, 3.49246e-10, 1, -7.25412, 4.73699, -20.8621)
+omni_range = 52.936
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 1.9043e-09, -5.60976e-09, -1.92522e-11, 1, -1.39698e-09, -5.82077e-11, 2.32831e-10, 1, -12.5905, 4.34753, -17.4944)
+light_energy = 25.0
+light_indirect_energy = 0.975
+omni_range = 30.404
+omni_attenuation = 1.06
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

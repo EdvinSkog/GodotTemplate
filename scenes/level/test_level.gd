@@ -12,4 +12,4 @@ func _process(delta):
 
 
 func _on_timer_timeout():
-	SceneManager.load_scene("res://scenes/player/aim_controller.tscn")
+	SceneManager.load_scene("res://scenes/level/world.tscn", "subtle")

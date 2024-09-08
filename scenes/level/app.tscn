@@ -10,13 +10,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s3mi0"]
 shader = ExtResource("2_ebib7")
-shader_parameter/color_depth = 32.0
+shader_parameter/color_depth = 0.0
 shader_parameter/dithering_pattern_texture = ExtResource("3_l8rcy")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_023e1"]
 shader = ExtResource("3_hua1t")
-shader_parameter/grain_amount = 0.226
-shader_parameter/grain_size = 0.358
+shader_parameter/grain_amount = 0.07
+shader_parameter/grain_size = 0.437
 shader_parameter/animate = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bb3p5"]

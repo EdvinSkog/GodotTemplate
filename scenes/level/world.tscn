@@ -1,19 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwlnrh4so38wo"]
+[gd_scene load_steps=6 format=3 uid="uid://dwlnrh4so38wo"]
 
+[ext_resource type="PackedScene" uid="uid://bswim5p31he8y" path="res://scenes/player/fps_controller.tscn" id="1_r6k8h"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="1_rpnup"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_y4a6l"]
 panorama = ExtResource("1_rpnup")
 
-[sub_resource type="Sky" id="Sky_hh17t"]
+[sub_resource type="Sky" id="Sky_8sdyg"]
 sky_material = SubResource("PanoramaSkyMaterial_y4a6l")
 
 [sub_resource type="Environment" id="Environment_s64kd"]
 background_mode = 2
-sky = SubResource("Sky_hh17t")
+sky = SubResource("Sky_8sdyg")
 sky_custom_fov = 41.7
 
 [node name="World" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_r6k8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.50648, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s64kd")
