@@ -4,7 +4,7 @@ extends Control
 @export var enable_debug_ui: bool = false
 @export var debug_labels: Array[String]
 
-@onready var cheats: MenuButton = $VBoxContainer/MenuButton
+@onready var cheats: MenuButton = $VBoxContainer/CheatMenu
 @onready var cheats_popup: PopupMenu = cheats.get_popup()
 # Called when the node enters the scene tree for the first time.
 func _ready():

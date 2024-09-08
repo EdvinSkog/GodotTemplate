@@ -7,9 +7,9 @@ signal level_changed
 signal progress_changed(progress)
 signal load_done
 
-var _load_screen_path_normal : String = "res://scenes/user_interface/loading_screen.tscn"
+var _load_screen_path_normal : String = "res://scenes/user_interface/loading_screen/loading_screen.tscn"
 var _load_screen = load(_load_screen_path_normal)
-var _load_screen_path_subtle : String = "res://scenes/user_interface/loading_screen_subtle.tscn"
+var _load_screen_path_subtle : String = "res://scenes/user_interface/loading_screen/loading_screen_subtle.tscn"
 var _load_screen_subtle = load(_load_screen_path_subtle)
 var _loaded_resource:  PackedScene
 var _scene_path: String

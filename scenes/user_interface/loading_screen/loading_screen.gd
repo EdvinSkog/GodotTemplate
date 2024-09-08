@@ -29,6 +29,9 @@ func _start_outro_animation() -> void:
 		$Panel/LabelPress.visible = true
 		await Signal(self, "pressed_key")
 		$Panel/LabelPress.visible = false
+	else:
+		#This is needed or else it sends it emits "finished_waiting" too early.
+		await Signal(animation_player, "animation_finished")
 	emit_signal("finished_waiting")
 	if(play_end_animation):
 		animation_player.queue("end_load")
