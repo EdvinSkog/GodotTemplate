@@ -1,6 +1,6 @@
 extends Node
 
-const Balloon = preload("res://scenes/user_interface/dialogue_balloon.tscn") # UI element
+const Balloon = preload("res://scenes/user_interface/dialogue/dialogue_balloon.tscn") # UI element
 @export var dialogue_resource: DialogueResource
 
 signal dialogue_finished

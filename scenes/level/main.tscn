@@ -67,4 +67,3 @@ layer = 0
 [node name="DebugUi" parent="CanvasLayer/GameplayInterface" instance=ExtResource("7_x4i8c")]
 visible = false
 layout_mode = 1
-enable_debug_ui = true
