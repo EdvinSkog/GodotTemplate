@@ -15,7 +15,7 @@ var _loaded_resource:  PackedScene
 var _scene_path: String
 var _progress: Array = []
 
-var use_sub_threads: bool = true
+var use_sub_threads: bool = false
 
 func remove_dialogue_balloon(): 
 	if(GameManager.current_dialogue_balloon):
