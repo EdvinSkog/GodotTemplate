@@ -1,4 +1,4 @@
-extends Node
+class_name DialogueComponent extends Node
 
 @export var balloon_scene: PackedScene = preload("res://scenes/user_interface/dialogue/dialogue_balloon.tscn") # UI element
 @export var dialogue_resource: DialogueResource

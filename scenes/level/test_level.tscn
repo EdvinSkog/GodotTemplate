@@ -45,6 +45,10 @@ material_override = SubResource("StandardMaterial3D_v0eb2")
 use_collision = true
 size = Vector3(50, 1, 50)
 
+[node name="CSGBox3D2" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(1, 1.92202e-11, 1.23691e-10, -1.92202e-11, 1, -4.94765e-10, -1.23691e-10, 4.94765e-10, 1, -1.07627, 2.10075, -17.7816)
+size = Vector3(3.15088, 1, 1)
+
 [node name="TimerTestLoadScreen" type="Timer" parent="."]
 wait_time = 2.5
 one_shot = true
