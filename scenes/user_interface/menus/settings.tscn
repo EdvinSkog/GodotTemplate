@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://mydth38oqmq6"]
+[gd_scene load_steps=3 format=3 uid="uid://mydth38oqmq6"]
 
 [ext_resource type="Script" path="res://scenes/user_interface/menus/settings.gd" id="1_4vmje"]
+[ext_resource type="PackedScene" uid="uid://dsrpb41keqhsk" path="res://scenes/user_interface/menus/settings/volume_slider.tscn" id="2_6l5l1"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -18,15 +19,51 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -41.0
-offset_top = -50.5
-offset_right = 41.0
-offset_bottom = 50.5
+offset_left = -75.0
+offset_top = -140.0
+offset_right = 76.0
+offset_bottom = 51.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="VBoxAudio" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxAudio"]
+layout_mode = 2
+text = "Audio"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="MasterLabel" type="Label" parent="VBoxContainer/VBoxAudio"]
+layout_mode = 2
+text = "Master"
+horizontal_alignment = 1
+
+[node name="MasterHSlider" parent="VBoxContainer/VBoxAudio" instance=ExtResource("2_6l5l1")]
+layout_mode = 2
+
+[node name="SfxLabel" type="Label" parent="VBoxContainer/VBoxAudio"]
+layout_mode = 2
+text = "Sfx"
+horizontal_alignment = 1
+
+[node name="SfxHSlider" parent="VBoxContainer/VBoxAudio" instance=ExtResource("2_6l5l1")]
+layout_mode = 2
+bus_name = "Sfx"
+
+[node name="MusicLabel" type="Label" parent="VBoxContainer/VBoxAudio"]
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicHSlider" parent="VBoxContainer/VBoxAudio" instance=ExtResource("2_6l5l1")]
+layout_mode = 2
+bus_name = "Music"
+
 [node name="ButtonReturn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 10
 text = "BACK"
 
 [connection signal="pressed" from="VBoxContainer/ButtonReturn" to="." method="_on_button_return_pressed"]

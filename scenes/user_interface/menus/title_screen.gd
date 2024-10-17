@@ -1,8 +1,10 @@
 extends Control
 
+func _ready() -> void:
+	pass
 
 func _on_button_start_pressed() -> void:
-	SceneManager.load_scene("res://scenes/level/test_level.tscn", 1, "subtle")
+	SceneManager.load_scene("res://scenes/level/test_level.tscn", 1, "normal")
 
 
 func _on_button_settings_pressed() -> void:

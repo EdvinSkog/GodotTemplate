@@ -7,15 +7,12 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 
-@export var weapon_sway_amount : float = 5
-@export var weapon_rotation_amount : float = 0.1
+# To do:
+#@export var hand_sway_amount : float = 5
+@export var hand_rotation_amount : float = 0.1
 
 @export var camera_speed: float = 5
 @export var camera_rotation_amount : float = 0.03
-
-@export_category("Audio")
-@export var sfx_shoot : AudioStream
-@export var sfx_reload : AudioStream
 
 @onready var hand_camera: Camera3D = $CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera
 @onready var camera: Camera3D = $CanvasLayerFPS/Camera
@@ -99,4 +96,4 @@ func cam_tilt(input_x, delta):
 		camera.rotation.z = lerp(camera.rotation.z, -input_x * camera_rotation_amount, 10 * delta)
 
 func weapon_tilt(input_x, delta):
-	hand.rotation.z = lerp(hand.rotation.z, -input_x * weapon_rotation_amount, 10 * delta)
+	hand.rotation.z = lerp(hand.rotation.z, -input_x * hand_rotation_amount, 10 * delta)

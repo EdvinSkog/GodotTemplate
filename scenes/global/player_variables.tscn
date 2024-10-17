@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7bqfnnxlme3q"]
-
-[ext_resource type="Script" path="res://scenes/global/player_variables.gd" id="1_uftol"]
-
-[node name="PlayerVariables" type="Node"]
-script = ExtResource("1_uftol")

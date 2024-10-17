@@ -19,7 +19,7 @@ config/icon="res://assets/icon.svg"
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 AudioManager="*res://scenes/global/audio_manager.tscn"
-PlayerVariables="*res://scenes/global/player_variables.tscn"
+PlayerManager="*res://scenes/global/player_manager.tscn"
 SceneManager="*res://scenes/global/scene_manager.tscn"
 GameManager="*res://scenes/global/game_manager.tscn"
 SignalManager="*res://scenes/global/signal_manager.gd"
@@ -86,3 +86,8 @@ move_right={
 [internationalization]
 
 locale/translations_pot_files=PackedStringArray("res://assets/dialogue/intro.dialogue")
+
+[layer_names]
+
+3d_render/layer_1="Main"
+3d_render/layer_2="Hand"

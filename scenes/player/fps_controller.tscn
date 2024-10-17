@@ -1,20 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bswim5p31he8y"]
+[gd_scene load_steps=5 format=3 uid="uid://bswim5p31he8y"]
 
 [ext_resource type="Script" path="res://scenes/player/fps_controller.gd" id="1_0wndx"]
 [ext_resource type="PackedScene" uid="uid://b15iihbpbue6s" path="res://scenes/player/aim_controller.tscn" id="4_b4epm"]
-[ext_resource type="Texture2D" uid="uid://cqx2j8hwlicrh" path="res://assets/shaders/dithering_pattern.png" id="5_yvrgy"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ljy8c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1jxd"]
 size = Vector3(1, 2.04224, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hiu6h"]
-albedo_color = Color(0.840129, 0.454783, 7.70092e-07, 1)
-albedo_texture = ExtResource("5_yvrgy")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fgyal"]
-albedo_color = Color(0.442911, 0.442911, 0.442911, 1)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 3
@@ -61,19 +53,3 @@ fov = 65.6
 
 [node name="Hand" type="Node3D" parent="CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.416, -1, -5.1)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera/Hand"]
-transform = Transform3D(0.067718, 0.00239832, -0.150079, 0, 0.20712, 0.016932, 0.0229015, -0.00709165, 0.44377, -1.30274, 0.815184, 4.80916)
-material_override = SubResource("StandardMaterial3D_hiu6h")
-material_overlay = SubResource("StandardMaterial3D_hiu6h")
-size = Vector3(0.894257, 0.330566, 0.177475)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera/Hand"]
-transform = Transform3D(0.0522474, 0.00125022, -0.172406, 0, 0.107969, 0.019451, 0.0176695, -0.00369679, 0.509791, -1.38395, 0.826808, 5.04611)
-material_override = SubResource("StandardMaterial3D_fgyal")
-size = Vector3(1, 0.510742, 0.916992)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera/Hand/CSGBox3D"]
-transform = Transform3D(18.1309, -7.45058e-08, 2.38419e-06, 7.45058e-09, 9.25587, 4.88758e-06, -1.19209e-07, 2.23517e-08, 1.85699, -0.139249, 0.622426, -0.51867)
-light_color = Color(1, 0.4, 0.137255, 1)
-light_energy = 0.7

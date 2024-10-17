@@ -43,7 +43,7 @@ layout_mode = 2
 [node name="DebugLabel2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_88brd")]
 layout_mode = 2
 what_script = 1
-what_property = "allow_move"
+what_property = "aiming_at"
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2

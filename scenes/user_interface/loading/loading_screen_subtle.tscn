@@ -112,7 +112,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -139,7 +138,8 @@ pivot_offset = Vector2(134, 29)
 text = "LOADING"
 horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+[node name="LoadingBar" type="ProgressBar" parent="Panel"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
 anchors_preset = -1

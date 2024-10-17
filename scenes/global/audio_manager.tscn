@@ -4,7 +4,13 @@
 
 [node name="AudioManager" type="Node"]
 script = ExtResource("1_32cek")
+music_list = "res://assets/audio/troll_music.mp3"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
 
 [node name="Voice" type="AudioStreamPlayer" parent="."]
+bus = &"Voice"
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+bus = &"Ambience"

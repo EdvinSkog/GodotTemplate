@@ -14,7 +14,7 @@ func _process(delta):
 func aiming_at(type : Variant ):
 	var collision = ray.get_collider()
 	if collision:
-		if is_instance_of(collision, Node2D):
+		if is_instance_of(collision, type):
 			PlayerVariables.aiming_target = collision
 			aimed_valid_target.emit()
 		else:

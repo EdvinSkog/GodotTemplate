@@ -10,7 +10,7 @@ signal finished_waiting
 @export var play_end_animation: bool = true
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var progress_bar : ProgressBar = $Panel/ProgressBar
+@onready var progress_bar : ProgressBar = %LoadingBar
 
 func _ready() -> void:
 	_reveal_loading_screen()

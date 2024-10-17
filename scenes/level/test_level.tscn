@@ -1,17 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bv5vvs1nxjg8m"]
+[gd_scene load_steps=8 format=3 uid="uid://bv5vvs1nxjg8m"]
 
 [ext_resource type="Script" path="res://scenes/level/test_level.gd" id="1_ppvos"]
 [ext_resource type="PackedScene" uid="uid://bswim5p31he8y" path="res://scenes/player/fps_controller.tscn" id="1_wqmfo"]
-[ext_resource type="Texture2D" uid="uid://dv57t0h0fxx8j" path="res://assets/textures/dark_oak_1.jpg" id="4_w6wju"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="6_3b5s3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0eb2"]
 albedo_color = Color(0.241156, 0.241156, 0.241156, 1)
-albedo_texture = ExtResource("4_w6wju")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g0y3r"]
-albedo_texture = ExtResource("4_w6wju")
-uv1_scale = Vector3(2, 2, 2)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gaxfg"]
 panorama = ExtResource("6_3b5s3")
@@ -51,15 +45,9 @@ material_override = SubResource("StandardMaterial3D_v0eb2")
 use_collision = true
 size = Vector3(50, 1, 50)
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Graphics"]
-transform = Transform3D(-0.0153265, 0.00482152, 26.7241, 0.000461316, 9.27636, -0.0137044, -0.999882, 0.00420592, -0.409642, -6.51727, 5.189, 13.4531)
-material_override = SubResource("StandardMaterial3D_g0y3r")
-use_collision = true
-
 [node name="TimerTestLoadScreen" type="Timer" parent="."]
 wait_time = 2.5
 one_shot = true
-autostart = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_b8kec")
