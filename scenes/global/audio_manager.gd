@@ -6,7 +6,25 @@ enum AUDIO_TYPE {master, sfx, music, ambience, voice}
 @onready var voice = $Voice
 @onready var ambience = $Voice
 
-@export_file("*.mp3") var music_list
+@export_dir var music_folder_path: String = "res://assets/audio/music"
+var songlist: Dictionary = {}  # Dictionary to store song references by name
+
+func _ready() -> void:
+	load_music_files()
+
+func load_music_files():
+	# Standard
+	var dir: DirAccess = DirAccess.open(music_folder_path)
+	dir.list_dir_begin()  # Start reading the directory
+	var file_name = dir.get_next()
+	while file_name != "":
+		if file_name.ends_with(".wav") or file_name.ends_with(".mp3") or file_name.ends_with(".ogg"):  # Check for valid music files
+			var song_name = file_name.get_basename()  # Get the file name without extension
+			songlist[song_name] = music_folder_path + "/" + file_name  # Add to the dictionary
+		file_name = dir.get_next()
+	dir.list_dir_end()  # Close directory
+	print("Songlist: ", songlist)
+
 
 # Uses and instantiates the sound_effect.tscn
 func play_sfx(path: String, local_volume_change: float = 0):
@@ -16,10 +34,20 @@ func play_sfx(path: String, local_volume_change: float = 0):
 	add_child(sfx)
 
 # Uses paths, not AudioStream.
-func play_music(path: String, local_volume_change: float = 0):
-	music.stream = load(path)
-	music.volume_db = local_volume_change
-	music.play()
+func play_music(song_name: String, local_volume_change: float = 0):
+	var song_path = songlist.get(song_name, null)
+	if song_path:
+		print(song_path)
+		var music_stream = load(song_path)
+		if music_stream:
+			if music.stream:
+				music.stop()  # Stop any currently playing music
+			music.stream = music_stream
+			music.play()
+		else:
+			print("Error: Could not load the music stream for song:", song_name)
+	else:
+		print("Error: Song name not found in songlist:", song_name)
 
 func play_ambience(path: String, local_volume_change: float = 0):
 	ambience.stream = load(path)
@@ -32,7 +60,11 @@ func play_voice(path: String, local_volume_change: float = 0):
 	voice.volume_db = local_volume_change
 	voice.play()
 
-
+func stop_music(fade_time: float = 0.1):
+	var tween = get_tree().create_tween()
+	tween.tween_property(music, "volume_db", -30, fade_time)
+	await tween.finished
+	music.stop()
 
 func set_global_volume(option: AUDIO_TYPE, amount: float):
 	amount = linear_to_db(amount)
@@ -53,7 +85,7 @@ func set_global_volume(option: AUDIO_TYPE, amount: float):
 			print_debug("Invalid audio type")
 
 # Increases/decreases by db amount
-func change_local_music_volume(db, fade_time: float = 0):
+func change_music_volume(db, fade_time: float = 0):
 	db = music.volume_db + db
 	var tween = get_tree().create_tween()
 	tween.tween_property(music, "volume_db", db, fade_time)

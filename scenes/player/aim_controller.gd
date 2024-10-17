@@ -15,10 +15,10 @@ func aiming_at(type : Variant ):
 	var collision = ray.get_collider()
 	if collision:
 		if is_instance_of(collision, type):
-			PlayerVariables.aiming_target = collision
+			PlayerManager.aiming_target = collision
 			aimed_valid_target.emit()
 		else:
-			PlayerVariables.aiming_target = null
+			PlayerManager.aiming_target = null
 			aimed_invalid_target.emit()
 	else:
 		#PlayerVariables.aiming_target = null

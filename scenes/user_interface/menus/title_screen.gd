@@ -1,7 +1,7 @@
 extends Control
 
 func _ready() -> void:
-	pass
+	AudioManager.play_music("troll_music")
 
 func _on_button_start_pressed() -> void:
 	SceneManager.load_scene("res://scenes/level/test_level.tscn", 1, "normal")

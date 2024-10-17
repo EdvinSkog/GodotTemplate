@@ -70,7 +70,7 @@ func _rotate_camera(sens_mod: float = 1.0) -> void:
 
 
 func _walk(delta: float) -> Vector3:
-	if(PlayerVariables.allow_move):
+	if(PlayerManager.allow_move):
 		move_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	else:
 		move_dir = Vector2.ZERO
