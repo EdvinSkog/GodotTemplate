@@ -1,6 +1,6 @@
 extends Node
 
-const Balloon = preload("res://scenes/user_interface/dialogue/dialogue_balloon.tscn") # UI element
+@export var balloon_scene: PackedScene = preload("res://scenes/user_interface/dialogue/dialogue_balloon.tscn") # UI element
 @export var dialogue_resource: DialogueResource
 
 signal dialogue_finished
@@ -14,7 +14,7 @@ func _ready():
 
 
 func play_dialogue(dialogue_part: String):
-	var balloon: Node = Balloon.instantiate()
+	var balloon: Node = balloon_scene.instantiate()
 	GameManager.current_dialogue_balloon = balloon
 	get_tree().current_scene.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
@@ -27,7 +27,6 @@ func _dialogue_finished(used_resource):
 		# Capture Mouse? Allow Movement?
 		emit_signal("dialogue_finished")
 
-func _on_timer_timeout():
-	play_dialogue("start")
-	pass
-	# For some reason, a timer had to be used instead of ready
+
+func _on_tree_entered() -> void:
+	pass # use this if you wanna trigger dialogue instantly (ready does not work).
