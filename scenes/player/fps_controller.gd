@@ -30,12 +30,18 @@ var walk_vel: Vector3 # Walking velocity
 var grav_vel: Vector3 # Gravity velocity 
 var jump_vel: Vector3 # Jumping velocity
 
+signal camera_changed
+signal jumped
 
 
 
 func _ready() -> void:
 	capture_mouse()
-	
+
+func set_camera_active(option: bool):
+	camera.current = option
+	emit_signal("camera_changed")
+
 func _process(delta):
 	camera.position = Vector3(self.position.x, self.position.y + 0.85, + self.position.z)
 	hand_camera.transform = camera.transform
@@ -47,7 +53,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("exit"): get_tree().quit()
 	if PlayerManager._allow_move:
-		if Input.is_action_just_pressed("jump"): jumping = true
+		if Input.is_action_just_pressed("jump"):
+			emit_signal("jumped")
+			jumping = true
 
 func _physics_process(delta: float) -> void:
 	#if mouse_captured: _handle_joypad_camera_rotation(delta)

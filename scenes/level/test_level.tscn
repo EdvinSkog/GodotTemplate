@@ -60,4 +60,7 @@ environment = SubResource("Environment_b8kec")
 transform = Transform3D(0.861204, 0.50826, -8.14388e-08, 0.484661, -0.821218, -0.301172, -0.153074, 0.25937, -0.95357, 0, 26.4795, 0)
 sky_mode = 2
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.951663, 0.0748783, 0.297877, 0.173156, 0.931813, 0.318968, -0.253682, 0.35513, -0.899738, -0.000226532, 3.50245, -18.9348)
+
 [connection signal="timeout" from="TimerTestLoadScreen" to="." method="_on_timer_timeout"]
