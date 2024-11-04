@@ -1,11 +1,11 @@
 class_name DialogueComponent extends Node
 
-@export var balloon_scene: PackedScene = preload("res://scenes/user_interface/dialogue/dialogue_balloon.tscn") # UI element
+@export var balloon_scene: PackedScene = preload("res://scenes/user_interface/dialogue/default_dialogue_balloon.tscn") # UI element
 @export var dialogue_resource: DialogueResource
 
 signal dialogue_finished
 signal title_finished(title: String)
-
+var balloon: DialogueBalloon
 
 func _ready():
 	# Signal that is triggered when dialogue finishes
@@ -13,8 +13,8 @@ func _ready():
 	DialogueManager.passed_title.connect(_title_finished)
 
 
-func play_dialogue(dialogue_part: String):
-	var balloon: Node = balloon_scene.instantiate()
+func play(dialogue_part: String):
+	balloon = balloon_scene.instantiate()
 	GameManager.current_dialogue_balloon = balloon
 	get_tree().current_scene.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
