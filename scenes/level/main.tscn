@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://myyiddj025wp"]
+[gd_scene load_steps=9 format=3 uid="uid://myyiddj025wp"]
 
 [ext_resource type="Script" path="res://scenes/level/main.gd" id="1_mf647"]
-[ext_resource type="PackedScene" uid="uid://bv5vvs1nxjg8m" path="res://scenes/level/test_level.tscn" id="2_a45lf"]
 [ext_resource type="Shader" path="res://assets/shaders/dithering.gdshader" id="2_yg5mx"]
 [ext_resource type="Texture2D" uid="uid://cqx2j8hwlicrh" path="res://assets/shaders/dithering_pattern.png" id="3_apd4m"]
 [ext_resource type="Material" uid="uid://3r38h6s4y3gd" path="res://assets/shaders/material/filmgrain.tres" id="5_cqp43"]
@@ -18,7 +17,6 @@ seamless = true
 
 [node name="Main" type="Node"]
 script = ExtResource("1_mf647")
-override_title_screen_start = ExtResource("2_a45lf")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
