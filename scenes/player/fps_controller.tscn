@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bswim5p31he8y"]
+[gd_scene load_steps=7 format=3 uid="uid://bswim5p31he8y"]
 
 [ext_resource type="Script" path="res://scenes/player/fps_controller.gd" id="1_0wndx"]
 [ext_resource type="PackedScene" uid="uid://b15iihbpbue6s" path="res://scenes/player/aim_controller.tscn" id="4_b4epm"]
@@ -8,8 +8,14 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_i1jxd"]
 size = Vector3(1, 2.04224, 1)
 
+[sub_resource type="Gradient" id="Gradient_2u34h"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2siul"]
+gradient = SubResource("Gradient_2u34h")
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 3
+safe_margin = 0.003
 script = ExtResource("1_0wndx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -21,21 +27,18 @@ shape = SubResource("BoxShape3D_i1jxd")
 
 [node name="CanvasLayerFPS" type="CanvasLayer" parent="."]
 
-[node name="Camera" type="Camera3D" parent="CanvasLayerFPS"]
+[node name="MainCamera" type="Camera3D" parent="CanvasLayerFPS"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.674377, 0)
 cull_mask = 1048573
 current = true
 
-[node name="AimController" parent="CanvasLayerFPS/Camera" instance=ExtResource("4_b4epm")]
+[node name="AimController" parent="CanvasLayerFPS/MainCamera" instance=ExtResource("4_b4epm")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayerFPS"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -384.0
-offset_top = -216.0
-offset_right = 384.0
-offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
@@ -43,13 +46,32 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="CanvasLayerFPS/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1920, 1080)
+size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="HandCamera" type="Camera3D" parent="CanvasLayerFPS/SubViewportContainer/SubViewport"]
 cull_mask = 2
-current = true
-fov = 65.6
+fov = 50.0
+far = 10.0
 
 [node name="Hand" type="Node3D" parent="CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.416, -1, -5.1)
+
+[node name="CanvasLayerGui" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayerGui"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -465.0
+offset_top = -202.5
+offset_right = 465.0
+offset_bottom = 202.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_2siul")

@@ -15,8 +15,8 @@ class_name Player extends CharacterBody3D
 @export var camera_rotation_amount : float = 0.03
 
 @onready var hand_camera: Camera3D = $CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera
-@onready var camera: Camera3D = $CanvasLayerFPS/Camera
-@onready var hand: Node3D = $CanvasLayerFPS/SubViewportContainer/SubViewport/HandCamera/Hand
+@onready var camera: Camera3D = %MainCamera
+@onready var hand: Node3D = %Hand
 
 var jumping: bool = false
 var mouse_captured: bool = false
@@ -44,8 +44,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
-	if Input.is_action_just_pressed("jump"): jumping = true
+	
 	if Input.is_action_just_pressed("exit"): get_tree().quit()
+	if PlayerManager._allow_move:
+		if Input.is_action_just_pressed("jump"): jumping = true
 
 func _physics_process(delta: float) -> void:
 	#if mouse_captured: _handle_joypad_camera_rotation(delta)
