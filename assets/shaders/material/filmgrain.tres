@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://3r38h6s4y3gd"]
+
+[ext_resource type="Shader" path="res://assets/shaders/filmgrain.gdshader" id="1_brvc1"]
+
+[resource]
+shader = ExtResource("1_brvc1")
+shader_parameter/grain_amount = 0.07
+shader_parameter/grain_size = 0.437
+shader_parameter/animate = true
