@@ -1,6 +1,6 @@
 extends Control
 
-@export_enum("GameManager", "PlayerVariables") var what_script = 0
+@export_enum("Game", "PlayerVariables") var what_script = 0
 @export var what_property: String
 @export var custom_text: String
 var selected_script
@@ -16,7 +16,7 @@ func _ready():
 		label_property.text = custom_text + "="
 	match what_script:
 		0:
-			selected_script = GameManager
+			selected_script = Game
 		1:
 			selected_script = PlayerManager
 	expression.parse(what_property) # Security risk?

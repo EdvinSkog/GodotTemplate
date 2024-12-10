@@ -15,7 +15,7 @@ func _ready():
 
 func play(dialogue_part: String):
 	balloon = balloon_scene.instantiate()
-	GameManager.current_dialogue_balloon = balloon
+	Game.current_dialogue_balloon = balloon
 	get_tree().current_scene.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
 

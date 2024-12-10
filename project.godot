@@ -21,7 +21,7 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 AudioManager="*res://scenes/global/audio_manager.tscn"
 PlayerManager="*res://scenes/global/player_manager.tscn"
 SceneManager="*res://scenes/global/scene_manager.tscn"
-GameManager="*res://scenes/global/game_manager.tscn"
+Game="*res://scenes/global/game_manager.tscn"
 SignalManager="*res://scenes/global/signal_manager.gd"
 
 [dialogue_manager]

@@ -15,15 +15,21 @@ var _loaded_resource:  PackedScene
 var _scene_path: String
 var _progress: Array = []
 
+enum State {READY, ANIMATING, LOADING}
+var state: State = State.READY
+
 var use_sub_threads: bool = false
 
 func remove_dialogue_balloon(): 
-	if(GameManager.current_dialogue_balloon):
-		GameManager.current_dialogue_balloon.queue_free()
+	if(Game.current_dialogue_balloon != null):
+		Game.current_dialogue_balloon.queue_free()
 
 func load_scene(scene_path: String, speed_multipler: float = 1, style : String = "normal") -> void:
 	remove_dialogue_balloon()
+	if state != State.READY:
+		return
 	
+	state = State.LOADING
 	
 
 	_scene_path = scene_path
@@ -39,6 +45,7 @@ func load_scene(scene_path: String, speed_multipler: float = 1, style : String =
 			new_loading_screen = _load_screen.instantiate()
 
 	get_tree().get_root().add_child(new_loading_screen)
+	state = State.ANIMATING
 	
 	# Set speed multipler
 	new_loading_screen.animation_player.speed_scale = speed_multipler
@@ -49,6 +56,7 @@ func load_scene(scene_path: String, speed_multipler: float = 1, style : String =
 	
 	# Wait until loading screen have fully covered the screen
 	await Signal(new_loading_screen, "loading_screen_has_full_coverage")
+	state = State.LOADING
 
 	# Start loading the next scene
 	start_load()
@@ -57,10 +65,12 @@ func load_scene(scene_path: String, speed_multipler: float = 1, style : String =
 	# Delete the old scene.
 	if(current_level != null):
 		current_level.queue_free() # Remove current level
+	
+	state = State.ANIMATING
 	await Signal(new_loading_screen, "finished_waiting")
 	current_level = _loaded_resource.instantiate() # Set the new one as current
-	
 	emit_signal("level_changed") # Adds new level in App script
+	state = State.READY
 
 
 func start_load() -> void:
