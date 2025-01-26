@@ -15,12 +15,10 @@ func _ready() -> void:
 	load_music_files()
 
 func load_music_files(folder_path: String = ""):
-	# Standard					
-	print("music_folder_path:", music_folder_path)
-	print("folder_path:", folder_path)
+	#print("music_folder_path:", music_folder_path)
+	#print("folder_path:", folder_path)
 
 	var dir: DirAccess = DirAccess.open(music_folder_path + folder_path)
-	print("dir:", dir)
 
 	if dir:
 		dir.list_dir_begin()  # Start reading the directory
@@ -45,7 +43,6 @@ func load_music_files(folder_path: String = ""):
 					print("Adding:", song_name)
 					songlist[song_name] = full_path.get_basename()  # Add full path to the dictionary
 			file_name = dir.get_next()
-		
 		dir.list_dir_end()  # Close directory
 	else:
 		print("Error: Could not open folder at path:", music_folder_path + folder_path)
