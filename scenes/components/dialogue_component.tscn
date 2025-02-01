@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw2jkky2yq8n4"]
+[gd_scene load_steps=2 format=3 uid="uid://dw2jkky2yq8n4"]
 
 [ext_resource type="Script" path="res://scenes/components/dialogue_component.gd" id="1_cdwgm"]
-[ext_resource type="Resource" uid="uid://h7hk182awthl" path="res://assets/dialogue/intro.dialogue" id="2_df6wv"]
 
 [node name="DialogueComponent" type="Node"]
 script = ExtResource("1_cdwgm")
-dialogue_resource = ExtResource("2_df6wv")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

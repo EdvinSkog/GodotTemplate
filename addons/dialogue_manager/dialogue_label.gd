@@ -39,6 +39,8 @@ signal finished_typing()
 ## The amount of time to pause when exposing a character present in `pause_at_characters`.
 @export var seconds_per_pause_step: float = 0.3
 
+@export var play_sfx_when_character: bool
+
 var _already_mutated_indices: PackedInt32Array = []
 
 
@@ -150,6 +152,7 @@ func _type_next(delta: float, seconds_needed: float) -> void:
 	else:
 		visible_characters += 1
 		if visible_characters <= get_total_character_count():
+			if play_sfx_when_character: $AudioPerCharacter.play()
 			spoke.emit(get_parsed_text()[visible_characters - 1], visible_characters - 1, _get_speed(visible_characters))
 		# See if there's time to type out some more in this frame
 		seconds_needed += seconds_per_step * (1.0 / _get_speed(visible_characters))

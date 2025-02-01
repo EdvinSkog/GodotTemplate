@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtstjuyvgjw6n"]
+[gd_scene load_steps=11 format=3 uid="uid://dtstjuyvgjw6n"]
 
 [ext_resource type="Script" path="res://scenes/user_interface/dialogue/dialogue_balloon.gd" id="1_q12i4"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_o3jc8"]
+[ext_resource type="AudioStream" uid="uid://cmfcsrrekkrt4" path="res://assets/audio/sfx/type_character.ogg" id="3_7lts4"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_kwuu0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
@@ -64,6 +65,11 @@ MarginContainer/constants/margin_right = 30
 MarginContainer/constants/margin_top = 15
 Panel/styles/panel = SubResource("StyleBoxFlat_uy0d5")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_45eic"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("3_7lts4")
+
 [node name="DefaultBalloon" type="CanvasLayer"]
 layer = 5
 script = ExtResource("1_q12i4")
@@ -107,7 +113,12 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/normal_font_size = 32
 text = "Dialogue..."
-seconds_per_step = 0.045
+seconds_per_step = 0.05
+play_sfx_when_character = true
+
+[node name="AudioPerCharacter" type="AudioStreamPlayer" parent="Balloon/Dialogue/VBoxContainer/DialogueLabel"]
+stream = SubResource("AudioStreamRandomizer_45eic")
+bus = &"Sfx"
 
 [node name="Responses" type="MarginContainer" parent="Balloon"]
 layout_mode = 1
@@ -134,6 +145,10 @@ response_template = NodePath("ResponseExample")
 [node name="ResponseExample" type="Button" parent="Balloon/Responses/ResponsesMenu"]
 layout_mode = 2
 text = "Response example"
+
+[node name="DelayTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="Balloon/Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

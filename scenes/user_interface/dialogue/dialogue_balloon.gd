@@ -1,5 +1,6 @@
 class_name DialogueBalloon extends CanvasLayer
 
+@export var automatic: bool = false
 
 @onready var balloon: Panel = %Balloon
 @onready var character_label: RichTextLabel = %CharacterLabel
@@ -61,9 +62,15 @@ var dialogue_line: DialogueLine:
 			await get_tree().create_timer(time).timeout
 			next(dialogue_line.next_id)
 		else:
-			is_waiting_for_input = true
-			balloon.focus_mode = Control.FOCUS_ALL
-			balloon.grab_focus()
+			if automatic:
+				$DelayTimer.start()
+				await $DelayTimer.timeout
+				next(dialogue_line.next_id)
+			else:
+				is_waiting_for_input = true
+				balloon.focus_mode = Control.FOCUS_ALL
+				balloon.grab_focus()
+			
 	get:
 		return dialogue_line
 
@@ -116,7 +123,7 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 
 	# When there are no response options the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
-
+	
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		next(dialogue_line.next_id)
 	elif event.is_action_pressed("ui_accept") and get_viewport().gui_get_focus_owner() == balloon:
