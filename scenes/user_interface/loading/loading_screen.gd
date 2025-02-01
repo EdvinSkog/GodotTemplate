@@ -5,6 +5,8 @@ signal loading_screen_has_full_coverage
 ## This signal means the loading screen wants to instantiate the new scene.
 signal finished_waiting
 
+signal pressed_key
+
 ## If enabled, the loading screen awaits a key prompt by the player before switching scene.
 @export var await_player_input : bool = true
 @export var play_end_animation: bool = true
@@ -29,19 +31,14 @@ func _start_outro_animation() -> void:
 		$Panel/LabelPress.visible = true
 		await Signal(self, "pressed_key")
 		$Panel/LabelPress.visible = false
-	else:
-		#This is needed or else it sends it emits "finished_waiting" too early.
-		await Signal(animation_player, "animation_finished")
 	emit_signal("finished_waiting")
 	if(play_end_animation):
 		animation_player.queue("end_load")
-	await Signal(animation_player, "animation_finished") # Can be the loading-animation, not always outro-animation
+		await Signal(animation_player, "animation_finished")
 	self.queue_free()
 
 func _update_progress_bar(new_value: float) -> void:
 	progress_bar.set_value_no_signal(new_value * 100)
-
-signal pressed_key
 
 func _input(event):
 	if event is InputEventKey or event is InputEventScreenTouch:

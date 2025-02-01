@@ -40,6 +40,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/VBoxContainer/LabelTitle:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_g8dlt"]
 resource_name = "end_load"
@@ -72,27 +84,13 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("Panel:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(4),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"loading_screen_has_full_coverage"],
-"method": &"emit_signal"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Panel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -103,7 +101,7 @@ tracks/2/keys = {
 resource_name = "start_load"
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("Panel/VBoxContainer/LabelTitle:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -113,19 +111,17 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, 6.28319]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/path = NodePath(".")
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/VBoxContainer/LabelTitle:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [&"loading_screen_has_full_coverage"],
-"method": &"emit_signal"
-}]
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nxhgp"]
@@ -186,6 +182,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="LabelTitle" type="Label" parent="Panel/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "LOADING"
 horizontal_alignment = 1
@@ -195,6 +192,7 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="LabelPress" type="Label" parent="Panel"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 offset_left = 417.0
