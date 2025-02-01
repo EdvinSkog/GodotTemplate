@@ -23,29 +23,26 @@ func load_music_files(folder_path: String = ""):
 	if dir:
 		dir.list_dir_begin()  # Start reading the directory
 		var file_name = dir.get_next()
-		print("file_name before loop: ", file_name)
+		#print("file_name before loop: ", file_name)
 		while file_name != "":
-			print("file_name: ", file_name)
+			#print("file_name: ", file_name)
 			# Ignore "." and ".." which refer to the current and parent directory
 			if file_name != "." and file_name != "..":
 				var full_path = music_folder_path + folder_path + "/" + file_name
-				print("full_path: ", full_path)
+				#print("full_path: ", full_path)
 				if dir.current_is_dir():
-					print("is dir :) ")
 					# Recursively load music files from subdirectories
 					load_music_files(folder_path + "/" + file_name)
 				elif file_name.ends_with(".wav.import") or file_name.ends_with(".mp3.import") or file_name.ends_with(".ogg.import"):
-					print("is music :) " + file_name)
 					if (file_name.ends_with(".import")):
 						file_name = file_name.get_basename()
-						print("Cut down to " + file_name)
 					var song_name = file_name.get_basename()  # Get the file name without extension
-					print("Adding:", song_name)
+					#print("Adding:", song_name)
 					songlist[song_name] = full_path.get_basename()  # Add full path to the dictionary
 			file_name = dir.get_next()
 		dir.list_dir_end()  # Close directory
 	else:
-		print("Error: Could not open folder at path:", music_folder_path + folder_path)
+		print_debug("Error: Could not open folder at path:", music_folder_path + folder_path)
 
 # Uses and instantiates the sound_effect.tscn
 func play_sfx(path: String, volume_modifier: float = 0):
