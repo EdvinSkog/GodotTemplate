@@ -12,6 +12,9 @@ const DialogueManagerParseResult = preload("./components/parse_result.gd")
 const ResolvedLineData = preload("./components/resolved_line_data.gd")
 
 
+## Emitted when a dialogue balloon is created and dialogue starts
+signal dialogue_started(resource: DialogueResource)
+
 ## Emitted when a title is encountered while traversing dialogue, usually when jumping from a
 ## goto line
 signal passed_title(title: String)
@@ -142,6 +145,10 @@ func get_resolved_line_data(data: Dictionary, extra_game_states: Array = []) -> 
 	for replacement in data.text_replacements:
 		var value = await resolve(replacement.expression.duplicate(true), extra_game_states)
 		var index: int = text.find(replacement.value_in_text)
+		if index == -1:
+			# The replacement wasn't found but maybe the regular quotes have been replaced
+			# by special quotes while translating.
+			index = text.replace("“", "\"").replace("”", "\"").find(replacement.value_in_text)
 		if index > -1:
 			text = text.substr(0, index) + str(value) + text.substr(index + replacement.value_in_text.length())
 
@@ -265,6 +272,7 @@ func show_example_dialogue_balloon(resource: DialogueResource, title: String = "
 	var balloon: Node = load(_get_example_balloon_path()).instantiate()
 	get_current_scene.call().add_child(balloon)
 	balloon.start(resource, title, extra_game_states)
+	dialogue_started.emit(resource)
 
 	return balloon
 
@@ -274,6 +282,7 @@ func show_dialogue_balloon(resource: DialogueResource, title: String = "", extra
 	var balloon_path: String = DialogueSettings.get_setting(&"balloon_path", _get_example_balloon_path())
 	if not ResourceLoader.exists(balloon_path):
 		balloon_path = _get_example_balloon_path()
+	dialogue_started.emit(resource)
 	return show_dialogue_balloon_scene(balloon_path, resource, title, extra_game_states)
 
 
@@ -285,7 +294,7 @@ func show_dialogue_balloon_scene(balloon_scene, resource: DialogueResource, titl
 		balloon_scene = balloon_scene.instantiate()
 
 	var balloon: Node = balloon_scene
-	get_current_scene.call().add_child(balloon)
+	get_current_scene.call().add_child.call_deferred(balloon)
 	if balloon.has_method(&"start"):
 		balloon.start(resource, title, extra_game_states)
 	elif balloon.has_method(&"Start"):
@@ -646,7 +655,7 @@ func get_state_value(property: String, extra_game_states: Array):
 		return Vector3.ZERO
 	elif property == "Vector4":
 		return Vector4.ZERO
-	elif property == "Quaternian":
+	elif property == "Quaternion":
 		return Quaternion()
 
 	var expression = Expression.new()
@@ -938,8 +947,12 @@ func resolve(tokens: Array, extra_game_states: Array):
 				# it until everything after it has been resolved
 				token["type"] = "variable"
 			else:
-				token["type"] = "value"
-				token["value"] = get_state_value(str(token.value), extra_game_states)
+				if token.type == DialogueConstants.TOKEN_NUMBER:
+					token["type"] = "value"
+					token["value"] = token.value
+				else:
+					token["type"] = "value"
+					token["value"] = get_state_value(str(token.value), extra_game_states)
 
 		i += 1
 

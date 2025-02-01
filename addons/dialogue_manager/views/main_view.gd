@@ -295,7 +295,7 @@ func save_files() -> void:
 		save_file(path, false)
 
 	if saved_files.size() > 0:
-		Engine.get_meta("DialogueCache").reimport_files(saved_files)
+		Engine.get_meta("DialogueCache").mark_files_for_reimport(saved_files)
 
 
 # Save a file
@@ -503,6 +503,8 @@ func parse() -> void:
 	errors_panel.errors = errors
 	parser.free()
 
+	title_list.titles = code_edit.get_titles()
+
 
 func show_build_error_dialog() -> void:
 	build_error_dialog.dialog_text = DialogueConstants.translate(&"errors_with_build")
@@ -562,7 +564,10 @@ func generate_translations_keys() -> void:
 		else:
 			text = l.substr(l.find(":") + 1)
 
-		lines[i] = line.replace(text, text + " [ID:%s]" % key)
+		text = text.replace("\n", "!NEWLINE!")
+		line = line.replace("\\n", "!NEWLINE!")
+
+		lines[i] = line.replace(text, text + " [ID:%s]" % key).replace("!NEWLINE!", "\\n")
 		known_keys[key] = text
 
 	code_edit.text = "\n".join(lines)
@@ -828,6 +833,7 @@ func _on_cache_file_content_changed(path: String, new_content: String) -> void:
 			buffer.text = new_content
 			buffer.pristine_text = new_content
 			code_edit.text = new_content
+			title_list.titles = code_edit.get_titles()
 
 
 func _on_editor_settings_changed() -> void:
@@ -985,8 +991,6 @@ func _on_find_in_files_button_pressed() -> void:
 
 
 func _on_code_edit_text_changed() -> void:
-	title_list.titles = code_edit.get_titles()
-
 	var buffer = open_buffers[current_file_path]
 	buffer.text = code_edit.text
 
@@ -1050,7 +1054,8 @@ func _on_settings_view_script_button_pressed(path: String) -> void:
 
 
 func _on_test_button_pressed() -> void:
-	save_file(current_file_path)
+	save_file(current_file_path, false)
+	Engine.get_meta("DialogueCache").reimport_files([current_file_path])
 
 	if errors_panel.errors.size() > 0:
 		errors_dialog.popup_centered()
