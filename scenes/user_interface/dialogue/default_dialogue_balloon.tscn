@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/user_interface/dialogue/dialogue_balloon.gd" id="1_q12i4"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_o3jc8"]
 [ext_resource type="AudioStream" uid="uid://cmfcsrrekkrt4" path="res://assets/audio/sfx/type_character.ogg" id="3_7lts4"]
-[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_kwuu0"]
+[ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_kwuu0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -113,8 +113,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/normal_font_size = 32
 text = "Dialogue..."
+play_sfx_when_speak = true
 seconds_per_step = 0.05
-play_sfx_when_character = true
 
 [node name="AudioPerCharacter" type="AudioStreamPlayer" parent="Balloon/Dialogue/VBoxContainer/DialogueLabel"]
 stream = SubResource("AudioStreamRandomizer_45eic")

@@ -26,8 +26,8 @@ SignalManager="*res://scenes/global/signal_manager.gd"
 
 [dialogue_manager]
 
-general/states=["SceneManager", "AudioManager"]
-general/balloon_path="res://scenes/user_interface/dialogue/default_dialogue_balloon.tscn"
+runtime/state_autoload_shortcuts=["SceneManager", "AudioManager"]
+runtime/balloon_path="res://scenes/user_interface/dialogue/default_dialogue_balloon.tscn"
 
 [display]
 

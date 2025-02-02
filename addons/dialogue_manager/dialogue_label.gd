@@ -18,6 +18,7 @@ signal skipped_typing()
 ## Emitted when typing finishes.
 signal finished_typing()
 
+@export var play_sfx_when_speak: bool = false
 
 # The action to press to skip typing.
 @export var skip_action: StringName = &"ui_cancel"
@@ -38,8 +39,6 @@ signal finished_typing()
 
 ## The amount of time to pause when exposing a character present in `pause_at_characters`.
 @export var seconds_per_pause_step: float = 0.3
-
-@export var play_sfx_when_character: bool
 
 var _already_mutated_indices: PackedInt32Array = []
 
@@ -152,7 +151,8 @@ func _type_next(delta: float, seconds_needed: float) -> void:
 	else:
 		visible_characters += 1
 		if visible_characters <= get_total_character_count():
-			if play_sfx_when_character: $AudioPerCharacter.play()
+			if play_sfx_when_speak:
+				$AudioPerCharacter.play()
 			spoke.emit(get_parsed_text()[visible_characters - 1], visible_characters - 1, _get_speed(visible_characters))
 		# See if there's time to type out some more in this frame
 		seconds_needed += seconds_per_step * (1.0 / _get_speed(visible_characters))
@@ -190,11 +190,12 @@ func _mutate_inline_mutations(index: int) -> void:
 		if inline_mutation[0] > index:
 			return
 		if inline_mutation[0] == index and not _already_mutated_indices.has(index):
-			_already_mutated_indices.append(index)
 			_is_awaiting_mutation = true
 			# The DialogueManager can't be referenced directly here so we need to get it by its path
-			await Engine.get_singleton("DialogueManager").mutate(inline_mutation[1], dialogue_line.extra_game_states, true)
+			await Engine.get_singleton("DialogueManager")._mutate(inline_mutation[1], dialogue_line.extra_game_states, true)
 			_is_awaiting_mutation = false
+
+	_already_mutated_indices.append(index)
 
 
 # Determine if the current autopause character at the cursor should qualify to pause typing.
