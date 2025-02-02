@@ -14,6 +14,9 @@ signal pressed_key
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var progress_bar : ProgressBar = %LoadingBar
 
+enum State{ANIMATING, FINISHED}
+var state: State = State.ANIMATING
+
 func _ready() -> void:
 	_reveal_loading_screen()
 
@@ -31,7 +34,12 @@ func _start_outro_animation() -> void:
 		$Panel/LabelPress.visible = true
 		await Signal(self, "pressed_key")
 		$Panel/LabelPress.visible = false
+	_end()
+
+func _end():
+	state = State.FINISHED
 	emit_signal("finished_waiting")
+	
 	if(play_end_animation):
 		animation_player.queue("end_load")
 		await Signal(animation_player, "animation_finished")

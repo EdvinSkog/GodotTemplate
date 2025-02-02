@@ -52,7 +52,7 @@ func load_scene(scene_path: String, speed_multipler: float = 1, style : String =
 	
 	# Set-up signal connections for loading screen
 	self.progress_changed.connect(new_loading_screen._update_progress_bar)
-	self.load_done.connect(new_loading_screen._start_outro_animation)
+	#self.load_done.connect(new_loading_screen._start_outro_animation)
 	
 	# Wait until loading screen have fully covered the screen
 	await Signal(new_loading_screen, "loading_screen_has_full_coverage")
@@ -61,13 +61,15 @@ func load_scene(scene_path: String, speed_multipler: float = 1, style : String =
 	# Start loading the next scene
 	start_load()
 	await Signal(self, "load_done")
+	
 
 	# Delete the old scene.
 	if(current_level != null):
 		current_level.queue_free() # Remove current level
-	
+	new_loading_screen._start_outro_animation()
 	state = State.ANIMATING
-	await Signal(new_loading_screen, "finished_waiting")
+	if !new_loading_screen.state == new_loading_screen.State.FINISHED:
+		await Signal(new_loading_screen, "finished_waiting")
 	current_level = _loaded_resource.instantiate() # Set the new one as current
 	emit_signal("level_changed") # Adds new level in App script
 	state = State.READY
