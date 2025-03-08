@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://mydth38oqmq6"]
 
-[ext_resource type="Script" path="res://scenes/user_interface/menus/settings.gd" id="1_4vmje"]
+[ext_resource type="Script" uid="uid://b7f3f5gpum2g1" path="res://scenes/user_interface/menus/settings.gd" id="1_4vmje"]
 [ext_resource type="PackedScene" uid="uid://dsrpb41keqhsk" path="res://scenes/user_interface/menus/settings/volume_slider.tscn" id="2_6l5l1"]
 
 [sub_resource type="Gradient" id="Gradient_s6qg5"]

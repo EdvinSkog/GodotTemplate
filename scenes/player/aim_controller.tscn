@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b15iihbpbue6s"]
 
-[ext_resource type="Script" path="res://scenes/player/aim_controller.gd" id="1_kve5v"]
+[ext_resource type="Script" uid="uid://bq3thd51qerga" path="res://scenes/player/aim_controller.gd" id="1_kve5v"]
 
 [node name="AimController" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

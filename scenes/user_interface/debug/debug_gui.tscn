@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bylibfv6fcowg"]
 
-[ext_resource type="Script" path="res://scenes/user_interface/debug/debug_gui.gd" id="2_es43l"]
+[ext_resource type="Script" uid="uid://ruoyvr3dh4bi" path="res://scenes/user_interface/debug/debug_gui.gd" id="2_es43l"]
 [ext_resource type="PackedScene" uid="uid://yt84pcixp1gq" path="res://scenes/user_interface/debug/debug_label.tscn" id="3_88brd"]
 
 [sub_resource type="SystemFont" id="SystemFont_i2bdw"]

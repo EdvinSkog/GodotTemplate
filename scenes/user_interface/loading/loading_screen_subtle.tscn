@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bqcw4yp0jiujg"]
 
-[ext_resource type="Script" path="res://scenes/user_interface/loading/loading_screen.gd" id="1_y30n1"]
+[ext_resource type="Script" uid="uid://c4jpjiog21yjw" path="res://scenes/user_interface/loading/loading_screen.gd" id="1_y30n1"]
 
 [sub_resource type="Animation" id="Animation_kqxr8"]
 length = 0.001
@@ -79,10 +79,10 @@ length = 0.08
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nxhgp"]
 _data = {
-"RESET": SubResource("Animation_kqxr8"),
-"end_load": SubResource("Animation_g8dlt"),
-"fade_in": SubResource("Animation_ttgva"),
-"start_load": SubResource("Animation_x6m65")
+&"RESET": SubResource("Animation_kqxr8"),
+&"end_load": SubResource("Animation_g8dlt"),
+&"fade_in": SubResource("Animation_ttgva"),
+&"start_load": SubResource("Animation_x6m65")
 }
 
 [sub_resource type="Gradient" id="Gradient_fsk4x"]

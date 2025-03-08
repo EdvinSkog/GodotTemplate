@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://yt84pcixp1gq"]
 
-[ext_resource type="Script" path="res://scenes/user_interface/debug/debug_label.gd" id="1_rxl6f"]
+[ext_resource type="Script" uid="uid://ctb0jwy80g80f" path="res://scenes/user_interface/debug/debug_label.gd" id="1_rxl6f"]
 
 [node name="DebugLabel" type="HBoxContainer"]
 offset_right = 106.0

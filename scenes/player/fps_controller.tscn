@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bswim5p31he8y"]
 
-[ext_resource type="Script" path="res://scenes/player/fps_controller.gd" id="1_0wndx"]
+[ext_resource type="Script" uid="uid://l1w5yysf3j61" path="res://scenes/player/fps_controller.gd" id="1_0wndx"]
 [ext_resource type="PackedScene" uid="uid://b15iihbpbue6s" path="res://scenes/player/aim_controller.tscn" id="4_b4epm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ljy8c"]

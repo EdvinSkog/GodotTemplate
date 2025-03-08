@@ -20,7 +20,7 @@ func _ready():
 			balloon_scene = load("res://scenes/user_interface/dialogue/default_dialogue_balloon.tscn")
 		Style.SUBTITLES:
 			balloon_scene = load("res://scenes/user_interface/dialogue/subtitles_dialogue_balloon.tscn")
-
+	play("start")
 
 func play(dialogue_part: String):
 	balloon = balloon_scene.instantiate()

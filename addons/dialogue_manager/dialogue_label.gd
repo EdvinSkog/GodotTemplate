@@ -18,7 +18,6 @@ signal skipped_typing()
 ## Emitted when typing finishes.
 signal finished_typing()
 
-@export var play_sfx_when_speak: bool = false
 
 # The action to press to skip typing.
 @export var skip_action: StringName = &"ui_cancel"
@@ -151,8 +150,6 @@ func _type_next(delta: float, seconds_needed: float) -> void:
 	else:
 		visible_characters += 1
 		if visible_characters <= get_total_character_count():
-			if play_sfx_when_speak:
-				$AudioPerCharacter.play()
 			spoke.emit(get_parsed_text()[visible_characters - 1], visible_characters - 1, _get_speed(visible_characters))
 		# See if there's time to type out some more in this frame
 		seconds_needed += seconds_per_step * (1.0 / _get_speed(visible_characters))
