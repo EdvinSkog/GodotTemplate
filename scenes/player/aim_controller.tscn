@@ -1,10 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://b15iihbpbue6s"]
+[gd_scene load_steps=2 format=3 uid="uid://c2tqq1bxoj0t"]
 
-[ext_resource type="Script" uid="uid://bq3thd51qerga" path="res://scenes/player/aim_controller.gd" id="1_kve5v"]
+[sub_resource type="GDScript" id="GDScript_k5jt0"]
+script/source = "extends Node3D
+
+signal aimed_valid_target
+signal aimed_invalid_target
+
+@onready var ray : RayCast3D = $RayCast3D
+
+func _ready():
+	pass # Replace with function body.
+
+func _process(delta):
+	aiming_at(Node3D)
+
+func aiming_at(type : Variant ):
+	var collision = ray.get_collider()
+	if collision:
+		if is_instance_of(collision, type):
+			PlayerManager.aiming_target = collision
+			aimed_valid_target.emit()
+		else:
+			PlayerManager.aiming_target = null
+			aimed_invalid_target.emit()
+	else:
+		#PlayerVariables.aiming_target = null
+		aimed_invalid_target.emit()
+"
 
 [node name="AimController" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-script = ExtResource("1_kve5v")
+script = SubResource("GDScript_k5jt0")
 
 [node name="ShotCooldown" type="Timer" parent="."]
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bswim5p31he8y"]
+[gd_scene load_steps=6 format=3 uid="uid://bswim5p31he8y"]
 
 [ext_resource type="Script" uid="uid://l1w5yysf3j61" path="res://scenes/player/fps_controller.gd" id="1_0wndx"]
-[ext_resource type="PackedScene" uid="uid://b15iihbpbue6s" path="res://scenes/player/aim_controller.tscn" id="4_b4epm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ljy8c"]
 
@@ -32,8 +31,6 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.674377, 0)
 cull_mask = 1048573
 current = true
-
-[node name="AimController" parent="CanvasLayerFPS/MainCamera" instance=ExtResource("4_b4epm")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayerFPS"]
 anchors_preset = 15
