@@ -1,8 +1,6 @@
 extends Node
 
-# Global player-related stuff is put here
-
-signal active_changed(active: bool)
+# Global player-related stuff
 
 ## Reference to Player node
-var player: Player
+var player: FirstPersonController

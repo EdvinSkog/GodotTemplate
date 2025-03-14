@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bswim5p31he8y"]
 
-[ext_resource type="Script" uid="uid://l1w5yysf3j61" path="res://scenes/player/fps_controller.gd" id="1_0wndx"]
+[ext_resource type="Script" uid="uid://l1w5yysf3j61" path="res://scenes/player/first_person_controller.gd" id="1_0wndx"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ljy8c"]
 
@@ -12,7 +12,7 @@ size = Vector3(1, 2.04224, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2siul"]
 gradient = SubResource("Gradient_2u34h")
 
-[node name="Player" type="CharacterBody3D"]
+[node name="FirstPersonController" type="CharacterBody3D"]
 collision_layer = 3
 safe_margin = 0.003
 script = ExtResource("1_0wndx")

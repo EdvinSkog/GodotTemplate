@@ -1,4 +1,4 @@
-class_name Player extends CharacterBody3D
+class_name FirstPersonController extends CharacterBody3D
 
 @export_category("Player")
 @export_range(1, 35, 1) var speed: float = 10 # m/s
@@ -7,7 +7,6 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 
-# To do:
 #@export var hand_sway_amount : float = 5
 @export var hand_rotation_amount : float = 0.1
 
@@ -29,6 +28,8 @@ var look_dir: Vector2 # Input direction for look/aim
 var walk_vel: Vector3 # Walking velocity 
 var grav_vel: Vector3 # Gravity velocity 
 var jump_vel: Vector3 # Jumping velocity
+
+var allow_move: bool = true
 
 signal camera_changed
 signal jumped
@@ -52,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if mouse_captured: _rotate_camera()
 	
 	if Input.is_action_just_pressed("exit"): get_tree().quit()
-	if PlayerManager._allow_move:
+	if allow_move:
 		if Input.is_action_just_pressed("jump"):
 			emit_signal("jumped")
 			jumping = true
@@ -80,7 +81,7 @@ func _rotate_camera(sens_mod: float = 1.0) -> void:
 
 
 func _walk(delta: float) -> Vector3:
-	if(PlayerManager._allow_move):
+	if(allow_move):
 		move_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	else:
 		move_dir = Vector2.ZERO
