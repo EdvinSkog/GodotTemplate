@@ -1,0 +1,3 @@
+Need a file here so that an empty folder is still pushed to GitHub.
+
+AudioManager fetches music files from here or any subdirectories.
