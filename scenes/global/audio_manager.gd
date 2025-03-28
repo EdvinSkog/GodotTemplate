@@ -6,7 +6,7 @@ extends Node
 @onready var ambience = $Voice
 
 @export_dir var music_folder_path: String = "res://assets/audio/music"
-var songlist: Dictionary = {}  # Dictionary to store song references by name
+var songlist: Dictionary[StringName, String] = {}  # Dictionary to store song references by name
 
 
 
