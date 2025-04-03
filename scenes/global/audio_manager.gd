@@ -3,7 +3,7 @@ extends Node
 @onready var sfx_scene: PackedScene = load("res://scenes/global/audio/sound_effect.tscn")
 @onready var music_player: AudioStreamPlayer = $Music
 @onready var voice: AudioStreamPlayer = $Voice
-@onready var ambience: AudioStreamPlayer = $Voice
+@onready var ambience: AudioStreamPlayer = $Ambience
 
 @export_dir var music_folder_path: String = "res://assets/audio/music"
 @export_dir var voice_folder_path: String = "res://assets/audio/voice"

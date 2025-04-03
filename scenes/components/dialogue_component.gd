@@ -13,8 +13,8 @@ var balloon: DialogueBalloon
 
 func _ready():
 	# Signal that is triggered when dialogue finishes
-	DialogueManager.dialogue_ended.connect(_dialogue_finished)
-	DialogueManager.passed_title.connect(_title_finished)
+	DialogueManager.dialogue_ended.connect(_on_dialogue_finished)
+	DialogueManager.passed_title.connect(_on_title_finished)
 	match balloon_style:
 		Style.DEFAULT:
 			balloon_scene = load("res://scenes/user_interface/dialogue/default_dialogue_balloon.tscn")
@@ -27,13 +27,13 @@ func play(dialogue_part: String):
 	get_tree().current_scene.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
 
-func _title_finished(title: String):
-	emit_signal("title_finished")
+func _on_title_finished(title: String):
+	title_finished.emit(title)
 
-func _dialogue_finished(used_resource):
+func _on_dialogue_finished(used_resource):
 	if (used_resource == dialogue_resource):
 		# Capture Mouse? Allow Movement?
-		emit_signal("dialogue_finished")
+		dialogue_finished.emit()
 
 
 func _on_tree_entered() -> void:
