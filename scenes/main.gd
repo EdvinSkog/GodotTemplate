@@ -1,33 +1,39 @@
 extends Node
 
-@export var override_title_screen_start: PackedScene = load("res://scenes/user_interface/menus/title_screen.tscn")
-
-@onready var level_holder = $SubViewportContainer/SubViewport/LevelHolder
+@onready var load_manager = %LoadManager
+@onready var level_holder = %LevelHolder
 @onready var gameplay_ui = $CanvasLayer/GameplayInterface
 
-## Setup
+var current_level: Node:
+	get: return %LevelHolder.get_child(0)
+
+#region Setup
 func _ready():
-	assert(override_title_screen_start != null)
-	var override_title_screen_start = override_title_screen_start.instantiate()
-	level_holder.add_child(override_title_screen_start)
-	
-	var current_level = level_holder.get_child(0)
-	SceneManager.set_current_level(current_level)
+	var current_scene: Node = get_tree().current_scene
+	await get_tree().create_timer(0.1).timeout
+	current_scene.reparent(level_holder)
+	#level_holder.add_child(override_title_screen_start)
+	print("current_scene: ", level_holder.get_child(0))
 	_connect_signals()
 
-func _connect_signals():
-	SceneManager.level_changed.connect(add_new_level)
-	#PlayerVariables.ui_toggled.connect(_toggle_gameplay_ui)
+func _connect_signals() -> void:
+	load_manager.level_loaded.connect(add_new_level)
+#endregion
 
+#region Level Management
+func add_new_level(level: Node) -> void:
+	clear_level_holder()
+	level_holder.add_child(level)
 
-## Level Management
-func add_new_level():
-	level_holder.add_child(SceneManager.current_level)
+func clear_level_holder() -> void: # not used
+	for child: Node in %LevelHolder.get_children():
+		child.queue_free()
 
-func remove_level(): # not used
-	SceneManager.current_level.queue_free()
+func quit_game():
+	get_tree().quit()
+#endregion
 
-
-## UI
-func _toggle_gameplay_ui(option : bool):
+#region UI
+func _toggle_gameplay_ui(option : bool) -> void:
 	gameplay_ui.visible = option
+#endregion

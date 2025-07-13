@@ -1,11 +1,12 @@
-extends CanvasLayer
+extends Node
 
-var current_level : Node
-signal level_changed
+signal level_loaded(level: Node)
 
 ## Loading
 signal progress_changed(progress)
 signal load_done
+
+var loaded_resources: Array
 
 var _load_screen_path_normal : String = "res://scenes/user_interface/loading/loading_screen.tscn"
 var _load_screen = load(_load_screen_path_normal)
@@ -24,14 +25,17 @@ func remove_dialogue_balloon():
 	if(Game.current_dialogue_balloon != null):
 		Game.current_dialogue_balloon.queue_free()
 
-func load_scene(scene_path: String, speed_multipler: float = 1, style : String = "normal") -> void:
+func load_scene_path(scene_path: String, speed_multipler: float = 1, style : String = "normal") -> void:
 	remove_dialogue_balloon()
 	if state != State.READY:
 		return
 	
+	if loaded_resources.size() > 1: # If there are many loaded levels
+		for node: Node in loaded_resources:
+			node.queue_free()
+	
 	state = State.LOADING
 	
-
 	_scene_path = scene_path
 	
 	# Spawn loading screen
@@ -59,23 +63,20 @@ func load_scene(scene_path: String, speed_multipler: float = 1, style : String =
 	state = State.LOADING
 
 	# Start loading the next scene
-	start_load()
+	_start_load()
 	await Signal(self, "load_done")
 	
-
-	# Delete the old scene.
-	if(current_level != null):
-		current_level.queue_free() # Remove current level
 	new_loading_screen._start_outro_animation()
 	state = State.ANIMATING
 	if !new_loading_screen.state == new_loading_screen.State.FINISHED:
 		await Signal(new_loading_screen, "finished_waiting")
-	current_level = _loaded_resource.instantiate() # Set the new one as current
-	emit_signal("level_changed") # Adds new level in App script
+	var level: Node = _loaded_resource.instantiate() # Set the new one as current
+	loaded_resources.append(level) # Store a reference if the instantiate doesn't get added as a child
+	level_loaded.emit(level)
 	state = State.READY
 
 
-func start_load() -> void:
+func _start_load() -> void:
 	var state = ResourceLoader.load_threaded_request(_scene_path, "", use_sub_threads)
 	if state == OK:
 		set_process(true)
@@ -92,32 +93,3 @@ func _process(delta):
 			_loaded_resource = ResourceLoader.load_threaded_get(_scene_path)
 			progress_changed.emit(1.0)
 			load_done.emit()
-
-
-
-func set_current_level(level : Node):
-	if(current_level != null):
-		current_level.queue_free() # Remove current level
-	current_level = level # Set the new one as current
-	level_changed.emit() # Adds new level in App script
-
-func switch_scene(target: String, fade_multiplier: float = 1) -> void:
-	var new_level = load(target)
-	$AnimationPlayer.speed_scale = fade_multiplier
-	$AnimationPlayer.play("dissolve")
-	await $AnimationPlayer.animation_finished
-	
-	set_current_level(new_level.instantiate())
-	
-	$AnimationPlayer.play_backwards("dissolve")
-
-func change_top_scene(target: String, fade_multiplier: float = 1):
-	$AnimationPlayer.speed_scale = fade_multiplier
-	$AnimationPlayer.play("dissolve")
-	await $AnimationPlayer.animation_finished
-	get_tree().change_scene_to_file(target)
-	$AnimationPlayer.play_backwards("dissolve")
-
-func quit_game():
-	#await $AnimationPlayer.play("quit")
-	get_tree().quit()
