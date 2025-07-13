@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://daqs5e2b2dpkx"]
+[gd_scene load_steps=8 format=3 uid="uid://daqs5e2b2dpkx"]
 
 [ext_resource type="Script" uid="uid://diewwjug0tnon" path="res://scenes/main.gd" id="1_modcc"]
 [ext_resource type="Script" uid="uid://btihapu758bfn" path="res://scenes/global/load_manager.gd" id="1_ujv7p"]
 [ext_resource type="Material" uid="uid://3r38h6s4y3gd" path="res://assets/shaders/material/filmgrain.tres" id="3_7rkj7"]
 [ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://scenes/user_interface/debug/debug_gui.tscn" id="4_ckec2"]
+[ext_resource type="PackedScene" uid="uid://cc1fomjf362h5" path="res://addons/flowerwall_postprocess/scenes/flowerwall_pp.tscn" id="5_7rkj7"]
 [ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/player/player_gui.tscn" id="5_luw6h"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tktnw"]
@@ -20,17 +21,20 @@ script = ExtResource("1_ujv7p")
 unique_name_in_owner = true
 
 [node name="GuiCanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
 
 [node name="DebugGui" parent="GuiCanvasLayer" instance=ExtResource("4_ckec2")]
 visible = false
 
 [node name="PlayerGui" parent="GuiCanvasLayer" instance=ExtResource("5_luw6h")]
-metadata/_edit_use_anchors_ = true
 
 [node name="PostProcessCanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="PostProcessing" type="TextureRect" parent="PostProcessCanvasLayer"]
+[node name="flowerwall_pp" parent="PostProcessCanvasLayer" instance=ExtResource("5_7rkj7")]
+
+[node name="FilmGrain" type="TextureRect" parent="PostProcessCanvasLayer"]
+visible = false
 material = ExtResource("3_7rkj7")
 anchors_preset = 15
 anchor_right = 1.0
