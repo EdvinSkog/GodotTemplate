@@ -43,7 +43,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="CanvasLayerFPS/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1152, 648)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="HandCamera" type="Camera3D" parent="CanvasLayerFPS/SubViewportContainer/SubViewport"]

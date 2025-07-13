@@ -6,6 +6,8 @@ extends Node
 
 var current_level: Node:
 	get: return %LevelHolder.get_child(0)
+	
+signal level_changed
 
 #region Setup
 func _ready():
@@ -24,6 +26,7 @@ func _connect_signals() -> void:
 func add_new_level(level: Node) -> void:
 	clear_level_holder()
 	level_holder.add_child(level)
+	level_changed.emit()
 
 func clear_level_holder() -> void: # not used
 	for child: Node in %LevelHolder.get_children():

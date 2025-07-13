@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://daqs5e2b2dpkx"]
 
-[ext_resource type="Script" uid="uid://diewwjug0tnon" path="res://scenes/main.gd" id="1_modcc"]
+[ext_resource type="Script" uid="uid://diewwjug0tnon" path="res://scenes/global/scene_manager.gd" id="1_modcc"]
 [ext_resource type="Script" uid="uid://btihapu758bfn" path="res://scenes/global/load_manager.gd" id="1_ujv7p"]
 [ext_resource type="Material" uid="uid://3r38h6s4y3gd" path="res://assets/shaders/material/filmgrain.tres" id="3_7rkj7"]
 [ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://scenes/user_interface/debug/debug_gui.tscn" id="4_ckec2"]

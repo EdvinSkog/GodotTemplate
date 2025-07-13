@@ -1,14 +1,16 @@
-extends Area2D
+extends Area3D
 
 signal found_interactable(interactable: Interactable)
 signal left_interactable(interactable: Interactable)
 
 
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(area: Area3D) -> void:
 	if area is Interactable:
+		area.toggle_prompt(true)
 		found_interactable.emit(area)
 
 
-func _on_area_exited(area: Area2D) -> void:
+func _on_area_exited(area: Area3D) -> void:
 	if area is Interactable:
+		area.toggle_prompt(false)
 		left_interactable.emit(area)

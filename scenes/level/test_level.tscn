@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bv5vvs1nxjg8m"]
 
 [ext_resource type="Script" uid="uid://b38fn8dlm1qsx" path="res://scenes/level/test_level.gd" id="1_ppvos"]
-[ext_resource type="PackedScene" uid="uid://bswim5p31he8y" path="res://scenes/player/first_person_controller.tscn" id="1_wqmfo"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://scenes/player/fpc_zakarya/first_person_controller.tscn" id="2_1v0db"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="6_3b5s3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0eb2"]
@@ -33,8 +33,7 @@ adjustment_saturation = 0.25
 transform = Transform3D(1, -0.000519715, -0.000108098, 0.000519762, 1, 0.000453403, 0.000107868, -0.000453458, 1, 0, 0, 0)
 script = ExtResource("1_ppvos")
 
-[node name="Player" parent="." instance=ExtResource("1_wqmfo")]
-transform = Transform3D(1, -1.65876e-11, 0, -1.92735e-11, 1, -5.82077e-11, -1.45519e-11, 5.82077e-11, 1, -1.35322, 2.0007, 0.0010532)
+[node name="FirstPersonController" parent="." instance=ExtResource("2_1v0db")]
 
 [node name="Graphics" type="Node3D" parent="."]
 transform = Transform3D(1, -1.65912e-11, 0, -1.9277e-11, 1, -2.91038e-11, -7.27596e-12, 2.91038e-11, 1, 0, 0, 0)
