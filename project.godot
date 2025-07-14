@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="My Template"
+config/name="Ed's Template"
 run/main_scene="uid://bv5vvs1nxjg8m"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://assets/icon.svg"
@@ -113,3 +113,12 @@ locale/translations_pot_files=PackedStringArray("res://assets/dialogue/intro.dia
 
 3d_render/layer_1="Main"
 3d_render/layer_2="Hand"
+3d_render/layer_10="Debug"
+2d_physics/layer_1="Main"
+3d_physics/layer_1="Main"
+2d_physics/layer_2="Player"
+3d_physics/layer_2="Player"
+
+[physics]
+
+common/physics_interpolation=true
