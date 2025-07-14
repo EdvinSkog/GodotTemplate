@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://3r38h6s4y3gd"]
 
-[ext_resource type="Shader" uid="uid://cf7655qaynhch" path="res://assets/shaders/filmgrain.gdshader" id="1_brvc1"]
+[ext_resource type="Shader" uid="uid://cf7655qaynhch" path="res://assets/pp_shaders/filmgrain.gdshader" id="1_brvc1"]
 
 [resource]
 shader = ExtResource("1_brvc1")
