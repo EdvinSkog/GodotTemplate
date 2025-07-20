@@ -23,7 +23,7 @@ func _ready() -> void:
 func _reveal_loading_screen() -> void:
 	animation_player.play("fade_in")
 	await Signal(animation_player, "animation_finished")
-	emit_signal("loading_screen_has_full_coverage") # Can also be called within the animationplayer
+	loading_screen_has_full_coverage.emit() # Can also be called within the animationplayer
 	_start_loading_animation()
 
 func _start_loading_animation() -> void:
@@ -38,7 +38,7 @@ func _start_outro_animation() -> void:
 
 func _end():
 	state = State.FINISHED
-	emit_signal("finished_waiting")
+	finished_waiting.emit()
 	
 	if(play_end_animation):
 		animation_player.queue("end_load")
