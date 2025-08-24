@@ -2,7 +2,7 @@ extends Node
 
 @onready var load_manager = %LoadManager
 @onready var level_holder = %LevelHolder
-@onready var gameplay_ui = $CanvasLayer/GameplayInterface
+@onready var player_gui = %PlayerGui
 
 var current_level: Node:
 	get: return %LevelHolder.get_child(0)
@@ -12,7 +12,7 @@ signal level_changed
 #region Setup
 func _ready():
 	var current_scene: Node = get_tree().current_scene
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().process_frame
 	current_scene.reparent(level_holder)
 	#level_holder.add_child(override_title_screen_start)
 	print("current_scene: ", level_holder.get_child(0))
@@ -38,5 +38,5 @@ func quit_game():
 
 #region UI
 func _toggle_gameplay_ui(option : bool) -> void:
-	gameplay_ui.visible = option
+	player_gui.visible = option
 #endregion

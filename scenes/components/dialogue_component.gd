@@ -23,7 +23,7 @@ func _ready():
 
 func play(dialogue_part: String):
 	balloon = balloon_scene.instantiate()
-	Game.current_dialogue_balloon = balloon
+	Game.current_dialogue_balloon = balloon #TODO: Export option for balloon parent
 	get_tree().current_scene.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
 
@@ -32,9 +32,4 @@ func _on_title_finished(title: String):
 
 func _on_dialogue_finished(used_resource):
 	if (used_resource == dialogue_resource):
-		# Capture Mouse? Allow Movement?
 		dialogue_finished.emit()
-
-
-func _on_tree_entered() -> void:
-	pass # use this if you wanna trigger dialogue instantly (ready does not work).

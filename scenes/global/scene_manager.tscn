@@ -27,6 +27,7 @@ layer = 128
 visible = false
 
 [node name="PlayerGui" parent="GuiCanvasLayer" instance=ExtResource("5_luw6h")]
+unique_name_in_owner = true
 
 [node name="PostProcessCanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
