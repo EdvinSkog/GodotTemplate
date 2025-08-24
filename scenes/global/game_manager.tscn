@@ -14,4 +14,3 @@ unique_name_in_owner = true
 script = ExtResource("2_l4rns")
 
 [connection signal="timeout" from="TimerSecond" to="." method="_on_timer_second_timeout"]
-[connection signal="dictionary_structure_completed" from="DataManager" to="." method="_on_data_manager_dictionary_structure_completed"]

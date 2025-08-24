@@ -9,10 +9,6 @@ var current_dialogue_balloon: DialogueBalloon
 
 func _ready() -> void:
 	pass
-	#data.load_data(true)
-
-func _on_data_manager_dictionary_structure_completed() -> void:
-	pass
 
 func _on_timer_second_timeout():
 	game_time += 1
