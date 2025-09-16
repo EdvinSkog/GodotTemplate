@@ -104,11 +104,11 @@ var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") 
 var mouseInput : Vector2 = Vector2(0,0)
 
 func _ready() -> void:
-	if PlayerManager.fpc == null:
-		PlayerManager.fpc = self
+	if Player.fpc == null:
+		Player.fpc = self
 	else:
 		queue_free()
-	SceneManager.level_changed.connect(_on_level_changed)
+	Scene.level_changed.connect(_on_level_changed)
 	# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
 	HEAD.rotation.y = rotation.y
 	rotation.y = 0

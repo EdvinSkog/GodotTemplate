@@ -126,8 +126,8 @@ func apply_dialogue_line() -> void:
 		next(dialogue_line.next_id)
 	else:
 		if automatic:
-			if AudioManager.voice.playing:
-				await AudioManager.voice.finished
+			if Audio.voice.playing:
+				await Audio.voice.finished
 			%DelayTimer.start()
 			await %DelayTimer.timeout
 			next(dialogue_line.next_id)

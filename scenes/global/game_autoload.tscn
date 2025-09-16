@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bc83ot4n3ivlw"]
 
-[ext_resource type="Script" uid="uid://dxp5lpgi3hueq" path="res://scenes/global/game_manager.gd" id="1_wqpky"]
+[ext_resource type="Script" uid="uid://dxp5lpgi3hueq" path="res://scenes/global/game_autoload.gd" id="1_wqpky"]
 [ext_resource type="Script" uid="uid://chbmvg7c3y6n6" path="res://scenes/global/data_manager.gd" id="2_l4rns"]
 
 [node name="GameManager" type="Node"]

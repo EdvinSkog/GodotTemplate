@@ -20,12 +20,11 @@ config/icon="uid://h7lw1dm731o5"
 
 [autoload]
 
-Game="*res://scenes/global/game_manager.tscn"
+Game="*res://scenes/global/game_autoload.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
-AudioManager="*res://scenes/global/audio_manager.tscn"
-PlayerManager="*res://scenes/global/player_manager.tscn"
-SceneManager="*res://scenes/global/scene_manager.tscn"
-SignalManager="*res://scenes/global/signal_manager.gd"
+Audio="*res://scenes/global/audio_autoload.tscn"
+Player="*res://scenes/global/player_autoload.tscn"
+Scene="*res://scenes/global/scene_autoload.tscn"
 
 [dialogue_manager]
 

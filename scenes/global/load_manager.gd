@@ -1,4 +1,4 @@
-extends Node
+class_name LoadManager extends Node
 
 signal level_loaded(level: Node)
 
