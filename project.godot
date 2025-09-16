@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Ed's Template"
 run/main_scene="uid://bv5vvs1nxjg8m"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0.0836557, 0.0910739, 0.174374, 1)
 boot_splash/fullsize=false
 boot_splash/image="uid://h7lw1dm731o5"
