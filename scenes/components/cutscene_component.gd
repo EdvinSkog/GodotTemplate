@@ -17,7 +17,7 @@ var is_cancelled: bool = false
 
 func _ready() -> void:
 	pass
-	#PlayerManager.active_changed.connect(toggle_cutscene_cancelled)
+	#Player.active_changed.connect(toggle_cutscene_cancelled)
 
 func get_cutscene_components(cutscene: String) -> Array:
 	var parts: Array = [_get_cutscene_animation_names(cutscene), _get_cutscene_dialogue_titles(cutscene)]
@@ -71,7 +71,7 @@ func _unique_array(arr: Array) -> Array:
 func start_cutscene(cutscene: String):
 	is_cancelled = false
 	var arr: Array = section_cutscene_components(cutscene)
-	PlayerManager.set_player_active(false)
+	Player.set_player_active(false)
 	emit_signal("started")
 	for i in arr:
 		emit_signal("part_started", i)
@@ -92,7 +92,7 @@ func start_cutscene(cutscene: String):
 	# Await Dial2
 	# Await Anim3
 func finish_cutscene():
-	PlayerManager.set_player_active(true)
+	Player.set_player_active(true)
 	emit_signal("finished")
 
 func skip_cutscene():
