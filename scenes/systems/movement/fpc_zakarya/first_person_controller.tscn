@@ -1,9 +1,9 @@
 [gd_scene load_steps=22 format=3 uid="uid://cc1m2a1obsyn4"]
 
-[ext_resource type="Script" uid="uid://hynhkebmrw52" path="res://scenes/player/fpc_zakarya/first_person_controller.gd" id="1_0t4e8"]
-[ext_resource type="PackedScene" uid="uid://dw0v86vxny6wb" path="res://scenes/player/interacter_3d.tscn" id="2_hr6nv"]
-[ext_resource type="Script" uid="uid://b422ib88t47h4" path="res://scenes/player/fpc_zakarya/EditorModule.gd" id="3_v3ckk"]
-[ext_resource type="Script" uid="uid://beisprf5c50yg" path="res://scenes/player/fpc_zakarya/debug.gd" id="3_x1wcc"]
+[ext_resource type="Script" uid="uid://hynhkebmrw52" path="res://scenes/systems/movement/fpc_zakarya/first_person_controller.gd" id="1_0t4e8"]
+[ext_resource type="PackedScene" uid="uid://dw0v86vxny6wb" path="res://scenes/systems/movement/interacter_3d.tscn" id="2_hr6nv"]
+[ext_resource type="Script" uid="uid://b422ib88t47h4" path="res://scenes/systems/movement/fpc_zakarya/EditorModule.gd" id="3_v3ckk"]
+[ext_resource type="Script" uid="uid://beisprf5c50yg" path="res://scenes/systems/movement/fpc_zakarya/debug.gd" id="3_x1wcc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)

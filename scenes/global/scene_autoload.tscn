@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://3r38h6s4y3gd" path="res://assets/pp_shaders/material/filmgrain.tres" id="3_7rkj7"]
 [ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://scenes/user_interface/debug/debug_gui.tscn" id="4_ckec2"]
 [ext_resource type="PackedScene" uid="uid://cc1fomjf362h5" path="res://addons/flowerwall_postprocess/scenes/flowerwall_pp.tscn" id="5_7rkj7"]
-[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/player/player_gui.tscn" id="5_luw6h"]
+[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://scenes/systems/movement/player_gui.tscn" id="5_luw6h"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tktnw"]
 seamless = true

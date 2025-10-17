@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://coqpusufa8a6k"]
 
-[ext_resource type="Script" uid="uid://b2y8ocp7qwxno" path="res://scenes/player/fpc_zakarya/reticles/reticle_0.gd" id="1_wwly2"]
+[ext_resource type="Script" uid="uid://b2y8ocp7qwxno" path="res://scenes/systems/movement/fpc_zakarya/reticles/reticle_0.gd" id="1_wwly2"]
 
 [node name="Reticle" type="CenterContainer"]
 anchors_preset = 8

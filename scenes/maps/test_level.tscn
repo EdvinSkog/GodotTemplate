@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bv5vvs1nxjg8m"]
 
-[ext_resource type="Script" uid="uid://b38fn8dlm1qsx" path="res://scenes/level/test_level.gd" id="1_ppvos"]
-[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://scenes/player/fpc_zakarya/first_person_controller.tscn" id="2_1v0db"]
+[ext_resource type="Script" uid="uid://b38fn8dlm1qsx" path="res://scenes/maps/test_level.gd" id="1_ppvos"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://scenes/systems/movement/fpc_zakarya/first_person_controller.tscn" id="2_1v0db"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="6_3b5s3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0eb2"]
