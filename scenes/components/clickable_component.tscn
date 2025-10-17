@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6dynlvbllatt"]
+
+[ext_resource type="Script" uid="uid://dw1usrqs312rf" path="res://scenes/components/clickable_component.gd" id="1_733io"]
+
+[node name="ClickableComponent" type="Area3D"]
+collision_layer = 4
+collision_mask = 4
+input_capture_on_drag = true
+script = ExtResource("1_733io")

@@ -6,6 +6,7 @@ signal pressed_debug(idx: int)
 
 ## Reference to Player node
 var fpc: FirstPersonController
+var snapview: Snapview
 
 #WARNING: Potential performance problems
 func _input(event: InputEvent) -> void:
