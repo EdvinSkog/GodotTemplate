@@ -53,6 +53,7 @@ folder_colors={
 "res://assets/": "purple",
 "res://data/": "blue",
 "res://scenes/global/": "yellow",
+"res://scenes/systems/": "orange",
 "res://scenes/user_interface/": "teal"
 }
 
