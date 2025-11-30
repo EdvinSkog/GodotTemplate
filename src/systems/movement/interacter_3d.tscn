@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw0v86vxny6wb"]
+
+[ext_resource type="Script" uid="uid://rhkwigd1bos" path="res://src/systems/movement/interacter_3d.gd" id="1_g6dwk"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_16t4v"]
+length = 5.0
+
+[node name="Interacter" type="Area3D"]
+collision_layer = 2
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_g6dwk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SeparationRayShape3D_16t4v")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

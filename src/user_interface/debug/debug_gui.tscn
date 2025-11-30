@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://bylibfv6fcowg"]
+
+[ext_resource type="Script" uid="uid://ruoyvr3dh4bi" path="res://src/user_interface/debug/debug_gui.gd" id="2_es43l"]
+[ext_resource type="PackedScene" uid="uid://yt84pcixp1gq" path="res://src/user_interface/debug/debug_label.tscn" id="3_88brd"]
+
+[sub_resource type="SystemFont" id="SystemFont_i2bdw"]
+font_names = PackedStringArray("Courier New")
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_2jdub"]
+default_font = SubResource("SystemFont_i2bdw")
+Label/colors/font_outline_color = Color(0.734588, 0.547854, 0.0191133, 1)
+Label/constants/outline_size = 2
+
+[node name="DebugGui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_2jdub")
+script = ExtResource("2_es43l")
+debug_labels = Array[String]([""])
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DebugLabel" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_88brd")]
+layout_mode = 2
+what_property = "game_time"
+custom_text = "time of game"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="DebugLabel2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_88brd")]
+layout_mode = 2
+what_script = 1
+what_property = "aiming_at"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CheatMenu" type="MenuButton" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme_type_variation = &"DebugMenuButton"
+toggle_mode = false
+keep_pressed_outside = true
+text = "Cheats"
+flat = false
+switch_on_hover = true
+item_count = 3
+popup/item_0/text = "Cheat 1"
+popup/item_1/text = "Cheat 2"
+popup/item_1/id = 1
+popup/item_2/text = "Cheat 3"
+popup/item_2/checkable = 1
+popup/item_2/id = 2

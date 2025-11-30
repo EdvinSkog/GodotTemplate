@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://bv5vvs1nxjg8m"]
+
+[ext_resource type="Script" uid="uid://b38fn8dlm1qsx" path="res://src/maps/test_level.gd" id="1_ppvos"]
+[ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://src/systems/movement/fpc_zakarya/first_person_controller.tscn" id="2_1v0db"]
+[ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="6_3b5s3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0eb2"]
+albedo_color = Color(0.241156, 0.241156, 0.241156, 1)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gaxfg"]
+panorama = ExtResource("6_3b5s3")
+
+[sub_resource type="Sky" id="Sky_hh17t"]
+sky_material = SubResource("PanoramaSkyMaterial_gaxfg")
+
+[sub_resource type="Environment" id="Environment_b8kec"]
+background_mode = 1
+background_color = Color(0.73015, 0.448589, 0.905912, 1)
+sky = SubResource("Sky_hh17t")
+sky_custom_fov = 41.7
+fog_enabled = true
+fog_light_color = Color(0.566461, 0.404872, 0.323522, 1)
+fog_light_energy = 1.12
+fog_density = 0.006
+fog_sky_affect = 0.214
+fog_height = 0.5
+adjustment_enabled = true
+adjustment_brightness = 1.12
+adjustment_contrast = 1.3
+adjustment_saturation = 0.25
+
+[node name="TestLevel" type="Node3D"]
+transform = Transform3D(1, -0.000519715, -0.000108098, 0.000519762, 1, 0.000453403, 0.000107868, -0.000453458, 1, 0, 0, 0)
+script = ExtResource("1_ppvos")
+
+[node name="FirstPersonController" parent="." instance=ExtResource("2_1v0db")]
+
+[node name="Graphics" type="Node3D" parent="."]
+transform = Transform3D(1, -1.65912e-11, 0, -1.9277e-11, 1, -2.91038e-11, -7.27596e-12, 2.91038e-11, 1, 0, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(1, -1.65912e-11, 0, -1.92735e-11, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_v0eb2")
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Graphics"]
+transform = Transform3D(1, 1.92202e-11, 1.23691e-10, -1.92202e-11, 1, -4.94765e-10, -1.23691e-10, 4.94765e-10, 1, -1.07627, 2.10075, -17.7816)
+size = Vector3(3.15088, 1, 1)
+
+[node name="TimerTestLoadScreen" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_b8kec")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.861204, 0.50826, -8.14388e-08, 0.484661, -0.821218, -0.301172, -0.153074, 0.25937, -0.95357, 0, 26.4795, 0)
+sky_mode = 2
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.951663, 0.0748783, 0.297877, 0.173156, 0.931813, 0.318968, -0.253682, 0.35513, -0.899738, -0.000226532, 3.50245, -18.9348)
+
+[connection signal="timeout" from="TimerTestLoadScreen" to="." method="_on_timer_timeout"]

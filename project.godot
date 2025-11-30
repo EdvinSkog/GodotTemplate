@@ -18,18 +18,22 @@ boot_splash/fullsize=false
 boot_splash/image="uid://h7lw1dm731o5"
 config/icon="uid://h7lw1dm731o5"
 
+[audio]
+
+buses/default_bus_layout="res://scenes/default_bus_layout.tres"
+
 [autoload]
 
-Game="*res://scenes/global/game_autoload.tscn"
+Game="*res://src/global/game_autoload.tscn"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
-Audio="*res://scenes/global/audio_autoload.tscn"
-Player="*res://scenes/global/player_autoload.tscn"
-Scene="*res://scenes/global/scene_autoload.tscn"
+Audio="*res://src/global/audio_autoload.tscn"
+Player="*res://src/global/player_autoload.tscn"
+Scene="*res://src/global/scene_autoload.tscn"
 
 [dialogue_manager]
 
 runtime/state_autoload_shortcuts=["SceneManager", "AudioManager"]
-runtime/balloon_path="res://scenes/user_interface/dialogue/default_dialogue_balloon.tscn"
+runtime/balloon_path="res://src/systems/dialogue/balloons/basic_dialogue_balloon.tscn"
 
 [display]
 
@@ -52,14 +56,14 @@ folder_colors={
 "res://addons/": "gray",
 "res://assets/": "purple",
 "res://data/": "blue",
-"res://scenes/global/": "yellow",
-"res://scenes/systems/": "orange",
-"res://scenes/user_interface/": "teal"
+"res://src/global/": "yellow",
+"res://src/systems/": "orange",
+"res://src/user_interface/": "teal"
 }
 
 [gui]
 
-theme/custom="res://scenes/user_interface/main_theme.tres"
+theme/custom="res://src/user_interface/main_theme.tres"
 
 [input]
 
@@ -73,9 +77,14 @@ move_forward={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
 ]
 }
+pause={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 exit={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 move_backward={

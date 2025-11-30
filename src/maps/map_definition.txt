@@ -1,0 +1,5 @@
+Practically, Maps are things the player "loads" between. A simple example is a platformer level leading to the next platformer level.
+However, currently I define a "menu" as a type of Map, i.e. the main menu with title screen, options, etc.
+This is because of how a menu can act as the area for the player to navigate, if that makes sense.
+This is subject to change if it turns out to be confusing.
+A lengthy cutscene could potentially also be contained as a single map

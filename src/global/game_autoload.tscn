@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc83ot4n3ivlw"]
+
+[ext_resource type="Script" uid="uid://dxp5lpgi3hueq" path="res://src/global/game_autoload.gd" id="1_wqpky"]
+[ext_resource type="Script" uid="uid://chbmvg7c3y6n6" path="res://src/global/data_manager.gd" id="2_l4rns"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_wqpky")
+
+[node name="TimerSecond" type="Timer" parent="."]
+autostart = true
+
+[node name="DataManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_l4rns")
+
+[connection signal="timeout" from="TimerSecond" to="." method="_on_timer_second_timeout"]

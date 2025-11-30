@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw2jkky2yq8n4"]
+
+[ext_resource type="Script" uid="uid://qyn6eoraikdw" path="res://src/systems/dialogue/dialogue_player.gd" id="1_cdwgm"]
+
+[node name="DialoguePlayer" type="Node"]
+script = ExtResource("1_cdwgm")
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

@@ -1,0 +1,16 @@
+Props are scenes that have no (or very minimal) impact on gameplay (such as collision).
+
+Some basic examples are:
+	* A coffe mug
+	* A table (with collisions set up)
+	* A tree (with some swaying animation)
+
+However, some props may have a bit of functionality (scripts, animations)
+	* A traffic light (of which the different lights can be toggled)
+	* A ceiling fan (that consistently spins, emits audio, includes an on/off toggle function)
+
+It's a technical definition, so things you might not ordinarily refer to as a prop, can be considered one;
+This includes larger concepts:
+	* A skyscraper (used in the background of a scene)
+	* Roads
+	* Terrain models
