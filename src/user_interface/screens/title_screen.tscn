@@ -48,6 +48,7 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 74
 text = "Game Name"
+horizontal_alignment = 1
 
 [node name="ButtonContainer" type="VBoxContainer" parent="VSplitContainer"]
 layout_mode = 2
@@ -60,10 +61,5 @@ text = "START"
 layout_mode = 2
 text = "SETTINGS"
 
-[node name="ButtonCredits" type="Button" parent="VSplitContainer/ButtonContainer"]
-layout_mode = 2
-text = "CREDITS"
-
 [connection signal="pressed" from="VSplitContainer/ButtonContainer/ButtonStart" to="." method="_on_button_start_pressed"]
 [connection signal="pressed" from="VSplitContainer/ButtonContainer/ButtonSettings" to="." method="_on_button_settings_pressed"]
-[connection signal="pressed" from="VSplitContainer/ButtonContainer/ButtonCredits" to="." method="_on_button_credits_pressed"]

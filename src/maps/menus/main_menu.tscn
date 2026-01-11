@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwij3bn2l5cmq"]
+[gd_scene load_steps=4 format=3 uid="uid://cwij3bn2l5cmq"]
 
 [ext_resource type="PackedScene" uid="uid://buyd1pr0u2e5" path="res://src/user_interface/screens/title_screen.tscn" id="1_7nehh"]
+[ext_resource type="Script" uid="uid://c65mj8h0nper4" path="res://src/maps/menus/main_menu.gd" id="1_tfsnc"]
+[ext_resource type="PackedScene" uid="uid://mydth38oqmq6" path="res://src/user_interface/screens/settings_screen.tscn" id="2_q4n6u"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -9,6 +11,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_tfsnc")
 
-[node name="TitleScreen" parent="." instance=ExtResource("1_7nehh")]
+[node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+tabs_visible = false
+
+[node name="TitleScreen" parent="TabContainer" instance=ExtResource("1_7nehh")]
+unique_name_in_owner = true
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Settings" parent="TabContainer" instance=ExtResource("2_q4n6u")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="settings_pressed" from="TabContainer/TitleScreen" to="." method="_on_title_screen_settings_pressed"]
+[connection signal="returned" from="TabContainer/Settings" to="." method="_on_settings_returned"]

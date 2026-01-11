@@ -23,8 +23,8 @@ func _ready():
 
 func play(dialogue_part: String):
 	balloon = balloon_scene.instantiate()
-	Game.current_dialogue_balloon = balloon #TODO: Export option for balloon parent
-	get_tree().current_scene.add_child(balloon)
+	Scene.current_dialogue_balloon = balloon #TODO: Export option for balloon parent
+	Scene.player_gui.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
 
 func _on_title_finished(title: String):

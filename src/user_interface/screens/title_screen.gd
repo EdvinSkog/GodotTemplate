@@ -1,15 +1,12 @@
 extends Control
 
-func _ready() -> void:
-	pass
+signal started_pressed
+signal settings_pressed
 
 func _on_button_start_pressed() -> void:
-	Scene.load_manager.load_scene_path("res://scenes/level/test_level.tscn", 1,)
+	Scene.load.load_scene_path("res://src/maps/test_level.tscn")
+	started_pressed.emit()
 
 
 func _on_button_settings_pressed() -> void:
-	Scene.load_manager.load_scene_path("res://scenes/user_interface/menus/settings.tscn", 1, "subtle")
-
-
-func _on_button_credits_pressed() -> void:
-	Scene.load_manager.load_scene_path("res://scenes/user_interface/menus/credits.tscn", 1, "subtle")
+	settings_pressed.emit()

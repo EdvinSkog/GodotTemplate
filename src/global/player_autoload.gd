@@ -9,7 +9,7 @@ var fpc: FirstPersonController
 var snapview: Snapview
 
 ## Use this when toggling back to a "default" mouse mode the player is in.
-var mouse_mode: Input.MouseMode = Input.MouseMode.MOUSE_MODE_CAPTURED
+var mouse_mode: Input.MouseMode = Input.MouseMode.MOUSE_MODE_VISIBLE
 
 #WARNING: Potential performance problems
 func _input(event: InputEvent) -> void:

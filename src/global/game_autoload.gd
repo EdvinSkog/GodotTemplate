@@ -5,7 +5,6 @@ var game_time: float = 0
 
 # References
 @onready var data: DataManager = %DataManager
-var current_dialogue_balloon: DialogueBalloon
 
 func _ready() -> void:
 	pass

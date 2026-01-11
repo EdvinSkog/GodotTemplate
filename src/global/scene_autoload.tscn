@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://daqs5e2b2dpkx"]
+[gd_scene load_steps=11 format=3 uid="uid://daqs5e2b2dpkx"]
 
 [ext_resource type="Script" uid="uid://diewwjug0tnon" path="res://src/global/scene_autoload.gd" id="1_modcc"]
 [ext_resource type="Script" uid="uid://btihapu758bfn" path="res://src/global/load_manager.gd" id="1_ujv7p"]
 [ext_resource type="Material" uid="uid://3r38h6s4y3gd" path="res://assets/pp_shaders/material/filmgrain.tres" id="3_7rkj7"]
 [ext_resource type="PackedScene" uid="uid://drxwgqa03nbls" path="res://src/user_interface/screens/pause_screen.tscn" id="3_camo4"]
+[ext_resource type="PackedScene" uid="uid://cinf601oc1mx3" path="res://src/user_interface/loading/loading_screen.tscn" id="3_thgg4"]
 [ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://src/user_interface/debug/debug_gui.tscn" id="4_ckec2"]
+[ext_resource type="PackedScene" uid="uid://bqcw4yp0jiujg" path="res://src/user_interface/loading/loading_screen_subtle.tscn" id="4_xoado"]
 [ext_resource type="PackedScene" uid="uid://cc1fomjf362h5" path="res://addons/flowerwall_postprocess/scenes/flowerwall_pp.tscn" id="5_7rkj7"]
 [ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://src/systems/movement/player_gui.tscn" id="5_luw6h"]
 
@@ -17,6 +19,8 @@ script = ExtResource("1_modcc")
 [node name="LoadManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_ujv7p")
+_load_screen_clear = ExtResource("3_thgg4")
+_load_screen_subtle = ExtResource("4_xoado")
 
 [node name="LevelHolder" type="Node" parent="."]
 unique_name_in_owner = true
@@ -25,6 +29,7 @@ unique_name_in_owner = true
 layer = 128
 
 [node name="PauseScreen" parent="GuiCanvasLayer" instance=ExtResource("3_camo4")]
+unique_name_in_owner = true
 
 [node name="DebugGui" parent="GuiCanvasLayer" instance=ExtResource("4_ckec2")]
 visible = false

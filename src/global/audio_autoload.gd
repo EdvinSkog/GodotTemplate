@@ -1,6 +1,6 @@
 extends Node
 
-@onready var sfx_scene: PackedScene = load("res://scenes/global/audio/sound_effect.tscn")
+@onready var sfx_scene: PackedScene = load("res://src/global/audio/sound_effect.tscn")
 @onready var music_player: AudioStreamPlayer = $Music
 @onready var voice: AudioStreamPlayer = $Voice
 @onready var ambience: AudioStreamPlayer = $Ambience

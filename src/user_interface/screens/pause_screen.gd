@@ -1,4 +1,4 @@
-class_name PauseMenu extends Control
+class_name PauseScreen extends Control
 
 @export var enabled: bool = true
 @onready var handler: PauseHandler = $PauseHandler

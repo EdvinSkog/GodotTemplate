@@ -1,24 +1,25 @@
 extends Node
 
-@onready var load_manager: LoadManager = %LoadManager
+signal level_changed
+
+## References
+@onready var load: LoadManager = %LoadManager
 @onready var level_holder = %LevelHolder
 @onready var player_gui: PlayerGui = %PlayerGui
-
+@onready var pause_screen: PauseScreen = %PauseScreen
 var current_level: Node:
 	get: return %LevelHolder.get_child(0)
-	
-signal level_changed
+var current_dialogue_balloon: DialogueBalloon
+
 
 #region Setup
 func _ready():
 	var current_scene: Node = get_tree().current_scene
-	await get_tree().process_frame
-	current_scene.reparent(level_holder)
-	print("current_scene: ", level_holder.get_child(0))
+	current_scene.reparent.call_deferred(level_holder) #Reparent at end of frame
 	_connect_signals()
 
 func _connect_signals() -> void:
-	load_manager.level_loaded.connect(add_new_level)
+	load.level_loaded.connect(add_new_level)
 #endregion
 
 #region Level Management
