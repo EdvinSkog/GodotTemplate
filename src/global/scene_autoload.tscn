@@ -1,48 +1,48 @@
-[gd_scene load_steps=11 format=3 uid="uid://daqs5e2b2dpkx"]
+[gd_scene format=3 uid="uid://daqs5e2b2dpkx"]
 
 [ext_resource type="Script" uid="uid://diewwjug0tnon" path="res://src/global/scene_autoload.gd" id="1_modcc"]
-[ext_resource type="Script" uid="uid://btihapu758bfn" path="res://src/global/load_manager.gd" id="1_ujv7p"]
+[ext_resource type="Script" uid="uid://btihapu758bfn" path="res://src/global/loading_manager.gd" id="1_ujv7p"]
 [ext_resource type="Material" uid="uid://3r38h6s4y3gd" path="res://assets/pp_shaders/material/filmgrain.tres" id="3_7rkj7"]
 [ext_resource type="PackedScene" uid="uid://drxwgqa03nbls" path="res://src/user_interface/screens/pause_screen.tscn" id="3_camo4"]
 [ext_resource type="PackedScene" uid="uid://cinf601oc1mx3" path="res://src/user_interface/loading/loading_screen.tscn" id="3_thgg4"]
 [ext_resource type="PackedScene" uid="uid://bylibfv6fcowg" path="res://src/user_interface/debug/debug_gui.tscn" id="4_ckec2"]
 [ext_resource type="PackedScene" uid="uid://bqcw4yp0jiujg" path="res://src/user_interface/loading/loading_screen_subtle.tscn" id="4_xoado"]
 [ext_resource type="PackedScene" uid="uid://cc1fomjf362h5" path="res://addons/flowerwall_postprocess/scenes/flowerwall_pp.tscn" id="5_7rkj7"]
-[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://src/systems/movement/player_gui.tscn" id="5_luw6h"]
+[ext_resource type="PackedScene" uid="uid://c6il1s350bauj" path="res://src/systems/movement/global_gui.tscn" id="5_luw6h"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tktnw"]
 seamless = true
 
-[node name="SceneManager" type="Node"]
+[node name="SceneManager" type="Node" unique_id=2147019740]
 script = ExtResource("1_modcc")
 
-[node name="LoadManager" type="Node" parent="."]
+[node name="LoadingManager" type="Node" parent="." unique_id=482516069]
 unique_name_in_owner = true
 script = ExtResource("1_ujv7p")
 _load_screen_clear = ExtResource("3_thgg4")
 _load_screen_subtle = ExtResource("4_xoado")
 
-[node name="LevelHolder" type="Node" parent="."]
+[node name="LevelHolder" type="Node" parent="." unique_id=1771749308]
 unique_name_in_owner = true
 
-[node name="GuiCanvasLayer" type="CanvasLayer" parent="."]
+[node name="GuiCanvasLayer" type="CanvasLayer" parent="." unique_id=1302938566]
 layer = 128
 
-[node name="PauseScreen" parent="GuiCanvasLayer" instance=ExtResource("3_camo4")]
+[node name="PauseScreen" parent="GuiCanvasLayer" unique_id=1634170441 instance=ExtResource("3_camo4")]
 unique_name_in_owner = true
 
-[node name="DebugGui" parent="GuiCanvasLayer" instance=ExtResource("4_ckec2")]
+[node name="DebugGui" parent="GuiCanvasLayer" unique_id=1607401170 instance=ExtResource("4_ckec2")]
 visible = false
 
-[node name="PlayerGui" parent="GuiCanvasLayer" instance=ExtResource("5_luw6h")]
+[node name="GlobalGui" parent="GuiCanvasLayer" unique_id=112738640 instance=ExtResource("5_luw6h")]
 unique_name_in_owner = true
 
-[node name="PostProcessCanvasLayer" type="CanvasLayer" parent="."]
+[node name="PostProcessCanvasLayer" type="CanvasLayer" parent="." unique_id=1255643863]
 layer = 2
 
-[node name="flowerwall_pp" parent="PostProcessCanvasLayer" instance=ExtResource("5_7rkj7")]
+[node name="flowerwall_pp" parent="PostProcessCanvasLayer" unique_id=332313802 instance=ExtResource("5_7rkj7")]
 
-[node name="FilmGrain" type="TextureRect" parent="PostProcessCanvasLayer"]
+[node name="FilmGrain" type="TextureRect" parent="PostProcessCanvasLayer" unique_id=1968468807]
 visible = false
 material = ExtResource("3_7rkj7")
 anchors_preset = 15

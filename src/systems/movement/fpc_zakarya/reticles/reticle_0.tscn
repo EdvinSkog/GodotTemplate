@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://coqpusufa8a6k"]
+[gd_scene format=3 uid="uid://coqpusufa8a6k"]
 
 [ext_resource type="Script" uid="uid://b2y8ocp7qwxno" path="res://src/systems/movement/fpc_zakarya/reticles/reticle_0.gd" id="1_wwly2"]
 
-[node name="Reticle" type="CenterContainer"]
+[node name="Reticle" type="CenterContainer" unique_id=1693159847]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -12,5 +12,5 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wwly2")
 
-[node name="dot" type="Polygon2D" parent="."]
+[node name="dot" type="Polygon2D" parent="." unique_id=682364785]
 polygon = PackedVector2Array(-1, -1, 1, -1, 1, 1, -1, 1)

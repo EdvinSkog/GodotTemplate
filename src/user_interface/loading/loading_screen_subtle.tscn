@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqcw4yp0jiujg"]
+[gd_scene format=3 uid="uid://bqcw4yp0jiujg"]
 
 [ext_resource type="Script" uid="uid://c4jpjiog21yjw" path="res://src/user_interface/loading/loading_screen.gd" id="1_y30n1"]
 
@@ -92,18 +92,16 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_84y1j"]
 gradient = SubResource("Gradient_fsk4x")
 
-[node name="LoadingScreen" type="CanvasLayer"]
+[node name="LoadingScreen" type="CanvasLayer" unique_id=1805806457]
 layer = 10
 follow_viewport_enabled = true
 script = ExtResource("1_y30n1")
 await_player_input = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_nxhgp")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1462769907]
+libraries/ = SubResource("AnimationLibrary_nxhgp")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1630906482]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,7 +109,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel"]
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=846461551]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,7 +118,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_84y1j")
 
-[node name="LabelTitle" type="Label" parent="Panel"]
+[node name="LabelTitle" type="Label" parent="Panel" unique_id=907098636]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -138,7 +136,7 @@ pivot_offset = Vector2(134, 29)
 text = "LOADING"
 horizontal_alignment = 1
 
-[node name="LoadingBar" type="ProgressBar" parent="Panel"]
+[node name="LoadingBar" type="ProgressBar" parent="Panel" unique_id=1078865653]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -154,7 +152,7 @@ offset_bottom = 60.84
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LabelPress" type="Label" parent="Panel"]
+[node name="LabelPress" type="Label" parent="Panel" unique_id=1361622088]
 visible = false
 layout_mode = 1
 anchors_preset = 7

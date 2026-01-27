@@ -1,21 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://lul2tfnc24ix"]
+[gd_scene format=3 uid="uid://lul2tfnc24ix"]
 
 [ext_resource type="Script" uid="uid://cby6xcmtiqv36" path="res://src/components/snapview/snapview_component.gd" id="1_rctkl"]
 [ext_resource type="PackedScene" uid="uid://daumxjq7jnjp8" path="res://addons/shaky_camera_3d/shaky_camera_3d.tscn" id="2_rmy8g"]
 
-[node name="SnapviewComponent" type="Node3D" node_paths=PackedStringArray("exit_marker")]
+[node name="SnapviewComponent" type="Node3D" unique_id=1101653570 node_paths=PackedStringArray("exit_marker")]
 script = ExtResource("1_rctkl")
 exit_marker = NodePath("ExitMarker")
 
-[node name="ExitMarker" type="Marker3D" parent="."]
+[node name="ExitMarker" type="Marker3D" parent="." unique_id=1594026360]
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1263246032]
 
-[node name="Camera3D" parent="Head" instance=ExtResource("2_rmy8g")]
+[node name="Camera3D" parent="Head" unique_id=1109280016 instance=ExtResource("2_rmy8g")]
 unique_name_in_owner = true
 type_of_shake = 2
 
-[node name="ClickingRay" type="RayCast3D" parent="Head/Camera3D"]
+[node name="ClickingRay" type="RayCast3D" parent="Head/Camera3D" unique_id=1184766279]
 unique_name_in_owner = true
 collision_mask = 16
 collide_with_areas = true

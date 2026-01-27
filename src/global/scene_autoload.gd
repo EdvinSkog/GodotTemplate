@@ -3,12 +3,15 @@ extends Node
 signal level_changed
 
 ## References
-@onready var load: LoadManager = %LoadManager
+@onready var loading: LoadingManager = %LoadingManager
 @onready var level_holder = %LevelHolder
-@onready var player_gui: PlayerGui = %PlayerGui
+@onready var global_gui: GlobalGui = %GlobalGui
 @onready var pause_screen: PauseScreen = %PauseScreen
 var current_level: Node:
-	get: return %LevelHolder.get_child(0)
+	get: 
+		if %LevelHolder.get_child_count() <= 0:
+			return get_tree().current_scene
+		return %LevelHolder.get_child(0)
 var current_dialogue_balloon: DialogueBalloon
 
 
@@ -19,7 +22,7 @@ func _ready():
 	_connect_signals()
 
 func _connect_signals() -> void:
-	load.level_loaded.connect(add_new_level)
+	loading.level_loaded.connect(add_new_level)
 #endregion
 
 #region Level Management
@@ -34,9 +37,4 @@ func clear_level_holder() -> void: # not used
 
 func quit_game():
 	get_tree().quit()
-#endregion
-
-#region UI
-func _toggle_gameplay_ui(option : bool) -> void:
-	player_gui.visible = option
 #endregion

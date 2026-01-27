@@ -1,4 +1,4 @@
-class_name LoadManager extends Node
+class_name LoadingManager extends Node
 
 signal level_loaded(level: Node)
 
@@ -74,6 +74,7 @@ func load_scene_path(scene_path: String, style: Style = Style.SUBTLE, speed_mult
 	loaded_resources.append(level) # Store a reference if the instantiate doesn't get added as a child
 	level_loaded.emit(level)
 	state = State.READY
+	await get_tree().process_frame
 
 
 func _start_load() -> void:

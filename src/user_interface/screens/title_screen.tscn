@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://buyd1pr0u2e5"]
+[gd_scene format=3 uid="uid://buyd1pr0u2e5"]
 
 [ext_resource type="Script" uid="uid://o2dmaehinohs" path="res://src/user_interface/screens/title_screen.gd" id="1_d3lub"]
 
@@ -10,7 +10,7 @@ gradient = SubResource("Gradient_1lxcm")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="TitleScreen" type="Control"]
+[node name="TitleScreen" type="Control" unique_id=1474057613]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d3lub")
 
-[node name="BgTextureRect" type="TextureRect" parent="."]
+[node name="BgTextureRect" type="TextureRect" parent="." unique_id=111614108]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_c27j1")
 
-[node name="VSplitContainer" type="VBoxContainer" parent="."]
+[node name="VSplitContainer" type="VBoxContainer" parent="." unique_id=178582516]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,21 +43,21 @@ offset_bottom = 174.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VSplitContainer"]
+[node name="Label" type="Label" parent="VSplitContainer" unique_id=2122931236]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 74
 text = "Game Name"
 horizontal_alignment = 1
 
-[node name="ButtonContainer" type="VBoxContainer" parent="VSplitContainer"]
+[node name="ButtonContainer" type="VBoxContainer" parent="VSplitContainer" unique_id=1566128857]
 layout_mode = 2
 
-[node name="ButtonStart" type="Button" parent="VSplitContainer/ButtonContainer"]
+[node name="ButtonStart" type="Button" parent="VSplitContainer/ButtonContainer" unique_id=1658999774]
 layout_mode = 2
 text = "START"
 
-[node name="ButtonSettings" type="Button" parent="VSplitContainer/ButtonContainer"]
+[node name="ButtonSettings" type="Button" parent="VSplitContainer/ButtonContainer" unique_id=455688245]
 layout_mode = 2
 text = "SETTINGS"
 

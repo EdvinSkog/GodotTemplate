@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://mydth38oqmq6"]
+[gd_scene format=3 uid="uid://mydth38oqmq6"]
 
 [ext_resource type="Script" uid="uid://b7f3f5gpum2g1" path="res://src/user_interface/screens/settings_screen.gd" id="1_4vmje"]
 [ext_resource type="PackedScene" uid="uid://dsrpb41keqhsk" path="res://src/user_interface/settings/volume_slider.tscn" id="2_6l5l1"]
@@ -11,7 +11,7 @@ gradient = SubResource("Gradient_s6qg5")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="SettingsScreen" type="Control"]
+[node name="SettingsScreen" type="Control" unique_id=1227092382]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4vmje")
 
-[node name="BgTextureRect" type="TextureRect" parent="."]
+[node name="BgTextureRect" type="TextureRect" parent="." unique_id=1235820246]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_ejy1v")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=85842935]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,42 +44,42 @@ offset_bottom = 51.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxAudio" type="VBoxContainer" parent="VBoxContainer"]
+[node name="VBoxAudio" type="VBoxContainer" parent="VBoxContainer" unique_id=891860346]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxAudio"]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxAudio" unique_id=1614664943]
 layout_mode = 2
 text = "Audio"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="MasterLabel" type="Label" parent="VBoxContainer/VBoxAudio"]
+[node name="MasterLabel" type="Label" parent="VBoxContainer/VBoxAudio" unique_id=616887253]
 layout_mode = 2
 text = "Master"
 horizontal_alignment = 1
 
-[node name="MasterHSlider" parent="VBoxContainer/VBoxAudio" instance=ExtResource("2_6l5l1")]
+[node name="MasterHSlider" parent="VBoxContainer/VBoxAudio" unique_id=619554899 instance=ExtResource("2_6l5l1")]
 layout_mode = 2
 
-[node name="SfxLabel" type="Label" parent="VBoxContainer/VBoxAudio"]
+[node name="SfxLabel" type="Label" parent="VBoxContainer/VBoxAudio" unique_id=1942122831]
 layout_mode = 2
 text = "Sfx"
 horizontal_alignment = 1
 
-[node name="SfxHSlider" parent="VBoxContainer/VBoxAudio" instance=ExtResource("2_6l5l1")]
+[node name="SfxHSlider" parent="VBoxContainer/VBoxAudio" unique_id=1315021080 instance=ExtResource("2_6l5l1")]
 layout_mode = 2
 bus_name = "Sfx"
 
-[node name="MusicLabel" type="Label" parent="VBoxContainer/VBoxAudio"]
+[node name="MusicLabel" type="Label" parent="VBoxContainer/VBoxAudio" unique_id=677455042]
 layout_mode = 2
 text = "Music"
 horizontal_alignment = 1
 
-[node name="MusicHSlider" parent="VBoxContainer/VBoxAudio" instance=ExtResource("2_6l5l1")]
+[node name="MusicHSlider" parent="VBoxContainer/VBoxAudio" unique_id=1778702665 instance=ExtResource("2_6l5l1")]
 layout_mode = 2
 bus_name = "Music"
 
-[node name="ButtonReturn" type="Button" parent="VBoxContainer"]
+[node name="ButtonReturn" type="Button" parent="VBoxContainer" unique_id=1384625732]
 layout_mode = 2
 size_flags_vertical = 10
 text = "BACK"

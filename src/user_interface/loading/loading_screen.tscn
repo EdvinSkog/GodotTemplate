@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cinf601oc1mx3"]
+[gd_scene format=3 uid="uid://cinf601oc1mx3"]
 
 [ext_resource type="Script" uid="uid://c4jpjiog21yjw" path="res://src/user_interface/loading/loading_screen.gd" id="1_ngitd"]
 
@@ -139,17 +139,15 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_84y1j"]
 gradient = SubResource("Gradient_fsk4x")
 
-[node name="LoadingScreen" type="CanvasLayer"]
+[node name="LoadingScreen" type="CanvasLayer" unique_id=732719478]
 layer = 10
 follow_viewport_enabled = true
 script = ExtResource("1_ngitd")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_nxhgp")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1428407726]
+libraries/ = SubResource("AnimationLibrary_nxhgp")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1808827041]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -157,7 +155,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel"]
+[node name="TextureRect" type="TextureRect" parent="Panel" unique_id=339663374]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,7 +164,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_84y1j")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1258866043]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -181,17 +179,17 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="LabelTitle" type="Label" parent="Panel/VBoxContainer"]
+[node name="LabelTitle" type="Label" parent="Panel/VBoxContainer" unique_id=1434280753]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "LOADING"
 horizontal_alignment = 1
 
-[node name="LoadingBar" type="ProgressBar" parent="Panel/VBoxContainer"]
+[node name="LoadingBar" type="ProgressBar" parent="Panel/VBoxContainer" unique_id=1871032196]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="LabelPress" type="Label" parent="Panel"]
+[node name="LabelPress" type="Label" parent="Panel" unique_id=1895164091]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1

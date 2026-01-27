@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b2mmwykdp3qu"]
+[gd_scene format=3 uid="uid://b2mmwykdp3qu"]
 
 [ext_resource type="PackedScene" uid="uid://dtstjuyvgjw6n" path="res://src/systems/dialogue/balloons/basic_dialogue_balloon.tscn" id="1_t60ia"]
 
-[node name="SubtitlesBalloon" instance=ExtResource("1_t60ia")]
+[node name="SubtitlesBalloon" unique_id=2087916467 instance=ExtResource("1_t60ia")]
 automatic = true

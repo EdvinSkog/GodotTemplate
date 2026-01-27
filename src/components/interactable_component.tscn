@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://lufjoowlg60q"]
+[gd_scene format=3 uid="uid://lufjoowlg60q"]
 
 [ext_resource type="Script" uid="uid://w3g5mkvwcc87" path="res://src/components/interactable_component.gd" id="1_ofbw8"]
 
@@ -6,20 +6,20 @@
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
-[node name="InteractableComponent" type="Area2D" groups=["interactable"]]
+[node name="InteractableComponent" type="Area2D" unique_id=1689448785 groups=["interactable"]]
 collision_layer = 2
 collision_mask = 2
 monitoring = false
 script = ExtResource("1_ofbw8")
 
-[node name="Prompt" type="Node2D" parent="."]
+[node name="Prompt" type="Node2D" parent="." unique_id=1443143879]
 unique_name_in_owner = true
 visible = false
 
-[node name="Interact" type="Node2D" parent="Prompt"]
+[node name="Interact" type="Node2D" parent="Prompt" unique_id=867200380]
 unique_name_in_owner = true
 
-[node name="Label" type="Label" parent="Prompt/Interact"]
+[node name="Label" type="Label" parent="Prompt/Interact" unique_id=744563848]
 unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://drxwgqa03nbls"]
+[gd_scene format=3 uid="uid://drxwgqa03nbls"]
 
 [ext_resource type="Script" uid="uid://bmywfuevlp0mk" path="res://src/user_interface/screens/pause_screen.gd" id="1_7j5qp"]
 [ext_resource type="Script" uid="uid://snkwqpwojvds" path="res://src/user_interface/screens/pause_handler.gd" id="2_hmc51"]
@@ -10,7 +10,7 @@ colors = PackedColorArray(0, 0, 0, 0.24313726)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_hmc51"]
 gradient = SubResource("Gradient_7j5qp")
 
-[node name="PauseScreen" type="Control"]
+[node name="PauseScreen" type="Control" unique_id=1178452452]
 process_mode = 2
 process_priority = 1
 layout_mode = 3
@@ -21,11 +21,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7j5qp")
 
-[node name="PauseHandler" type="Node" parent="."]
+[node name="PauseHandler" type="Node" parent="." unique_id=1912358430]
 process_mode = 3
 script = ExtResource("2_hmc51")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=589023220]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_hmc51")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=676217941]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -48,12 +48,12 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ReturnButton" type="Button" parent="VBoxContainer"]
+[node name="ReturnButton" type="Button" parent="VBoxContainer" unique_id=1862990380]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
 text = "Return"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1718381736]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
 text = "Quit"

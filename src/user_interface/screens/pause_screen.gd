@@ -3,6 +3,8 @@ class_name PauseScreen extends Control
 @export var enabled: bool = true
 @onready var handler: PauseHandler = $PauseHandler
 
+## Store the most recent mouse mode
+var last_mouse_mode: Input.MouseMode
 
 func _ready() -> void:
 	unpause()
@@ -10,11 +12,12 @@ func _ready() -> void:
 func pause() -> void:
 	if !enabled:
 		return
+	last_mouse_mode = Input.mouse_mode
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	show()
 
 func unpause() -> void:
-	Input.mouse_mode = Player.mouse_mode
+	Input.mouse_mode = last_mouse_mode
 	hide()
 	get_tree().paused = false
 
