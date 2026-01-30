@@ -1,10 +1,12 @@
 @icon("res://assets/icons/godot_skull.png")
 extends Node
 
-var game_time: float = 0
+@export_group("References")
+@export var save: SaveManager
+@export var settings: SettingsManager
+@export var ref_data: DataHandler
 
-# References
-@onready var data: DataManager = %DataManager
+var game_time: float = 0
 
 func _ready() -> void:
 	pass

@@ -78,11 +78,11 @@ func load_scene_path(scene_path: String, style: Style = Style.SUBTLE, speed_mult
 
 
 func _start_load() -> void:
-	var state = ResourceLoader.load_threaded_request(_scene_path, "", use_sub_threads)
-	if state == OK:
+	var _state = ResourceLoader.load_threaded_request(_scene_path, "", use_sub_threads)
+	if _state == OK:
 		set_process(true)
 
-func _process(delta):
+func _process(_delta):
 	var load_status = ResourceLoader.load_threaded_get_status(_scene_path, _progress)
 	match load_status:
 		0, 2: #? THREAT_LOAD_INVALID_RESOURCE, THREAD_LOAD_FAILED

@@ -1,6 +1,6 @@
 extends Control
 
-@export_enum("Game", "PlayerVariables") var what_script = 0
+@export_enum("Game", "Player") var what_script = 0
 @export var what_property: String
 @export var custom_text: String
 var selected_script
@@ -21,6 +21,6 @@ func _ready():
 			selected_script = Player
 	expression.parse(what_property) # Security risk?
 
-func _process(delta):
+func _process(_delta):
 	var result = expression.execute([], selected_script)
 	label_value.text = str(result)

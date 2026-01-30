@@ -1,10 +1,12 @@
 extends Control
 
+@export var map_key: StringName = &"test"
+
 signal started_pressed
 signal settings_pressed
 
 func _on_button_start_pressed() -> void:
-	Scene.loading.load_scene_path("res://src/maps/test_level.tscn")
+	Scene.load_map(map_key)
 	started_pressed.emit()
 
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bv5vvs1nxjg8m"]
 
-[ext_resource type="Script" uid="uid://b38fn8dlm1qsx" path="res://src/maps/test_level.gd" id="1_ppvos"]
+[ext_resource type="Script" uid="uid://b38fn8dlm1qsx" path="res://src/maps/3d/test_map.gd" id="1_ppvos"]
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://src/systems/movement/fpc_zakarya/first_person_controller.tscn" id="2_1v0db"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="6_3b5s3"]
 
@@ -12,9 +12,10 @@ sky_material = SubResource("PanoramaSkyMaterial_gaxfg")
 
 [sub_resource type="Environment" id="Environment_b8kec"]
 background_mode = 1
-background_color = Color(0.73015, 0.448589, 0.905912, 1)
+background_color = Color(0.55730194, 0.6644897, 0.7294726, 1)
 sky = SubResource("Sky_hh17t")
 sky_custom_fov = 41.7
+ssao_enabled = true
 fog_enabled = true
 fog_light_color = Color(0.566461, 0.404872, 0.323522, 1)
 fog_light_energy = 1.12
@@ -46,15 +47,26 @@ sky_mode = 2
 [node name="Graphics" type="Node3D" parent="." unique_id=1260722816]
 transform = Transform3D(1, -1.65912e-11, 0, -1.9277e-11, 1, -2.91038e-11, -7.27596e-12, 2.91038e-11, 1, 0, 0, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Graphics" unique_id=1684168333]
+[node name="Floor" type="CSGBox3D" parent="Graphics" unique_id=1684168333]
 transform = Transform3D(1, -1.65912e-11, 0, -1.92735e-11, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_v0eb2")
 use_collision = true
 size = Vector3(50, 1, 50)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Graphics" unique_id=202385069]
-transform = Transform3D(1, 1.92202e-11, 1.23691e-10, -1.92202e-11, 1, -4.94765e-10, -1.23691e-10, 4.94765e-10, 1, -1.07627, 2.10075, -17.7816)
-size = Vector3(3.15088, 1, 1)
+transform = Transform3D(1, -1.6175505e-11, 1.2369128e-10, -1.884004e-11, 1, -3.8417056e-09, -9.604264e-10, 3.8417056e-09, 1, -1.0762703, 1.2523613, -18.693956)
+use_collision = true
+size = Vector3(3.15088, 2.6967773, 2.824707)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Graphics" unique_id=1190456996]
+transform = Transform3D(1, -1.5951684e-11, 1.2369128e-10, -1.8602009e-11, 1, -5.9371814e-09, -1.4842954e-09, 5.9371814e-09, 1, 2.034626, 1.6956908, -18.694294)
+use_collision = true
+size = Vector3(3.15088, 3.58667, 2.824707)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Graphics" unique_id=1160989008]
+transform = Transform3D(1, -1.5837998e-11, 1.2369128e-10, -1.848477e-11, 1, -6.9849193e-09, -1.7462298e-09, 6.9849193e-09, 1, -4.241769, 0.74320316, -18.693619)
+use_collision = true
+size = Vector3(3.15088, 1.6751709, 2.824707)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=931840883]
-transform = Transform3D(-0.951663, 0.0748783, 0.297877, 0.173156, 0.931813, 0.318968, -0.253682, 0.35513, -0.899738, -0.000226532, 3.50245, -18.9348)
+transform = Transform3D(-0.9516629, 0.07487835, 0.2978771, 0.17315593, 0.9318131, 0.31896874, -0.253682, 0.35513, -0.8997377, 10.800766, 4.479863, -18.935522)

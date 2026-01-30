@@ -108,7 +108,7 @@ func _ready() -> void:
 		Player.fpc = self
 	else:
 		queue_free()
-	Scene.level_changed.connect(_on_level_changed)
+	Scene.map_changed.connect(_on_level_changed)
 	# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
 	HEAD.rotation.y = rotation.y
 	rotation.y = 0

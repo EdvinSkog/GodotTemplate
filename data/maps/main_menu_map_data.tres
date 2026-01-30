@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://dkj10l4pk0g25"]
+
+[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="2_4wwln"]
+
+[resource]
+script = ExtResource("2_4wwln")
+key = "main_menu"
+scene_path = "uid://cwij3bn2l5cmq"
+metadata/_custom_type_script = "uid://0bv2hcbpeubi"

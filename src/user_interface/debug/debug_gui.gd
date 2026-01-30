@@ -2,7 +2,6 @@ extends Control
 
 
 @export var enable_debug_ui: bool = false
-@export var debug_labels: Array[String]
 
 @onready var cheats: MenuButton = $VBoxContainer/CheatMenu
 @onready var cheats_popup: PopupMenu = cheats.get_popup()

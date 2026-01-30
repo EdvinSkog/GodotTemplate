@@ -4,10 +4,10 @@ extends HSlider
 
 var bus_index
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	bus_index = AudioServer.get_bus_index(bus_name)
-	value = db_to_linear(AudioServer.get_bus_volume_db(bus_index))
+	var volume_db: float = AudioServer.get_bus_volume_db(bus_index)
+	value = db_to_linear(volume_db)
 
 func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))

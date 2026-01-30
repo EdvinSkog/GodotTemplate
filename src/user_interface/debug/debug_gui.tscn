@@ -13,6 +13,7 @@ Label/colors/font_outline_color = Color(0.734588, 0.547854, 0.0191133, 1)
 Label/constants/outline_size = 2
 
 [node name="DebugGui" type="Control" unique_id=1537948361]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,7 +23,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_2jdub")
 script = ExtResource("2_es43l")
-debug_labels = Array[String]([""])
+enable_debug_ui = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1857568121]
 layout_mode = 0
@@ -34,28 +35,21 @@ layout_mode = 2
 
 [node name="DebugLabel" parent="VBoxContainer/HBoxContainer" unique_id=1771067620 instance=ExtResource("3_88brd")]
 layout_mode = 2
+mouse_filter = 2
 what_property = "game_time"
 custom_text = "time of game"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer" unique_id=927136669]
 layout_mode = 2
-
-[node name="DebugLabel2" parent="VBoxContainer/HBoxContainer" unique_id=679656761 instance=ExtResource("3_88brd")]
-layout_mode = 2
-what_script = 1
-what_property = "aiming_at"
-
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer" unique_id=44270402]
-layout_mode = 2
+mouse_filter = 2
 
 [node name="CheatMenu" type="MenuButton" parent="VBoxContainer" unique_id=776142891]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"DebugMenuButton"
 toggle_mode = false
 keep_pressed_outside = true
-text = "Cheats"
+text = "CHEATS"
 flat = false
 switch_on_hover = true
 item_count = 3
@@ -64,5 +58,4 @@ popup/item_0/id = 0
 popup/item_1/text = "Cheat 2"
 popup/item_1/id = 1
 popup/item_2/text = "Cheat 3"
-popup/item_2/checkable = 1
 popup/item_2/id = 2

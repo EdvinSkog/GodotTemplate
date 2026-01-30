@@ -3,3 +3,5 @@ However, currently I define a "menu" as a type of Map, i.e. the main menu with t
 This is because of how a menu can act as the area for the player to navigate, if that makes sense.
 This is subject to change if it turns out to be confusing.
 A lengthy cutscene could potentially also be contained as a single map
+
+This is sorta how Unity's "Scene" works.

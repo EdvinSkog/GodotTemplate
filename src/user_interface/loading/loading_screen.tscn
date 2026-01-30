@@ -38,7 +38,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -148,7 +148,6 @@ script = ExtResource("1_ngitd")
 libraries/ = SubResource("AnimationLibrary_nxhgp")
 
 [node name="Panel" type="Panel" parent="." unique_id=1808827041]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

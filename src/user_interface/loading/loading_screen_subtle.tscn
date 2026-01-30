@@ -26,7 +26,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_g8dlt"]
@@ -102,7 +102,6 @@ await_player_input = false
 libraries/ = SubResource("AnimationLibrary_nxhgp")
 
 [node name="Panel" type="Panel" parent="." unique_id=1630906482]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

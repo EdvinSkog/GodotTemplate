@@ -22,7 +22,7 @@ script = ExtResource("1_ujv7p")
 _load_screen_clear = ExtResource("3_thgg4")
 _load_screen_subtle = ExtResource("4_xoado")
 
-[node name="LevelHolder" type="Node" parent="." unique_id=1771749308]
+[node name="MapHolder" type="Node" parent="." unique_id=1771749308]
 unique_name_in_owner = true
 
 [node name="GuiCanvasLayer" type="CanvasLayer" parent="." unique_id=1302938566]
@@ -31,11 +31,10 @@ layer = 128
 [node name="PauseScreen" parent="GuiCanvasLayer" unique_id=1634170441 instance=ExtResource("3_camo4")]
 unique_name_in_owner = true
 
-[node name="DebugGui" parent="GuiCanvasLayer" unique_id=1607401170 instance=ExtResource("4_ckec2")]
-visible = false
-
 [node name="GlobalGui" parent="GuiCanvasLayer" unique_id=112738640 instance=ExtResource("5_luw6h")]
 unique_name_in_owner = true
+
+[node name="DebugGui" parent="GuiCanvasLayer" unique_id=1607401170 instance=ExtResource("4_ckec2")]
 
 [node name="PostProcessCanvasLayer" type="CanvasLayer" parent="." unique_id=1255643863]
 layer = 2
