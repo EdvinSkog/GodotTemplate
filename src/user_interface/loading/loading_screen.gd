@@ -36,7 +36,7 @@ func _start_outro_animation() -> void:
 		$Panel/LabelPress.visible = false
 	_end()
 
-func _end():
+func _end() -> void:
 	state = State.FINISHED
 	finished_waiting.emit()
 	
@@ -48,7 +48,7 @@ func _end():
 func _update_progress_bar(new_value: float) -> void:
 	progress_bar.set_value_no_signal(new_value * 100)
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event is InputEventKey or event is InputEventScreenTouch:
 		if event.pressed:
 			pressed_key.emit()

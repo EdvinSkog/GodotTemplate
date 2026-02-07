@@ -23,21 +23,19 @@ var state: State = State.READY
 
 var use_sub_threads: bool = false
 
-func remove_dialogue_balloon(): 
-	if(Scene.current_dialogue_balloon != null):
-		Scene.current_dialogue_balloon.queue_free()
+
 
 #TODO Add a loader for map, instead of scene_path
 
 func load_scene_path(scene_path: String, style: Style = Style.SUBTLE, speed_multipler: float = 1) -> void:
-	remove_dialogue_balloon()
+	_remove_dialogue_balloon()
 	
 	if state != State.READY:
 		return
 	
 	if loaded_resources.size() > 1: # If there are many loaded levels
-		for node in loaded_resources:
-			if node != null:
+		for node: Node in loaded_resources:
+			if node != null and !node.is_queued_for_deletion():
 				node.queue_free()
 		loaded_resources.clear()
 	
@@ -78,11 +76,11 @@ func load_scene_path(scene_path: String, style: Style = Style.SUBTLE, speed_mult
 
 
 func _start_load() -> void:
-	var _state = ResourceLoader.load_threaded_request(_scene_path, "", use_sub_threads)
+	var _state := ResourceLoader.load_threaded_request(_scene_path, "", use_sub_threads)
 	if _state == OK:
 		set_process(true)
 
-func _process(_delta):
+func _process(_delta: float):
 	var load_status = ResourceLoader.load_threaded_get_status(_scene_path, _progress)
 	match load_status:
 		0, 2: #? THREAT_LOAD_INVALID_RESOURCE, THREAD_LOAD_FAILED
@@ -95,6 +93,10 @@ func _process(_delta):
 			progress_changed.emit(1.0)
 			set_process(false)
 			load_done.emit()
+
+func _remove_dialogue_balloon() -> void: 
+	if(Scene.current_dialogue_balloon != null):
+		Scene.current_dialogue_balloon.queue_free()
 
 func get_loading_screen_from_style(style: Style) -> LoadingScreen:
 	var screen: LoadingScreen

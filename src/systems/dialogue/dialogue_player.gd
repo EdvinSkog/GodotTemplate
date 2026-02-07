@@ -11,7 +11,7 @@ signal dialogue_finished
 signal title_finished(title: String)
 var balloon: DialogueBalloon
 
-func _ready():
+func _ready() -> void:
 	# Signal that is triggered when dialogue finishes
 	DialogueManager.dialogue_ended.connect(_on_dialogue_finished)
 	DialogueManager.passed_title.connect(_on_title_finished)
@@ -21,15 +21,15 @@ func _ready():
 		Style.SUBTITLES:
 			balloon_scene = load("res://scenes/systems/dialogue/balloons/subtitles_dialogue_balloon.tscn")
 
-func play(dialogue_part: String):
+func play(dialogue_part: String) -> void:
 	balloon = balloon_scene.instantiate()
 	Scene.current_dialogue_balloon = balloon #TODO: Export option for balloon parent
 	Scene.player_gui.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
 
-func _on_title_finished(title: String):
+func _on_title_finished(title: String) -> void:
 	title_finished.emit(title)
 
-func _on_dialogue_finished(used_resource):
+func _on_dialogue_finished(used_resource: DialogueResource) -> void:
 	if (used_resource == dialogue_resource):
 		dialogue_finished.emit()

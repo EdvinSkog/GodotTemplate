@@ -4,9 +4,6 @@
 [ext_resource type="Script" uid="uid://chbmvg7c3y6n6" path="res://src/global/save_manager.gd" id="2_l4rns"]
 [ext_resource type="Script" uid="uid://bd0vo4o0tdogm" path="res://src/global/data_handler.gd" id="3_jdx4b"]
 [ext_resource type="Script" uid="uid://dpepmvyoapguc" path="res://src/global/settings_manager.gd" id="3_knjja"]
-[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="4_qqimq"]
-[ext_resource type="Resource" uid="uid://dkj10l4pk0g25" path="res://data/maps/main_menu_map_data.tres" id="5_efy2r"]
-[ext_resource type="Resource" uid="uid://f5y3qkgnlduc" path="res://data/maps/test_map_data.tres" id="6_6w4qg"]
 
 [node name="GameManager" type="Node" unique_id=772911451 node_paths=PackedStringArray("save", "settings", "ref_data")]
 script = ExtResource("1_wqpky")
@@ -27,12 +24,6 @@ script = ExtResource("3_knjja")
 [node name="DataHandler" type="Node" parent="." unique_id=1961532795]
 process_mode = 4
 script = ExtResource("3_jdx4b")
-_music_folder_path = "res://assets/audio/music"
-_voice_folder_path = "res://assets/audio/voice"
-maps = Dictionary[StringName, ExtResource("4_qqimq")]({
-&"main_menu": ExtResource("5_efy2r"),
-&"test": ExtResource("6_6w4qg")
-})
 _maps_folder_path = "res://data/maps"
 
 [connection signal="timeout" from="TimerSecond" to="." method="_on_timer_second_timeout"]
