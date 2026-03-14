@@ -51,6 +51,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="My Template"
 
+[editor]
+
+script/templates_search_path="res://src/tools/script_templates"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")

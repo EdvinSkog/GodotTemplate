@@ -1,7 +1,7 @@
 @icon("res://assets/icons/godot_skull.png")
 extends Node
 
-@export_group("References")
+@export_group("Node References")
 @export var save: SaveManager
 @export var settings: SettingsManager
 @export var ref_data: DataHandler

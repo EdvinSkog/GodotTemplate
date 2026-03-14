@@ -1,0 +1,3 @@
+Empty file is needed here so that the folder is pushed onto Git.
+
+Feel free to remove file once a template is added.
