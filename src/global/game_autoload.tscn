@@ -5,10 +5,11 @@
 [ext_resource type="Script" uid="uid://dpepmvyoapguc" path="res://src/global/settings_manager.gd" id="3_knjja"]
 [ext_resource type="PackedScene" uid="uid://bn30qajonp73d" path="res://src/global/data_handler.tscn" id="4_s0gqd"]
 
-[node name="GameManager" type="Node" unique_id=772911451 node_paths=PackedStringArray("save", "settings")]
+[node name="GameManager" type="Node" unique_id=772911451 node_paths=PackedStringArray("save", "settings", "ref_data")]
 script = ExtResource("1_wqpky")
 save = NodePath("SaveManager")
 settings = NodePath("SettingsManager")
+ref_data = NodePath("DataHandler")
 
 [node name="TimerSecond" type="Timer" parent="." unique_id=640678471]
 autostart = true

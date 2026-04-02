@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b6dynlvbllatt"]
 
-[ext_resource type="Script" uid="uid://dw1usrqs312rf" path="res://src/components/clickable_component.gd" id="1_733io"]
+[ext_resource type="Script" uid="uid://dw1usrqs312rf" path="res://src/systems/interaction/clickable_component.gd" id="1_733io"]
 
 [node name="ClickableComponent" type="Area3D" unique_id=1609181202]
 collision_layer = 4

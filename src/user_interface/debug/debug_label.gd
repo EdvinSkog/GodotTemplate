@@ -1,16 +1,16 @@
 extends Control
 
-@export_enum("Game", "Player") var what_script = 0
+@export_enum("Game", "Player") var what_script := 0
 @export var what_property: String
 @export var custom_text: String
 var selected_script
-var expression = Expression.new()
+var expression: Expression = Expression.new()
 
 @onready var label_value: Label = $LabelValue
 @onready var label_property: Label = $LabelProperty
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	label_property.text = what_property + "="
 	if(!custom_text.is_empty()):
 		label_property.text = custom_text + "="
@@ -21,6 +21,6 @@ func _ready():
 			selected_script = Player
 	expression.parse(what_property) # Security risk?
 
-func _process(_delta):
-	var result = expression.execute([], selected_script)
+func _process(_delta: float) -> void:
+	var result: Variant = expression.execute([], selected_script)
 	label_value.text = str(result)

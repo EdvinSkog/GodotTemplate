@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cd4jfhkwm5uem"]
 
-[ext_resource type="Script" uid="uid://co36m6tddyryg" path="res://src/components/interactable_2d.gd" id="1_5mcch"]
-[ext_resource type="PackedScene" uid="uid://lufjoowlg60q" path="res://src/components/interactable_component.tscn" id="2_u33lt"]
+[ext_resource type="Script" uid="uid://co36m6tddyryg" path="res://src/systems/interaction/interactable_2d.gd" id="1_5mcch"]
+[ext_resource type="PackedScene" uid="uid://lufjoowlg60q" path="res://src/systems/interaction/interactable_component.tscn" id="2_u33lt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g1jfo"]
 outline_size = 4

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b38fn8dlm1qsx" path="res://src/maps/3d/debug/gym.gd" id="1_tp8te"]
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://src/systems/movement/fpc_zakarya/first_person_controller.tscn" id="2_aipm1"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="3_bh1g1"]
-[ext_resource type="PackedScene" uid="uid://dyy3h3c5pgem4" path="res://src/components/interactable_3d.tscn" id="4_f3cuj"]
+[ext_resource type="PackedScene" uid="uid://dyy3h3c5pgem4" path="res://src/systems/interaction/interactable_3d.tscn" id="4_f3cuj"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gaxfg"]
 panorama = ExtResource("3_bh1g1")

@@ -22,7 +22,7 @@ func _ready() -> void:
 
 func _reveal_loading_screen() -> void:
 	animation_player.play("fade_in")
-	await Signal(animation_player, "animation_finished")
+	await animation_player.animation_finished
 	loading_screen_has_full_coverage.emit() # Can also be called within the animationplayer
 	_start_loading_animation()
 
@@ -32,7 +32,7 @@ func _start_loading_animation() -> void:
 func _start_outro_animation() -> void:
 	if(await_player_input):
 		$Panel/LabelPress.visible = true
-		await Signal(self, "pressed_key")
+		await pressed_key
 		$Panel/LabelPress.visible = false
 	_end()
 
@@ -42,8 +42,8 @@ func _end() -> void:
 	
 	if(play_end_animation):
 		animation_player.queue("end_load")
-		await Signal(animation_player, "animation_finished")
-	self.queue_free()
+		await animation_player.animation_finished
+	queue_free()
 
 func _update_progress_bar(new_value: float) -> void:
 	progress_bar.set_value_no_signal(new_value * 100)

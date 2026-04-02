@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c44j4xmaixh2d"]
 
-[ext_resource type="Script" uid="uid://b73pjp7pap3k7" path="res://src/components/snapview/snapview_focus.gd" id="1_fitkk"]
+[ext_resource type="Script" uid="uid://b73pjp7pap3k7" path="res://src/systems/movement/snapview/snapview_focus.gd" id="1_fitkk"]
 
 [node name="SnapviewFocus" type="Marker3D" unique_id=1821860866]
 script = ExtResource("1_fitkk")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dw0v86vxny6wb"]
 
-[ext_resource type="Script" uid="uid://rhkwigd1bos" path="res://src/systems/movement/interacter_3d.gd" id="1_g6dwk"]
+[ext_resource type="Script" uid="uid://rhkwigd1bos" path="res://src/systems/interaction/interacter_3d.gd" id="1_g6dwk"]
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_16t4v"]
 length = 5.0

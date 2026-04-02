@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dyy3h3c5pgem4"]
 
-[ext_resource type="Script" uid="uid://cu561thmgkga6" path="res://src/components/interactable_3d.gd" id="1_pxl07"]
-[ext_resource type="PackedScene" uid="uid://lufjoowlg60q" path="res://src/components/interactable_component.tscn" id="2_f2hi1"]
+[ext_resource type="Script" uid="uid://cu561thmgkga6" path="res://src/systems/interaction/interactable_3d.gd" id="1_pxl07"]
+[ext_resource type="PackedScene" uid="uid://lufjoowlg60q" path="res://src/systems/interaction/interactable_component.tscn" id="2_f2hi1"]
 
 [node name="Interactable3D" type="Area3D" unique_id=814022981 node_paths=PackedStringArray("prompt_visual")]
 collision_layer = 2

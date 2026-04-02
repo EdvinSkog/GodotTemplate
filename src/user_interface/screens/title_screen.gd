@@ -1,6 +1,6 @@
 extends Control
 
-@export var map_key: StringName = &"test"
+@export var map_key: StringName = &"gym"
 
 signal started_pressed
 signal settings_pressed

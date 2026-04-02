@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://lul2tfnc24ix"]
 
-[ext_resource type="Script" uid="uid://cby6xcmtiqv36" path="res://src/components/snapview/snapview_component.gd" id="1_rctkl"]
+[ext_resource type="Script" uid="uid://cby6xcmtiqv36" path="res://src/systems/movement/snapview/snapview_component.gd" id="1_rctkl"]
 [ext_resource type="PackedScene" uid="uid://daumxjq7jnjp8" path="res://addons/shaky_camera_3d/shaky_camera_3d.tscn" id="2_rmy8g"]
 
 [node name="SnapviewComponent" type="Node3D" unique_id=1101653570 node_paths=PackedStringArray("exit_marker")]

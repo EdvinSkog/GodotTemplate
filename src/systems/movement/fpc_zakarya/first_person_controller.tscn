@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" uid="uid://hynhkebmrw52" path="res://src/systems/movement/fpc_zakarya/first_person_controller.gd" id="1_0t4e8"]
-[ext_resource type="PackedScene" uid="uid://dw0v86vxny6wb" path="res://src/systems/movement/interacter_3d.tscn" id="2_hr6nv"]
+[ext_resource type="PackedScene" uid="uid://dw0v86vxny6wb" path="res://src/systems/interaction/interacter_3d.tscn" id="2_hr6nv"]
 [ext_resource type="Script" uid="uid://b422ib88t47h4" path="res://src/systems/movement/fpc_zakarya/EditorModule.gd" id="3_v3ckk"]
 [ext_resource type="Script" uid="uid://beisprf5c50yg" path="res://src/systems/movement/fpc_zakarya/debug.gd" id="3_x1wcc"]
 
@@ -478,6 +478,3 @@ unique_name_in_owner = true
 volume_db = -18.0
 pitch_scale = 0.55
 max_polyphony = 2
-
-[connection signal="found_interactable" from="Head/Camera/Interacter" to="." method="_on_interacter_found_interactable"]
-[connection signal="left_interactable" from="Head/Camera/Interacter" to="." method="_on_interacter_left_interactable"]
