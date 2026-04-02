@@ -6,7 +6,7 @@ extends Control
 @onready var cheats: MenuButton = $VBoxContainer/CheatMenu
 @onready var cheats_popup: PopupMenu = cheats.get_popup()
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	if(enable_debug_ui):
 		visible = true
 	else:
@@ -14,7 +14,7 @@ func _ready():
 		visible = false
 	cheats_popup.id_pressed.connect(check_popup_id)
 
-func check_popup_id(id):
+func check_popup_id(id) -> void:
 	print(id)
 	match id:
 		0:

@@ -1,27 +1,24 @@
-class_name Interactable extends Area3D
+class_name InteractableComponent extends Node
 
-signal prompted_interaction
+signal prompt_toggled(toggled: bool)
 signal interacted
-@export var interactable: bool = true
-@export var interact_label: String = "INTERACT"
-var _prompted: bool = false
 
+var enabled: bool = true:
+	set(val):
+		enabled = val
+		if !enabled:
+			toggle_prompt(false)
 
-func _ready() -> void:
-	%Label.text = interact_label
-	if !interactable:
-		%Interact.hide()
+var prompted: bool = false:
+	set(value):
+		if prompted == value: return # No Change
+		prompted = value
+		prompt_toggled.emit(prompted)
 
 func interact() -> void:
-	if !interactable:
-		return
+	if !enabled: return
 	interacted.emit()
 
 func toggle_prompt(option: bool) -> void:
-	if option:
-		_prompted = true
-		%Prompt.show()
-		
-	else: 
-		_prompted = false
-		%Prompt.hide()
+	if !enabled: return
+	prompted = option

@@ -428,15 +428,15 @@ func _unhandled_input(event : InputEvent) -> void:
 				$UserInterface/DebugPanel.visible = !$UserInterface/DebugPanel.visible
 
 #region Interact
-var latest_interactable: Interactable
-func _on_interacter_found_interactable(interactable: Interactable) -> void:
+var latest_interactable: Interactable3D
+func _on_interacter_found_interactable(interactable: Interactable3D) -> void:
 	if latest_interactable != null:
 		latest_interactable.toggle_prompt(false)
 	latest_interactable = interactable
 	latest_interactable.toggle_prompt(true)
 
 
-func _on_interacter_left_interactable(interactable: Interactable) -> void:
+func _on_interacter_left_interactable(interactable: Interactable3D) -> void:
 	interactable.toggle_prompt(false)
 	latest_interactable = null
 

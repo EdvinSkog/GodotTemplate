@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cd4jfhkwm5uem"]
+
+[ext_resource type="Script" uid="uid://co36m6tddyryg" path="res://src/components/interactable_2d.gd" id="1_5mcch"]
+[ext_resource type="PackedScene" uid="uid://lufjoowlg60q" path="res://src/components/interactable_component.tscn" id="2_u33lt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g1jfo"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Interactable2D" type="Area2D" unique_id=2120920942 node_paths=PackedStringArray("prompt_visual")]
+collision_layer = 2
+collision_mask = 2
+monitoring = false
+script = ExtResource("1_5mcch")
+prompt_visual = NodePath("Prompt")
+
+[node name="InteractableComponent" parent="." unique_id=1689448785 instance=ExtResource("2_u33lt")]
+unique_name_in_owner = true
+
+[node name="Prompt" type="Node2D" parent="." unique_id=2090773717]
+unique_name_in_owner = true
+visible = false
+
+[node name="Label" type="Label" parent="Prompt" unique_id=1468269785]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -9.5
+offset_right = 54.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "INTERACT"
+label_settings = SubResource("LabelSettings_g1jfo")
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="interacted" from="InteractableComponent" to="." method="_on_interactable_component_interacted"]
+[connection signal="prompt_toggled" from="InteractableComponent" to="." method="_on_interactable_component_prompt_toggled"]

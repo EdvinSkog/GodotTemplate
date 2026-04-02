@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dyy3h3c5pgem4"]
+
+[ext_resource type="Script" uid="uid://cu561thmgkga6" path="res://src/components/interactable_3d.gd" id="1_pxl07"]
+[ext_resource type="PackedScene" uid="uid://lufjoowlg60q" path="res://src/components/interactable_component.tscn" id="2_f2hi1"]
+
+[node name="Interactable3D" type="Area3D" unique_id=814022981 node_paths=PackedStringArray("prompt_visual")]
+collision_layer = 2
+collision_mask = 2
+monitoring = false
+script = ExtResource("1_pxl07")
+prompt_visual = NodePath("Prompt")
+
+[node name="InteractableComponent" parent="." unique_id=1689448785 instance=ExtResource("2_f2hi1")]
+unique_name_in_owner = true
+
+[node name="Prompt" type="Node3D" parent="." unique_id=1451438051]
+unique_name_in_owner = true
+visible = false
+
+[node name="Label" type="Label3D" parent="Prompt" unique_id=241711723]
+unique_name_in_owner = true
+billboard = 1
+text = "INTERACT"
+
+[connection signal="interacted" from="InteractableComponent" to="." method="_on_interactable_component_interacted"]
+[connection signal="prompt_toggled" from="InteractableComponent" to="." method="_on_interactable_component_prompt_toggled"]

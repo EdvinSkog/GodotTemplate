@@ -44,6 +44,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="CheatMenu" type="MenuButton" parent="VBoxContainer" unique_id=776142891]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_type_variation = &"DebugMenuButton"
