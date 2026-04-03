@@ -8,27 +8,28 @@ var _map_list: Dictionary[StringName, MapData]:
 
 ## References
 @onready var loading: LoadingManager = %LoadingManager
-@onready var map_holder = %MapHolder
+@onready var map_holder: Node = %MapHolder
 
 @onready var global_gui: GlobalGui = %GlobalGui
 @onready var pause_screen: PauseScreen = %PauseScreen
 
-var current_level: Node:
-	get: 
-		if %MapHolder.get_child_count() <= 0:
-			return get_tree().current_scene
-		return %MapHolder.get_child(0)
+## Current map.
+## Use the LoadingManager to have a smoother transition into a new map.
+var map: Node:
+	set = set_map
+
 var current_dialogue_balloon: DialogueBalloon
 
 
 #region Setup
-func _ready():
+func _ready()  -> void:
+	map = get_tree().current_scene
 	_setup()
 
 func _setup() -> void:
 	var current_scene: Node = get_tree().current_scene
 	current_scene.reparent.call_deferred(map_holder) #Reparent at end of frame
-	loading.level_loaded.connect(add_new_map)
+	loading.level_loaded.connect(set_map)
 #endregion
 
 #region Map Management
@@ -40,10 +41,12 @@ func load_map(key: StringName) -> void:
 	var data: MapData = _map_list.get(key)
 	loading.load_scene_path(data.scene_path)
 
-func add_new_map(map: Node) -> void:
+func set_map(new_map: Node) -> void:
 	_clear_map_holder()
+	map = new_map
 	map_holder.add_child(map)
 	map_changed.emit()
+	
 
 func _clear_map_holder() -> void: # not used
 	for child: Node in %MapHolder.get_children():
@@ -51,5 +54,5 @@ func _clear_map_holder() -> void: # not used
 
 #endregion
 
-func quit_game():
+func quit_game() -> void:
 	get_tree().quit()

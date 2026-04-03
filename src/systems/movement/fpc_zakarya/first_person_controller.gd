@@ -47,8 +47,6 @@ class_name FirstPersonController extends CharacterBody3D
 @export var RIGHT : String = "move_right"
 @export var FORWARD : String = "move_forward"
 @export var BACKWARD : String = "move_backward"
-## By default this does not pause the game, but that can be changed in _process.
-@export var PAUSE : String = "ui_cancel"
 @export var CROUCH : String = "crouch"
 @export var SPRINT : String = "sprint"
 @export var INTERACT : String = "interact"
@@ -80,8 +78,6 @@ class_name FirstPersonController extends CharacterBody3D
 @export var view_bobbing : bool = true
 ## Enables an immersive animation when the player jumps and hits the ground.
 @export var jump_animation : bool = true
-## This determines wether the player can use the pause button, not wether the game will actually pause.
-@export var pausing_enabled : bool = true
 ## Use with caution.
 @export var gravity_enabled : bool = true
 
@@ -108,7 +104,7 @@ func _ready() -> void:
 		Player.fpc = self
 	else:
 		queue_free()
-	Scene.map_changed.connect(_on_level_changed)
+	Scene.map_changed.connect(_on_map_changed)
 	# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
 	HEAD.rotation.y = rotation.y
 	rotation.y = 0
@@ -125,7 +121,7 @@ func _ready() -> void:
 	check_controls()
 	toggle_active(true)
 
-func _on_level_changed() -> void:
+func _on_map_changed() -> void:
 	await tree_entered # Camera might be overtaken on higher child order
 	toggle_active(true)
 
@@ -162,9 +158,6 @@ func check_controls() -> void: # If you add a control, you might want to add a c
 	if !InputMap.has_action(BACKWARD):
 		push_error("No control mapped for move backward. Please add an input map control. Disabling movement.")
 		immobile = true
-	if !InputMap.has_action(PAUSE):
-		push_error("No control mapped for pause. Please add an input map control. Disabling pausing.")
-		pausing_enabled = false
 	if !InputMap.has_action(CROUCH):
 		push_error("No control mapped for crouch. Please add an input map control. Disabling crouching.")
 		crouch_enabled = false
@@ -187,16 +180,15 @@ func remove_reticle() -> void:
 func _physics_process(delta: float) -> void:
 	# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
 	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
-	%DebugPanel.add_property("Speed", snappedf(current_speed, 0.001), 1)
-	%DebugPanel.add_property("Target speed", speed, 2)
-	var cv : Vector3 = get_real_velocity()
-	var vd : Array[float] = [
-		snappedf(cv.x, 0.001),
-		snappedf(cv.y, 0.001),
-		snappedf(cv.z, 0.001)
-	]
-	var readable_velocity : String = "X: " + str(vd[0]) + " Y: " + str(vd[1]) + " Z: " + str(vd[2])
-	%DebugPanel.add_property("Velocity", readable_velocity, 3)
+
+	#var cv : Vector3 = get_real_velocity()
+	#var vd : Array[float] = [
+		#snappedf(cv.x, 0.001),
+		#snappedf(cv.y, 0.001),
+		#snappedf(cv.z, 0.001)
+	#]
+	#var readable_velocity : String = "X: " + str(vd[0]) + " Y: " + str(vd[1]) + " Z: " + str(vd[2])
+	#
 	
 	# Gravity
 	#gravity = ProjectSettings.get_setting("physics/3d/default_gravity") # If the gravity changes during your game, uncomment this code
@@ -395,22 +387,6 @@ func headbob_animation(moving: Vector2) -> void:
 
 
 func _process(_delta: float) -> void:
-	$UserInterface/DebugPanel.add_property("FPS", Performance.get_monitor(Performance.TIME_FPS), 0)
-	var status : String = state
-	if !is_on_floor():
-		status += " in the air"
-	$UserInterface/DebugPanel.add_property("State", status, 4)
-	
-	if pausing_enabled:
-		if Input.is_action_just_pressed(PAUSE):
-			# You may want another node to handle pausing, because this player may get paused too.
-			match Input.mouse_mode:
-				Input.MOUSE_MODE_CAPTURED:
-					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-					#get_tree().paused = false
-				Input.MOUSE_MODE_VISIBLE:
-					Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-					#get_tree().paused = false
 	if interact_enabled and latest_interactable != null:
 		if Input.is_action_just_pressed("interact"):
 			latest_interactable.interact()
