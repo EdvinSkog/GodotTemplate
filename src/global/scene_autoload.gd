@@ -44,7 +44,10 @@ func load_map(key: StringName) -> void:
 func set_map(new_map: Node) -> void:
 	_clear_map_holder()
 	map = new_map
-	map_holder.add_child(map)
+	if map.get_parent() == null:
+		map_holder.add_child(map)
+	else:
+		map.reparent(map_holder)
 	map_changed.emit()
 	
 
