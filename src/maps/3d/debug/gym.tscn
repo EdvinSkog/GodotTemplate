@@ -42,8 +42,9 @@ transform = Transform3D(1, -1.6591173e-11, 0, -1.9277024e-11, 1, -2.910383e-11, 
 environment = SubResource("Environment_b8kec")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1835148686]
-transform = Transform3D(0.861204, 0.50826, -8.14388e-08, 0.484661, -0.821218, -0.301172, -0.153074, 0.25937, -0.95357, 0, 26.4795, 0)
-sky_mode = 2
+transform = Transform3D(0.8612039, 0.50825965, -6.2182085e-07, -0.38308147, 0.6491002, 0.6572044, 0.3340309, -0.56598645, 0.7537126, 0, 26.4795, 0)
+shadow_enabled = true
+sky_mode = 1
 
 [node name="Graphics" type="Node3D" parent="." unique_id=1260722816]
 transform = Transform3D(1, -1.65912e-11, 0, -1.9277e-11, 1, -2.91038e-11, -7.27596e-12, 2.91038e-11, 1, 0, 0, 0)
@@ -52,7 +53,7 @@ transform = Transform3D(1, -1.65912e-11, 0, -1.9277e-11, 1, -2.91038e-11, -7.275
 transform = Transform3D(1, -1.65912e-11, 0, -1.92735e-11, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_v0eb2")
 use_collision = true
-size = Vector3(50, 1, 50)
+size = Vector3(200, 1, 200)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Graphics" unique_id=202385069]
 transform = Transform3D(1, -1.6175505e-11, 1.2369128e-10, -1.884004e-11, 1, -3.8417056e-09, -9.604264e-10, 3.8417056e-09, 1, -1.0762703, 1.2523613, -18.693956)
@@ -63,6 +64,11 @@ size = Vector3(3.15088, 2.6967773, 2.824707)
 transform = Transform3D(1, -1.5951684e-11, 1.2369128e-10, -1.8602009e-11, 1, -5.9371814e-09, -1.4842954e-09, 5.9371814e-09, 1, 2.034626, 1.6956908, -18.694294)
 use_collision = true
 size = Vector3(3.15088, 3.58667, 2.824707)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Graphics" unique_id=2104568477]
+transform = Transform3D(0.8963473, -0.0001471388, 0.4433527, 0.00025489222, 0.99999994, -0.00018344999, -0.44335264, 0.00027744204, 0.89634717, -16.856503, 11.940935, -90.993256)
+use_collision = true
+size = Vector3(68.861176, 24.011597, 2.824707)
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="Graphics" unique_id=1160989008]
 transform = Transform3D(1, -1.5837998e-11, 1.2369128e-10, -1.848477e-11, 1, -6.9849193e-09, -1.7462298e-09, 6.9849193e-09, 1, -4.241769, 0.74320316, -18.693619)

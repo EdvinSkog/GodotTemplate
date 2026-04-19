@@ -17,6 +17,7 @@ autostart = true
 [node name="SaveManager" type="Node" parent="." unique_id=1709126167]
 unique_name_in_owner = true
 script = ExtResource("2_l4rns")
+use_save_files = false
 
 [node name="SettingsManager" type="Node" parent="." unique_id=910207195]
 script = ExtResource("3_knjja")

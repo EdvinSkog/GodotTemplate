@@ -1,7 +1,5 @@
 class_name SaveManager extends Node
 
-#NOTE: Might rename to FileManager?
-
 signal dictionary_structure_completed
 signal completed_setup
 
@@ -12,25 +10,44 @@ signal completed_setup
 const SETTINGS_FILE_PATH: String = "user://" + "settings.json"
 var playthrough_file_path: String # Can have variation due to multiple playthroughs
 
+#TODO: Separate settings data from playthrough data
 const SAVE_FOLDER: String = "user://saves/"
 var save_files: PackedStringArray:
 	get:
 		return DirAccess.get_files_at(SAVE_FOLDER)
-		#NOTE Does not look for settings.json
 
 ## Savefile data is transferred into this dictionary vice-versa
 var playthrough_data: Dictionary
 var settings_data: Dictionary
 
-# Structures are used to validate the save file's contents.
+## Structures are used to validate the save file's contents.
+## The data compares to the structure so that keys are matching
+## They also represent default values.
+
+## For settings_data
 var settings_structure: Dictionary[StringName, Variant] = {
-	"max_fps": null,
-	"master_volume": null
+	"graphics":
+		{
+			"vsync": 1 # (ENUM based) 0 = disabled, 1 = enabled, 2 = adaptive
+		},
+	"display":
+		{
+			"max_fps": 144
+		},
+	"audio":
+		{
+			"master_volume": 1,
+			"music_volume": 1
+		}
 }
 
-## What the playthrough_data compares to so that keys are matching.
+## For playthrough_data
 var playthrough_structure: Dictionary[StringName, Variant] = {
-	"time_spent": null
+	"time_spent": 0,
+	#"chapters":
+		#{
+			#"current_chapter": &"intro"
+		#}
 }
 
 ## Returns the correct dictionary that holds the structure the file should adhere to.
@@ -64,7 +81,7 @@ func set_relevant_data(file_path: String, new_dictionary: Dictionary) -> void:
 		_:
 			push_error("Unknown file path, ", file_path, " for setting data.")
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	if not DirAccess.dir_exists_absolute(SAVE_FOLDER):
 		DirAccess.make_dir_absolute(SAVE_FOLDER) # Create saves folder
 	autoselect_playthrough()
@@ -82,6 +99,7 @@ func _ready() -> void:
 	completed_setup.emit()
 
 
+
 #region Save Load
 
 func autoselect_playthrough() -> void:
@@ -92,7 +110,6 @@ func autoselect_playthrough() -> void:
 	elif save_files.size() > 1:
 		playthrough_file_path = get_playthrough_file_name_from_idx(1)
 		pass #TODO: Bring player to playthrough selection menu?
-	#print("USING SAVE FILE PATH ", playthrough_file_path)
 
 func get_playthrough_file_name_from_idx(index: int) -> String:
 	return SAVE_FOLDER + "playthrough_" + str(index) + ".json"
@@ -104,11 +121,14 @@ func save(key: StringName, value: Variant, overwrite: bool = true, file_path: St
 	save_file(file_path)
 
 #TODO Modulate nested keys
-#func find_deepest_key_in_dictionary(key: StringName, dictionary: Dictionary) -> Array:
-	#if key.contains("/"):
-		#var split := key.split("/", true, 1)
-		#find_deepest_key_in_dictionary(split[1], dictionary[split[0]])
-	#return dictionary[key]
+func find_deepest_key_in_dictionary(key: StringName, dictionary: Dictionary) -> Variant:
+	if key.contains("/"):
+		var split := key.split("/", true, 1)
+		return find_deepest_key_in_dictionary(split[1], dictionary[split[0]])
+	if dictionary.has(key):
+		var value: Variant = dictionary[key]
+		return value
+	return null
 
 func _add_to_dictionary(key: StringName, value: Variant, dictionary: Dictionary, overwrite: bool = true) -> void:
 	# Separate subdictionaries with a "/" in key
@@ -125,18 +145,29 @@ func _add_to_dictionary(key: StringName, value: Variant, dictionary: Dictionary,
 		dictionary[key] = value # Value replaced only if null
 
 
-func get_value(key: StringName, data_dictionary: Dictionary = playthrough_data) -> Variant:
+func get_value(key: StringName, data_dictionary: Dictionary = playthrough_data, use_default_if_null: bool = true) -> Variant:
 	if data_dictionary == null:
-		return
-	if data_dictionary.has(key):
-		return data_dictionary[key]
-	return null
+		push_error("Data dictionary not found: ", data_dictionary)
+		return null
+	var value: Variant = find_deepest_key_in_dictionary(key, data_dictionary)
+	
+	if value == null and use_default_if_null: # If doesn't exist, use default value
+		match data_dictionary:
+			playthrough_data:
+				value = get_default_value(key, playthrough_structure)
+			settings_data:
+				value = get_default_value(key, settings_structure)
+	return value
+
+func get_default_value(key: StringName, data_structure: Dictionary) -> Variant:
+	return find_deepest_key_in_dictionary(key, data_structure) 
 
 #region Files
 
 func save_file(file_path: String = playthrough_file_path) -> void:
 	var file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
-	var jstr: String = JSON.stringify(get_relevant_data(file_path), "\t")
+	var data := get_relevant_data(file_path)
+	var jstr: String = JSON.stringify(data, "\t")
 	file.store_line(jstr)
 	file.close()
 
@@ -147,9 +178,7 @@ func load_file(file_path: String, debug_print: bool = false) -> void:
 		var res: Variant = JSON.parse_string(data)
 		if res != null:
 			if debug_print:
-				var file_name := file_path.split("/")
-				file_name.reverse()
-				print("SAVEFILE ", file_name[0] ," LOADED:\n", data)
+				print_rich("[b]" + file_path + "[/b] LOADED:\n", data)
 			set_relevant_data(file_path, res as Dictionary)
 		else:
 			print("NO SAVE FILE LOADED")
