@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b4e70g1piqlve"]
+
+[ext_resource type="Script" uid="uid://chcrtr1urermq" path="res://src/tools/collection_3d.gd" id="1_i6k2o"]
+
+[node name="Collection3D" type="Node3D" unique_id=1414364561]
+script = ExtResource("1_i6k2o")
