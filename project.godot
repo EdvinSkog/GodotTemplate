@@ -26,6 +26,7 @@ buses/default_bus_layout="res://src/default_bus_layout.tres"
 [autoload]
 
 Game="*res://src/global/game_autoload.tscn"
+Data="*uid://bn30qajonp73d"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Audio="*res://src/global/audio_autoload.tscn"
 Player="*res://src/global/player_autoload.tscn"

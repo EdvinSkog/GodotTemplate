@@ -4,7 +4,6 @@ extends Node
 @export_group("Node References")
 @export var save: SaveManager
 @export var settings: SettingsManager
-@export var ref_data: DataHandler
 
 var game_time: float = 0
 

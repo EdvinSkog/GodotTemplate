@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://bn30qajonp73d"]
 
-[ext_resource type="Script" uid="uid://bd0vo4o0tdogm" path="res://src/global/data_handler.gd" id="1_d8xnr"]
+[ext_resource type="Script" uid="uid://bd0vo4o0tdogm" path="res://src/global/data_autoload.gd" id="1_d8xnr"]
 [ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="2_0m72o"]
 [ext_resource type="Resource" uid="uid://dkj10l4pk0g25" path="res://data/maps/main_menu_map_data.tres" id="3_mgjy8"]
 [ext_resource type="Resource" uid="uid://f5y3qkgnlduc" path="res://data/maps/test_map_data.tres" id="4_biiu6"]
 
 [node name="DataHandler" type="Node" unique_id=142098819]
-process_mode = 4
 script = ExtResource("1_d8xnr")
 _music_folder_path = "res://assets/audio/music"
 _voice_folder_path = "res://assets/audio/voice"

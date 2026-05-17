@@ -1,5 +1,5 @@
 @tool
-class_name DataHandler extends Handler
+class_name DataManager extends Node
 
 @export_tool_button("Update") var update_action := do_update
 

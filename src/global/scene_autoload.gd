@@ -4,7 +4,7 @@ signal map_changed
 
 var _map_list: Dictionary[StringName, MapData]:
 	get: 
-		return Game.ref_data.maps 
+		return Data.maps
 
 ## References
 @onready var loading: LoadingManager = %LoadingManager

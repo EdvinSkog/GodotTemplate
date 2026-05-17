@@ -24,7 +24,7 @@ func play_sfx(path: String, volume_modifier: float = 0) -> void:
 # Uses paths, not AudioStream.
 func play_music(song_name: StringName, volume_modifier: float = 0, fade_time: float = 0.1) -> void:
 
-	var music_stream := Game.ref_data.songs[song_name]
+	var music_stream := Data.songs[song_name]
 	if music_stream:
 		if music_player.stream:
 			music_player.stop()  # Stop any currently playing music
