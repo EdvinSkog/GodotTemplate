@@ -18,8 +18,6 @@ var _map_list: Dictionary[StringName, MapData]:
 var map: Node:
 	set = set_map
 
-var current_dialogue_balloon: DialogueBalloon
-
 
 #region Setup
 func _ready()  -> void:

@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dyy3h3c5pgem4" path="res://src/systems/interaction/interactable_3d.tscn" id="4_f3cuj"]
 [ext_resource type="Script" uid="uid://chcrtr1urermq" path="res://src/tools/collection_3d.gd" id="5_bh1g1"]
 [ext_resource type="Script" uid="uid://dmmny26u35d8k" path="res://src/tools/bounds_obstacle_3d.gd" id="6_bh1g1"]
+[ext_resource type="Script" uid="uid://qyn6eoraikdw" path="res://src/systems/dialogue/dialogue_player.gd" id="7_f3cuj"]
+[ext_resource type="Resource" uid="uid://h7hk182awthl" path="res://data/dialogue/intro.dialogue" id="8_q6pud"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_gaxfg"]
 panorama = ExtResource("3_bh1g1")
@@ -129,3 +131,9 @@ input_ray_pickable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BoundsObstacle3D/StaticBody3D2" unique_id=1187410803]
 shape = SubResource("ConvexPolygonShape3D_bh1g1")
 debug_color = Color(255.014, 20, 50, 0.257)
+
+[node name="DialoguePlayer" type="Node" parent="." unique_id=1059002659]
+script = ExtResource("7_f3cuj")
+dialogue_resource = ExtResource("8_q6pud")
+autoplay = true
+metadata/_custom_type_script = "uid://qyn6eoraikdw"

@@ -2,8 +2,8 @@ class_name LoadingManager extends Node
 
 signal level_loaded(level: Node)
 
-## Loading
-signal progress_changed(progress)
+## Loading progress updatged
+signal progress_changed(progress: float)
 signal load_done
 
 var loaded_resources: Array
@@ -33,11 +33,11 @@ func load_scene_path(scene_path: String, style: Style = Style.SUBTLE, speed_mult
 	if state != State.READY:
 		return
 	
-	if loaded_resources.size() > 1: # If there are many loaded levels
-		for node: Node in loaded_resources:
-			if node != null and !node.is_queued_for_deletion():
-				node.queue_free()
-		loaded_resources.clear()
+	#if loaded_resources.size() > 1: # If there are many loaded levels
+		#for node: Node in loaded_resources:
+			#if node != null and !node.is_queued_for_deletion():
+				#node.queue_free()
+		#loaded_resources.clear()
 	
 	state = State.LOADING
 	
@@ -80,7 +80,7 @@ func _start_load() -> void:
 	if _state == OK:
 		set_process(true)
 
-func _process(_delta: float):
+func _process(_delta: float) -> void:
 	var load_status = ResourceLoader.load_threaded_get_status(_scene_path, _progress)
 	match load_status:
 		0, 2: #? THREAT_LOAD_INVALID_RESOURCE, THREAD_LOAD_FAILED
@@ -95,8 +95,8 @@ func _process(_delta: float):
 			load_done.emit()
 
 func _remove_dialogue_balloon() -> void: 
-	if(Scene.current_dialogue_balloon != null):
-		Scene.current_dialogue_balloon.queue_free()
+	if(DialoguePlayer.current_balloon != null):
+		DialoguePlayer.current_balloon.queue_free()
 
 func get_loading_screen_from_style(style: Style) -> LoadingScreen:
 	var screen: LoadingScreen
