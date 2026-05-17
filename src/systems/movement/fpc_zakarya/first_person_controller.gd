@@ -41,7 +41,6 @@ class_name FirstPersonController extends CharacterBody3D
 @export var COLLISION_MESH : CollisionShape3D
 
 @export_group("Controls")
-# We are using UI controls because they are built into Godot Engine so they can be used right away
 @export var JUMP : String = "jump"
 @export var LEFT : String = "move_left"
 @export var RIGHT : String = "move_right"
