@@ -99,6 +99,7 @@ func _fix_wall_collision(coll: CollisionShape3D, start_pos: Vector3, end_pos: Ve
 	
 	shape.size.z = distance
 	coll.look_at_from_position(start_pos + direction * 0.5, end_pos)
+	coll.transform = static_body.global_transform * coll.transform
 
 func _fix_area_collision(coll: CollisionShape3D, hollow: bool = false) -> void:
 	var shape := ConvexPolygonShape3D.new()
