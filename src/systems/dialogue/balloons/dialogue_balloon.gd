@@ -34,7 +34,7 @@ var dialogue_line: DialogueLine:
 			apply_dialogue_line()
 		else:
 			# The dialogue has finished so close the balloon
-			queue_free()
+			end()
 	get:
 		return dialogue_line
 
@@ -88,6 +88,9 @@ func start(dialogue_resource: DialogueResource, title: String, extra_game_states
 	resource = dialogue_resource
 	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
 
+
+func end() -> void:
+	queue_free()
 
 ## Apply any changes to the balloon given a new [DialogueLine].
 func apply_dialogue_line() -> void:

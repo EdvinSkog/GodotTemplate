@@ -37,6 +37,11 @@ func play(dialogue_part: String) -> void:
 	Scene.global_gui.add_child(balloon)
 	balloon.start(dialogue_resource, dialogue_part)
 
+## Deletes the balloon instantiated by this DialoguePlayer
+func stop() -> void:
+	if balloon: 
+		balloon.end()
+		dialogue_finished.emit()
 
 ## When a "~" line in a DialogueResource is activated
 func _on_title_finished(title: String) -> void:
