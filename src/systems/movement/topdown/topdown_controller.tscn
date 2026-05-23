@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cadfas1mgfubj"]
+
+[ext_resource type="Script" uid="uid://vfkb1kkyuklj" path="res://src/systems/movement/topdown/topdown_controller.gd" id="1_uwo75"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwo75"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cqobq"]
+radius = 25.0
+height = 50.0
+
+[sub_resource type="Gradient" id="Gradient_uwo75"]
+offsets = PackedFloat32Array(0.974359)
+colors = PackedColorArray(0.8685025, 0.59860635, 0.29284808, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kfc7j"]
+gradient = SubResource("Gradient_uwo75")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cqobq"]
+radius = 25.019993
+
+[node name="TopDownController" type="CharacterBody2D" unique_id=1322041233]
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_uwo75")
+
+[node name="CameraRemote" type="RemoteTransform2D" parent="." unique_id=1077853994]
+update_scale = false
+
+[node name="Hand" type="Node2D" parent="." unique_id=472551597]
+position = Vector2(19, 15)
+
+[node name="SampleHandMesh" type="MeshInstance2D" parent="Hand" unique_id=918992089]
+position = Vector2(8, -4.000002)
+scale = Vector2(16.5, 6.5)
+mesh = SubResource("BoxMesh_uwo75")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1205590419]
+
+[node name="SampleBodyMesh" type="MeshInstance2D" parent="Visuals" unique_id=1547516920]
+mesh = SubResource("SphereMesh_cqobq")
+texture = SubResource("GradientTexture1D_kfc7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=554111916]
+shape = SubResource("CircleShape2D_cqobq")
