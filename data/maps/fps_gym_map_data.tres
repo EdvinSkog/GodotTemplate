@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="MapData" format=3 uid="uid://f5y3qkgnlduc"]
 
-[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="1_keprb"]
+[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="1_fjl5j"]
 
 [resource]
-script = ExtResource("1_keprb")
-key = "gym"
+script = ExtResource("1_fjl5j")
+key = "fps_gym"
 scene_path = "uid://bv5vvs1nxjg8m"
 metadata/_custom_type_script = "uid://0bv2hcbpeubi"

@@ -18,7 +18,7 @@ gradient = SubResource("Gradient_uwo75")
 [sub_resource type="CircleShape2D" id="CircleShape2D_cqobq"]
 radius = 25.019993
 
-[node name="TopDownController" type="CharacterBody2D" unique_id=1322041233]
+[node name="TopDownController" type="CharacterBody2D" unique_id=1322041233 groups=["controller"]]
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_uwo75")

@@ -129,7 +129,8 @@ func toggle_active(option: bool, enable_cam: bool = true) -> void:
 		CAMERA.current = option
 	immobile = !option
 	if option:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		Player.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Input.set_mouse_mode(Player.mouse_mode)
 		if jumping_enabled:
 			jumping_enabled = false
 			await get_tree().create_timer(0.3).timeout 
@@ -137,7 +138,7 @@ func toggle_active(option: bool, enable_cam: bool = true) -> void:
 		show()
 	else:
 		hide()
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) # maybe remove
+		Player.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func check_controls() -> void: # If you add a control, you might want to add a check for it here.

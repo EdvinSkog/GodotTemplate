@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ckc38wl6uowmc" path="res://assets/textures/grass/256x256_grass_a.png" id="1_1x7oc"]
 [ext_resource type="PackedScene" uid="uid://cadfas1mgfubj" path="res://src/systems/movement/topdown/topdown_controller.tscn" id="2_1foud"]
+[ext_resource type="AudioStream" uid="uid://cmfcsrrekkrt4" path="res://assets/audio/sfx/type_character.ogg" id="3_y5h7i"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kbnq7"]
 size = Vector2(500, 500)
@@ -40,3 +41,7 @@ mesh = SubResource("BoxMesh_1foud")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1940397566]
 position = Vector2(-0.49999237, 0)
 shape = SubResource("RectangleShape2D_1foud")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1276089988]
+stream = ExtResource("3_y5h7i")
+autoplay = true

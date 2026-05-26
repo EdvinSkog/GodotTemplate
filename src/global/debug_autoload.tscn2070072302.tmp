@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://dtmc72qtrlk8l"]
+
+[ext_resource type="Script" uid="uid://2giidhj43wyn" path="res://src/global/debug_autoload.gd" id="1_ewqeh"]
+[ext_resource type="Texture2D" uid="uid://b6rgr2033yjgt" path="res://assets/icons/editor/handler.svg" id="2_6p1mf"]
+
+[sub_resource type="SystemFont" id="SystemFont_ewqeh"]
+font_names = PackedStringArray("Courier New")
+
+[sub_resource type="Theme" id="Theme_ewqeh"]
+default_font = SubResource("SystemFont_ewqeh")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewqeh"]
+bg_color = Color(0.14044744, 0.14044747, 0.14044738, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6p1mf"]
+
+[node name="Debug" type="Node" unique_id=1736634377]
+script = ExtResource("1_ewqeh")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1767428762]
+layer = 1000
+
+[node name="Console" type="Control" parent="CanvasLayer" unique_id=2102403708]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 206.0
+grow_horizontal = 2
+focus_mode = 2
+theme = SubResource("Theme_ewqeh")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Console" unique_id=2114608467]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewqeh")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Console/PanelContainer" unique_id=1379291817]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer" unique_id=608132596]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer" unique_id=400219303]
+layout_mode = 2
+text = "Console"
+label_settings = SubResource("LabelSettings_6p1mf")
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer" unique_id=217170362]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "..."
+keep_editing_on_text_submit = true
+clear_button_enabled = true
+select_all_on_focus = true
+caret_blink = true
+caret_force_displayed = true
+right_icon = ExtResource("2_6p1mf")
+icon_expand_mode = 1
+
+[node name="LogLabel" type="Label" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer" unique_id=1732421151]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Console"
+label_settings = SubResource("LabelSettings_6p1mf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer" unique_id=1282535384]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1161680824]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1776718807]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1915152749]
+layout_mode = 2
+text = "text"
+
+[connection signal="visibility_changed" from="CanvasLayer/Console" to="." method="_on_console_visibility_changed"]
+[connection signal="text_changed" from="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]

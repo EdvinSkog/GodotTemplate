@@ -4,3 +4,4 @@
 
 [node name="PlayerManager" type="Node" unique_id=846552328]
 script = ExtResource("1_yujcj")
+metadata/test = 0

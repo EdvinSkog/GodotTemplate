@@ -42,21 +42,3 @@ custom_text = "time of game"
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer" unique_id=927136669]
 layout_mode = 2
 mouse_filter = 2
-
-[node name="CheatMenu" type="MenuButton" parent="VBoxContainer" unique_id=776142891]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-theme_type_variation = &"DebugMenuButton"
-toggle_mode = false
-keep_pressed_outside = true
-text = "CHEATS"
-flat = false
-switch_on_hover = true
-item_count = 3
-popup/item_0/text = "Cheat 1"
-popup/item_0/id = 0
-popup/item_1/text = "Cheat 2"
-popup/item_1/id = 1
-popup/item_2/text = "Cheat 3"
-popup/item_2/id = 2

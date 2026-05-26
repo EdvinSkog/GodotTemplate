@@ -7,8 +7,14 @@ extends Node
 
 var game_time: float = 0
 
-func _ready() -> void:
-	pass
+func _process(_delta: float) -> void:
+	game_time = get_seconds_passed()
 
-func _on_timer_second_timeout():
-	game_time += 1
+
+## Returns time passed after engine started with two decimals.
+func get_seconds_passed() -> float:
+	var _time: float = Time.get_ticks_msec() as float
+	_time /= 10
+	_time = roundf(_time)
+	_time /= 100
+	return _time
