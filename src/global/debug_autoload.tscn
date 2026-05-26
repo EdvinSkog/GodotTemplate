@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2giidhj43wyn" path="res://src/global/debug_autoload.gd" id="1_ewqeh"]
 [ext_resource type="Texture2D" uid="uid://b6rgr2033yjgt" path="res://assets/icons/editor/handler.svg" id="2_6p1mf"]
+[ext_resource type="PackedScene" uid="uid://oqghk5jenbra" path="res://src/tools/freecam_2d.tscn" id="2_ebb43"]
 
 [sub_resource type="SystemFont" id="SystemFont_ewqeh"]
 font_names = PackedStringArray("Courier New")
@@ -16,6 +17,9 @@ bg_color = Color(0.14044744, 0.14044747, 0.14044738, 1)
 
 [node name="Debug" type="Node" unique_id=1736634377]
 script = ExtResource("1_ewqeh")
+
+[node name="Freecam2D" parent="." unique_id=810778479 instance=ExtResource("2_ebb43")]
+unique_name_in_owner = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1767428762]
 layer = 1000

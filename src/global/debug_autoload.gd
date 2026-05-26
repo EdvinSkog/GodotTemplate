@@ -48,6 +48,10 @@ func _enter_tree() -> void:
 	%Console.visible = false
 
 func _ready() -> void:
+	if !OS.is_debug_build(): 
+		process_mode = Node.PROCESS_MODE_DISABLED
+		#queue_free() # Dangerous if something were to reference Debug
+		return
 	
 	%ItemList.item_selected.connect(
 		func(selected_idx: int) -> void:
@@ -65,7 +69,9 @@ func _create_connections() -> void:
 	con(func test() -> void:
 		print("Test debug print ", get_process_delta_time()), 2)
 	
-	con(toggling_test, 3, true)
+	con(func() -> void: 
+		$Freecam2D.toggle(true)
+		, 3)
 
 func _create_commands() -> void:
 	

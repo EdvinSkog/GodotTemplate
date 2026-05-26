@@ -1,7 +1,18 @@
+@tool
 class_name MapData extends Resource
 
-@export var key: String
+## If empty, use file name minus "_map_data" and extension
+@export var key: StringName:
+	get = get_key
 @export_file("*.tscn") var scene_path: String
 
 #TODO: Add flags or other data to be saved within the map
 #var saved_dictionary: Dictionary[StringName, Variant]
+
+func get_key() -> StringName:
+	if !key.is_empty(): return key
+	var splits := resource_path.split("/")
+	var file_name := splits.get(splits.size() - 1)
+	file_name = file_name.trim_suffix(".tres")
+	file_name = file_name.trim_suffix("_map_data")
+	return file_name

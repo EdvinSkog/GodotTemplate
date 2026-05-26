@@ -15,7 +15,6 @@ func _ready() -> void:
 
 func _setup() -> void:
 	$CameraRemote.remote_path = camera.get_path()
-	set_process_unhandled_input(false)
 	Player.toppc = self
 	Player.mouse_mode = Input.MOUSE_MODE_VISIBLE
 

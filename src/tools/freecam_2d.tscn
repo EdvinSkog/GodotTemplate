@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://oqghk5jenbra"]
+
+[ext_resource type="Script" uid="uid://bay71jwkf83cj" path="res://src/tools/freecam_2d.gd" id="1_i6mf5"]
+
+[node name="Freecam2D" type="CharacterBody2D" unique_id=546605417]
+process_mode = 4
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_i6mf5")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=171107352]
+enabled = false
+limit_enabled = false
