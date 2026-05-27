@@ -13,3 +13,5 @@ script = ExtResource("1_i6mf5")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=171107352]
 enabled = false
 limit_enabled = false
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1810211110]

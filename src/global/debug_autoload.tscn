@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2giidhj43wyn" path="res://src/global/debug_autoload.gd" id="1_ewqeh"]
 [ext_resource type="Texture2D" uid="uid://b6rgr2033yjgt" path="res://assets/icons/editor/handler.svg" id="2_6p1mf"]
-[ext_resource type="PackedScene" uid="uid://oqghk5jenbra" path="res://src/tools/freecam_2d.tscn" id="2_ebb43"]
+[ext_resource type="PackedScene" uid="uid://oqghk5jenbra" path="res://src/tools/freecam.tscn" id="2_ebb43"]
 
 [sub_resource type="SystemFont" id="SystemFont_ewqeh"]
 font_names = PackedStringArray("Courier New")
@@ -99,6 +99,7 @@ focus_mode = 1
 focus_behavior_recursive = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1776718807]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 0

@@ -23,8 +23,8 @@ class_name FirstPersonController extends CharacterBody3D
 ## How far the player turns when the mouse is moved.
 @export var mouse_sensitivity : float = 0.1
 ## Invert the Y input for mouse and joystick
-@export var invert_mouse_y : bool = false # Possibly add an invert mouse X in the future
-## Wether the player can use movement inputs. Does not stop outside forces or jumping. See Jumping Enabled.
+#@export var invert_mouse_y : bool = false # Possibly add an invert mouse X in the future
+## Wether the player can use movement inputs. Does not stop outside forces or _input_jumping. See Jumping Enabled.
 @export var immobile : bool = false
 ## The reticle file to import at runtime. By default are in res://addons/fpc/reticles/. Set to an empty string to remove.
 @export_file var default_reticle: String
@@ -58,7 +58,7 @@ class_name FirstPersonController extends CharacterBody3D
 #@export var LOOK_DOWN : String = "look_down"
 
 @export_group("Feature Settings")
-## Enable or disable jumping. Useful for restrictive storytelling environments.
+## Enable or disable _input_jumping. Useful for restrictive storytelling environments.
 @export var jumping_enabled : bool = true
 ## Wether the player can move in the air or not.
 @export var in_air_momentum : bool = true
@@ -96,7 +96,9 @@ var RETICLE : Control
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity") # Don't set this as a const, see the gravity section in _physics_process
 
 # Stores mouse input for rotating the camera in the phyhsics process
-var mouseInput : Vector2 = Vector2(0,0)
+var mouse_input : Vector2 = Vector2(0,0)
+
+#region Setup
 
 func _ready() -> void:
 	Player.fpc = self
@@ -142,7 +144,7 @@ func toggle_active(option: bool, enable_cam: bool = true) -> void:
 func check_controls() -> void: # If you add a control, you might want to add a check for it here.
 	# The actions are being disabled so the engine doesn't halt the entire project in debug mode
 	if !InputMap.has_action(JUMP):
-		push_error("No control mapped for jumping. Please add an input map control. Disabling jump.")
+		push_error("No control mapped for _input_jumping. Please add an input map control. Disabling jump.")
 		jumping_enabled = false
 	if !InputMap.has_action(LEFT):
 		push_error("No control mapped for move left. Please add an input map control. Disabling movement.")
@@ -164,6 +166,9 @@ func check_controls() -> void: # If you add a control, you might want to add a c
 		sprint_enabled = false
 
 
+#endregion
+
+#region Reticle
 func change_reticle(reticle: String) -> void: # Yup, this function is kinda strange
 	remove_reticle()
 	
@@ -175,30 +180,24 @@ func remove_reticle() -> void:
 	if RETICLE:
 		RETICLE.queue_free()
 
+#endregion
+
+
+
+#region Movement
 func _physics_process(delta: float) -> void:
 	# Big thanks to github.com/LorenzoAncora for the concept of the improved debug values
 	current_speed = Vector3.ZERO.distance_to(get_real_velocity())
 
-	#var cv : Vector3 = get_real_velocity()
-	#var vd : Array[float] = [
-		#snappedf(cv.x, 0.001),
-		#snappedf(cv.y, 0.001),
-		#snappedf(cv.z, 0.001)
-	#]
-	#var readable_velocity : String = "X: " + str(vd[0]) + " Y: " + str(vd[1]) + " Z: " + str(vd[2])
-	#
 	
-	# Gravity
-	#gravity = ProjectSettings.get_setting("physics/3d/default_gravity") # If the gravity changes during your game, uncomment this code
 	if not is_on_floor() and gravity and gravity_enabled:
 		velocity.y -= gravity * delta
 	
 	handle_jumping()
 	
-	var input_dir := Vector2.ZERO
-	if !immobile: # Immobility works by interrupting user input, so other forces can still be applied to the player
-		input_dir = Input.get_vector(LEFT, RIGHT, FORWARD, BACKWARD)
-	handle_movement(delta, input_dir)
+	
+	
+	handle_movement(delta)
 
 	handle_head_rotation()
 	
@@ -227,18 +226,18 @@ func _physics_process(delta: float) -> void:
 func handle_jumping() -> void:
 	if jumping_enabled and !immobile:
 		if continuous_jumping: # Hold down the jump button
-			if Input.is_action_pressed(JUMP) and is_on_floor() and !low_ceiling:
+			if _input_jumping and is_on_floor() and !low_ceiling:
 				if jump_animation:
 					JUMP_ANIMATION.play("jump", 0.25)
-				velocity.y += jump_velocity # Adding instead of setting so jumping on slopes works properly
+				velocity.y += jump_velocity # Adding instead of setting so _input_jumping on slopes works properly
 		else:
-			if Input.is_action_just_pressed(JUMP) and is_on_floor() and !low_ceiling:
+			if _input_jumping and is_on_floor() and !low_ceiling:
 				if jump_animation:
 					JUMP_ANIMATION.play("jump", 0.25)
 				velocity.y += jump_velocity
 
 
-func handle_movement(delta: float, input_dir: Vector2) -> void:
+func handle_movement(delta: float) -> void:
 	var direction_flat := input_dir.rotated(-HEAD.rotation.y)
 	var direction := Vector3(direction_flat.x, 0, direction_flat.y)
 	move_and_slide()
@@ -261,11 +260,9 @@ func handle_movement(delta: float, input_dir: Vector2) -> void:
 			velocity.z = direction.z * speed
 
 func handle_head_rotation() -> void:
-	HEAD.rotation_degrees.y -= mouseInput.x * mouse_sensitivity
-	if invert_mouse_y:
-		HEAD.rotation_degrees.x -= mouseInput.y * mouse_sensitivity * -1.0
-	else:
-		HEAD.rotation_degrees.x -= mouseInput.y * mouse_sensitivity
+	HEAD.rotation_degrees.y -= mouse_input.x * mouse_sensitivity
+	
+	HEAD.rotation_degrees.x -= mouse_input.y * mouse_sensitivity
 	
 	# Uncomment for controller support
 	#var controller_view_rotation = Input.get_vector(LOOK_DOWN, LOOK_UP, LOOK_RIGHT, LOOK_LEFT) * controller_sensitivity # These are inverted because of the nature of 3D rotation.
@@ -276,14 +273,16 @@ func handle_head_rotation() -> void:
 		#HEAD.rotation.y += controller_view_rotation.y
 	
 	
-	mouseInput = Vector2(0,0)
+	mouse_input = Vector2(0,0)
 	HEAD.rotation.x = clamp(HEAD.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+#endregion
 
+#region States
 
 func handle_state(moving: Vector2) -> void:
 	if sprint_enabled:
 		if sprint_mode == 0:
-			if Input.is_action_pressed(SPRINT) and state != "crouching":
+			if _input_sprinting and state != "crouching":
 				if moving:
 					if state != "sprinting":
 						enter_sprint_state()
@@ -295,9 +294,9 @@ func handle_state(moving: Vector2) -> void:
 		elif sprint_mode == 1:
 			if moving:
 				# If the player is holding sprint before moving, handle that cenerio
-				if Input.is_action_pressed(SPRINT) and state == "normal":
+				if _input_sprinting and state == "normal":
 					enter_sprint_state()
-				if Input.is_action_just_pressed(SPRINT):
+				if _input_sprinting:
 					match state:
 						"normal":
 							enter_sprint_state()
@@ -308,13 +307,13 @@ func handle_state(moving: Vector2) -> void:
 	
 	if crouch_enabled:
 		if crouch_mode == 0:
-			if Input.is_action_pressed(CROUCH) and state != "sprinting":
+			if _input_crouching and state != "sprinting":
 				if state != "crouching":
 					enter_crouch_state()
 			elif state == "crouching" and !$CrouchCeilingDetection.is_colliding():
 				enter_normal_state()
 		elif crouch_mode == 1:
-			if Input.is_action_just_pressed(CROUCH):
+			if _input_crouching:
 				match state:
 					"normal":
 						enter_crouch_state()
@@ -348,6 +347,9 @@ func enter_sprint_state() -> void:
 	state = "sprinting"
 	speed = sprint_speed
 
+#endregion
+
+#region Animation
 
 func update_camera_fov() -> void:
 	if state == "sprinting":
@@ -383,26 +385,46 @@ func headbob_animation(moving: Vector2) -> void:
 			HEADBOB_ANIMATION.speed_scale = 1
 			HEADBOB_ANIMATION.play("RESET", 1)
 
+#endregion
 
-func _process(_delta: float) -> void:
+var _input_sprinting: bool = false
+var _input_crouching: bool = false
+var _input_jumping: bool = false
+var input_dir := Vector2.ZERO
+
+#region Input
+func _unhandled_input(event : InputEvent) -> void:
+	if immobile: return
+	
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and !ignore_mouse:
+		mouse_input.x += event.relative.x
+		mouse_input.y += event.relative.y
+	
+	
+
+	_input_jumping = _handle_bool_input(event, JUMP)
+	_input_crouching = _handle_bool_input(event, CROUCH)
+	_input_sprinting = _handle_bool_input(event, SPRINT)
+
+	input_dir = Input.get_vector(LEFT, RIGHT, FORWARD, BACKWARD)
+	
 	if interact_enabled and latest_interactable != null:
 		if Input.is_action_just_pressed("interact"):
 			latest_interactable.interact()
 
+func _handle_bool_input(event: InputEvent, action_key: StringName) -> bool:
+	if event.is_action_pressed(action_key):
+		return true
+	if event.is_action_released(action_key):
+		return false
+	else:
+		return false
 
-func _unhandled_input(event : InputEvent) -> void:
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and !ignore_mouse:
-		mouseInput.x += event.relative.x
-		mouseInput.y += event.relative.y
-	# Toggle debug menu
-	elif event is InputEventKey:
-		if event.is_released():
-			# Where we're going, we don't need InputMap
-			if event.keycode == 4194338: # F7
-				$UserInterface/DebugPanel.visible = !$UserInterface/DebugPanel.visible
+#endregion
 
 #region Interact
 var latest_interactable: Interactable3D
+
 func _on_interacter_found_interactable(interactable: Interactable3D) -> void:
 	if latest_interactable != null:
 		latest_interactable.toggle_prompt(false)

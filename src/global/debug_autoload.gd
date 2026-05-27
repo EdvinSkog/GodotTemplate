@@ -239,7 +239,8 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("console_text_completion_accept"):
 			if item_list.is_anything_selected():
 				var idx := item_list.get_selected_items()[0]
-				line_edit.text = item_list.get_item_metadata(idx)
+				set_query(item_list.get_item_metadata(idx))
+				#line_edit.text = 
 				
 	
 	#WARNING: Potential performance problems

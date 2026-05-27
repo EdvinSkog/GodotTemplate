@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://oqghk5jenbra"]
+
+[ext_resource type="Script" uid="uid://bay71jwkf83cj" path="res://src/tools/freecam.gd" id="1_i6mf5"]
+
+[sub_resource type="GDScript" id="GDScript_i6mf5"]
+resource_name = "2D Inputs"
+script/source = "extends CharacterBody2D
+
+# Movement
+const SPEED: float = 1000
+var direction: Vector2
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action(\"ui_zoom_in\"):
+		$Camera2D.zoom += Vector2(0.1, 0.1)
+	
+	if event.is_action(\"ui_zoom_out\"):
+		$Camera2D.zoom -= Vector2(0.1, 0.1)
+
+
+func _physics_process(_delta: float) -> void:
+	direction = Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
+	velocity = direction * SPEED / $Camera2D.zoom
+	move_and_slide()
+"
+
+[sub_resource type="GDScript" id="GDScript_0pt2x"]
+resource_name = "Input 3D"
+script/source = "extends CharacterBody3D
+
+
+const SPEED = 10.0
+const JUMP_VELOCITY = 4.5
+
+func _physics_process(_delta: float) -> void:
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir := Input.get_vector(\"move_right\", \"move_left\", \"move_backward\", \"move_forward\")
+	var direction: Vector3 = ($Camera3D.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED# * -1
+		velocity.y = direction.y * SPEED * -1
+	
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
+	#global_rotation = $Camera3D
+	move_and_slide()
+	_handle_head()
+
+var mouse_input : Vector2 = Vector2(0,0)
+@export var mouse_sensitivity : float = 0.1
+func _handle_head() -> void:
+	
+	$Camera3D.rotation_degrees.y -= mouse_input.x * mouse_sensitivity
+	
+	$Camera3D.rotation_degrees.x -= mouse_input.y * mouse_sensitivity
+	
+	
+	
+	mouse_input = Vector2(0,0)
+	#$Camera3D.rotation.x = clamp(rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
+func _unhandled_input(event : InputEvent) -> void:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		mouse_input.x += event.relative.x
+		mouse_input.y += event.relative.y
+"
+
+[node name="Freecam" type="Node" unique_id=135961634]
+process_mode = 4
+script = ExtResource("1_i6mf5")
+
+[node name="Input2D" type="CharacterBody2D" parent="." unique_id=1823576741]
+script = SubResource("GDScript_i6mf5")
+
+[node name="Camera2D" type="Camera2D" parent="Input2D" unique_id=171107352]
+unique_name_in_owner = true
+enabled = false
+limit_enabled = false
+
+[node name="Input3D" type="CharacterBody3D" parent="." unique_id=1403137044]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+motion_mode = 1
+script = SubResource("GDScript_0pt2x")
+mouse_sensitivity = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="Input3D" unique_id=1810211110]
+unique_name_in_owner = true
+current = true
