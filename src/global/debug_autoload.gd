@@ -66,8 +66,9 @@ func _ready() -> void:
 #region Instances
 
 func _create_connections() -> void:
+	
 	con(func test() -> void:
-		print("Test debug print ", get_process_delta_time()), 2)
+		print("Test debug print ", Game.get_seconds_passed()), 2)
 	
 	con(func() -> void: 
 		$Freecam2D.toggle(true)
@@ -95,14 +96,60 @@ func _create_commands() -> void:
 	
 	Command.new(
 	&"freecam",
-	func() -> void:
-		cmdlog("Not implemented."), 
+	_not_implemented, 
 	TYPE_NIL,
 	"Swap to free cam.")
 	
+	Command.new(
+	&"time_scale",
+	Engine.set_time_scale, 
+	TYPE_FLOAT,
+	"Set the overall time scale of the engine.")
+	
+	Command.new(
+	&"noclip",
+	_not_implemented, 
+	TYPE_BOOL,
+	"[Not Implemented] Controller flies and ignore collisions.")
+	
+	Command.new(
+	&"tp",
+	_not_implemented, 
+	TYPE_VECTOR2,
+	"[Not Implemented] Teleport.")
+	
+	Command.new(
+	&"pause",
+	get_tree().set_pause, 
+	TYPE_BOOL,
+	"Pause the game.")
+	
+	Command.new(
+	&"save_state",
+	func() -> void:
+		saved_state_pack = PackedScene.new()
+		saved_state_pack.pack(Scene.map),
+		# TODO Save to file?:
+		#ResourceSaver.save(packed_scene, "res://saved_state.tscn"),
+	TYPE_NIL,
+	"Save state of ongoing Map.")
+	
+	Command.new(
+	&"load_state",
+	func() -> void:
+		#var pack: PackedScene = load("res://saved_state.tscn")
+		
+		Scene.set_map(saved_state_pack.instantiate()),
+	TYPE_NIL,
+	"Load state of saved Map.")
 	# Conditions?
 
 	# gym.map
+
+var saved_state_pack: PackedScene
+
+func _not_implemented(_v: Variant) -> void:
+	cmdlog("Not implemented.")
 
 ## Sample function for testing the debug feature.
 func toggling_test(toggled: bool = false) -> void:

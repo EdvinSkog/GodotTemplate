@@ -7,6 +7,8 @@ signal prompt_toggled(toggled: bool)
 ## Technically a wrapper variable to its component.
 @export var enabled: bool = true:
 	get:
+		if !is_node_ready():
+			await ready
 		return interactable_component.enabled
 	set(val):
 		interactable_component.enabled = val
