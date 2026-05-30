@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1_fjl5j")
-key = "fps_gym"
 scene_path = "uid://bv5vvs1nxjg8m"
 metadata/_custom_type_script = "uid://0bv2hcbpeubi"

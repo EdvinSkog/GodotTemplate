@@ -302,7 +302,8 @@ func check_command(prompt: String) -> bool:
 	
 	if !prompt.contains(" "): prompt += " "
 	key = prompt.split(" ", false)[0]
-	arguments = prompt.lstrip(key + " ").split(" ")
+	
+	arguments = prompt.trim_prefix(key + " ").split(" ")
 	arguments = arguments.filter(func(string: String)-> bool: return string != "")
 	if !commands.has(key):# Nonexistent command
 		clear_func.call()
@@ -319,9 +320,7 @@ func check_command(prompt: String) -> bool:
 	
 
 	update_context_window(command.argument_recommends)
-		
 	return validation
-	#%ErrorLog.text += "\n" + str(command.condition_errors)
 
 func update_context_window(arr: Array) -> void:
 	if arr.is_empty():

@@ -1,9 +1,8 @@
-[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://dkj10l4pk0g25"]
+[gd_resource type="Resource" script_class="MapData" format=3 uid="uid://7rnohcsd1bne"]
 
-[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="2_4wwln"]
+[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="1_gsobf"]
 
 [resource]
-script = ExtResource("2_4wwln")
-key = "main_menu"
+script = ExtResource("1_gsobf")
 scene_path = "uid://cwij3bn2l5cmq"
 metadata/_custom_type_script = "uid://0bv2hcbpeubi"

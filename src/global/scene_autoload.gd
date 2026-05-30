@@ -32,11 +32,14 @@ func _setup() -> void:
 
 #region Map Management
 
+func get_maps() -> Dictionary[StringName, MapData]:
+	return Data.maps
+
 func load_map(key: StringName) -> void:
-	if !_map_list.has(key):
+	if !get_maps().has(key):
 		push_error("Could not find map data -> ", key)
 		return
-	var data: MapData = _map_list.get(key)
+	var data: MapData = get_maps().get(key)
 	loading.load_scene_path(data.scene_path)
 
 func set_map(new_map: Node) -> void:
