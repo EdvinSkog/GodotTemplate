@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://2giidhj43wyn" path="res://src/global/debug_autoload.gd" id="1_ewqeh"]
 [ext_resource type="Texture2D" uid="uid://b6rgr2033yjgt" path="res://assets/icons/editor/handler.svg" id="2_6p1mf"]
 [ext_resource type="PackedScene" uid="uid://oqghk5jenbra" path="res://src/tools/freecam.tscn" id="2_ebb43"]
+[ext_resource type="Script" uid="uid://dbknin2x537ei" path="res://src/tools/commands.gd" id="4_2sxym"]
 
 [sub_resource type="SystemFont" id="SystemFont_ewqeh"]
 font_names = PackedStringArray("Courier New")
@@ -19,7 +20,10 @@ bg_color = Color(0.14044744, 0.14044747, 0.14044738, 1)
 process_mode = 3
 script = ExtResource("1_ewqeh")
 
-[node name="Freecam2D" parent="." unique_id=810778479 instance=ExtResource("2_ebb43")]
+[node name="Commands" type="Node" parent="." unique_id=1579977924]
+script = ExtResource("4_2sxym")
+
+[node name="Freecam" parent="." unique_id=810778479 instance=ExtResource("2_ebb43")]
 unique_name_in_owner = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1767428762]
@@ -99,15 +103,15 @@ focus_mode = 1
 focus_behavior_recursive = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1776718807]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 0
 
-[node name="Label" type="Label" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1915152749]
+[node name="ErrorLog" type="RichTextLabel" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1899231]
+unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 0
-text = "text"
+bbcode_enabled = true
+fit_content = true
 
 [connection signal="visibility_changed" from="CanvasLayer/Console" to="." method="_on_console_visibility_changed"]
 [connection signal="text_changed" from="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]

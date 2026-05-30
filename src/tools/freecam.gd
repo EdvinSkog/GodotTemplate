@@ -15,6 +15,9 @@ func _ready() -> void:
 		toggle.call_deferred(false)
 		)
 
+func is_active() -> bool:
+	return camera_3d.current or camera_2d.is_current() 
+	
 
 func toggle(option: bool) -> void:
 	var option_2d: bool = option

@@ -60,7 +60,7 @@ func _ready() -> void:
 	)
 	pressed_debug.connect(_check_press)
 	_create_connections()
-	_create_commands()
+	$Commands.create_commands()
 	item_list.sort_items_by_text.call_deferred()
 
 #region Instances
@@ -71,85 +71,8 @@ func _create_connections() -> void:
 		print("Test debug print ", Game.get_seconds_passed()), 2)
 	
 	con(func() -> void: 
-		$Freecam2D.toggle(true)
+		%Freecam.toggle(true)
 		, 3)
-
-func _create_commands() -> void:
-	
-	Command.new(
-	&"map",
-	Scene.load_map, 
-	TYPE_STRING_NAME,
-	"Load into a different map.")
-	
-	Command.new(
-	&"volume",
-	func(_v: float) -> void: Audio.set_global_volume(&"Master", _v), 
-	TYPE_FLOAT,
-	"Change the Master volume.")
-	
-	Command.new(
-	&"quit",
-	Scene.quit_game, 
-	TYPE_NIL,
-	"Quit the game.")
-	
-	Command.new(
-	&"freecam",
-	_not_implemented, 
-	TYPE_NIL,
-	"Swap to free cam.")
-	
-	Command.new(
-	&"time_scale",
-	Engine.set_time_scale, 
-	TYPE_FLOAT,
-	"Set the overall time scale of the engine.")
-	
-	Command.new(
-	&"noclip",
-	_not_implemented, 
-	TYPE_BOOL,
-	"[Not Implemented] Controller flies and ignore collisions.")
-	
-	Command.new(
-	&"tp",
-	_not_implemented, 
-	TYPE_VECTOR2,
-	"[Not Implemented] Teleport.")
-	
-	Command.new(
-	&"pause",
-	get_tree().set_pause, 
-	TYPE_BOOL,
-	"Pause the game.")
-	
-	Command.new(
-	&"save_state",
-	func() -> void:
-		saved_state_pack = PackedScene.new()
-		saved_state_pack.pack(Scene.map),
-		# TODO Save to file?:
-		#ResourceSaver.save(packed_scene, "res://saved_state.tscn"),
-	TYPE_NIL,
-	"Save state of ongoing Map.")
-	
-	Command.new(
-	&"load_state",
-	func() -> void:
-		#var pack: PackedScene = load("res://saved_state.tscn")
-		
-		Scene.set_map(saved_state_pack.instantiate()),
-	TYPE_NIL,
-	"Load state of saved Map.")
-	# Conditions?
-
-	# gym.map
-
-var saved_state_pack: PackedScene
-
-func _not_implemented(_v: Variant) -> void:
-	cmdlog("Not implemented.")
 
 ## Sample function for testing the debug feature.
 func toggling_test(toggled: bool = false) -> void:
@@ -191,18 +114,20 @@ func _check_press(idx: int) -> void:
 			connection.callable.call()
 #endregion
 
-#region Console Commands
+#region Command Class
 class Command:
 	var key: StringName
 	var function: Callable
 	var type: Variant.Type
 	var description: String
+	var condition: Callable
 	
-	func _init(_key: StringName, _function: Callable, _type: Variant.Type = TYPE_NIL, _description: String = "") -> void:
+	func _init(_key: StringName, _function: Callable, _type: Variant.Type = TYPE_NIL, _description: String = "", _condition: Callable = func()->bool: return true) -> void:
 		key = _key
 		function = _function
 		type = _type
 		description = _description
+		condition = _condition
 		add()
 	
 	func add() -> void:
@@ -213,7 +138,34 @@ class Command:
 		var idx: int = Debug.item_list.add_item(key + " | " + description)
 		Debug.item_list.set_item_metadata(idx, key)
 		Debug.item_list.set_item_tooltip_enabled(idx, false)
+	
+	## Validate its Type and Conditions
+	func validate(arguments: Array[Variant]) -> bool:
+		condition_errors.clear()
+		var arg_cond := condition_error("Correct argument size of " + str(condition.get_argument_count()), 
+		condition.get_argument_count() == arguments.size())
+		#condition_error("Incorrect type", Debug.cast_value(arguments[0]) == type)
+		var custom_conditions: Dictionary[String, bool]
+		
+		if !arg_cond or arguments.is_empty():
+			custom_conditions = condition.call()
+		else:
+			custom_conditions = condition.callv(arguments)
+		condition_errors.merge(custom_conditions)
+		
+		return check_error_log()
+		
+	var condition_errors: Dictionary[String, bool]
 
+	## Sets and Updates a condition's state
+	func condition_error(message: String, cond: bool = false) -> bool:
+		condition_errors.get_or_add(message, cond)
+		condition_errors[message] = cond
+		return cond
+
+	func check_error_log() -> bool:
+		var check := condition_errors.values().all(func(val: bool) -> bool: return val)
+		return check
 #endregion
 
 #region Inputs
@@ -289,7 +241,8 @@ func _enable_console(option: bool) -> void:
 func _process(_delta: float) -> void:
 	if is_console_enabled():
 		line_edit.grab_focus()
-
+#endregion
+#region Command Inputs
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	run_command(new_text)
 
@@ -298,6 +251,7 @@ func set_query(query: String, add_space: bool = false) -> void:
 	line_edit.text = query
 	await get_tree().process_frame
 	line_edit.caret_column = line_edit.text.length()
+	check_command(query)
 	
 
 func run_command(prompt: String) -> void:
@@ -305,9 +259,7 @@ func run_command(prompt: String) -> void:
 	
 	last_queries.append(prompt)
 	
-	if !prompt.contains(" "): prompt += " "
-	var key := prompt.split(" ", false)[0]
-	var argument: Variant = prompt.split(" ")[1]
+
 	
 	line_edit.text = ""
 	
@@ -315,38 +267,54 @@ func run_command(prompt: String) -> void:
 	if !commands.has(key): 
 		cmdlog("UNKNOWN COMMAND")
 		return
-	cmdlog(key + " " + str(argument))
+	cmdlog(key + " " + str(arguments))
 	var command := commands[key]
-	if command.type == TYPE_NIL: 
-		command.function.call() # No argument
-		return
-	argument = cast_value(argument, command.type)
-	
-	command.function.call(argument)
 
-func check_command(prompt: String) -> void:
-	if prompt.is_empty(): return
+	if check_command(prompt):
+		command.function.callv(arguments)
+		cmdlog(key + " successful.")
+	else:
+		cmdlog("Validation failed.")
+
+var key: String
+var arguments: Array
+
+## Set the key and arguments + validate conditions
+func check_command(prompt: String) -> bool:
+	
+	var clear_func := func clear() -> void:
+		%ErrorLog.text = ""
+	
+	if prompt.is_empty(): 
+		clear_func.call()
+		return false
+	
 	if !prompt.contains(" "): prompt += " "
-	var key := prompt.split(" ", false)[0]
-	var _argument: Variant = prompt.split(" ")[1]
+	key = prompt.split(" ", false)[0]
+	arguments = prompt.lstrip(key + " ").split(" ")
+	arguments = arguments.filter(func(string: String)-> bool: return string != "")
+	if !commands.has(key):# Nonexistent command
+		clear_func.call()
+		return false
 	
-	
-	if !commands.has(key):
-		return
 	var command := commands[key]
-	cmdlog(cast_warning(command.type))
-	
+
+
+	var validation := command.validate(arguments)
+	%ErrorLog.text = ""
+	for error: String in command.condition_errors.keys():
+		var prefix: String = "[color=green]" if command.condition_errors[error] else "[color=red]"
+		%ErrorLog.text += prefix + error + "\n"
+	return validation
+	#%ErrorLog.text += "\n" + str(command.condition_errors)
 
 
 
 func _on_line_edit_text_changed(new_text: String) -> void:
-	_update_command_queries(new_text)
+	_search_command(new_text)
 	
 
-func _update_command_queries(query: String) -> void:
-	
-	
-	
+func _search_command(query: String) -> void:
 	for i in item_list.item_count:
 		var text := item_list.get_item_text(i).to_lower()
 
@@ -355,8 +323,6 @@ func _update_command_queries(query: String) -> void:
 			item_list.ensure_current_is_visible()
 			break
 	check_command(query)
-	#cmdlog()
-
 	
 	##FIXME to use ItemList's own incremental search
 	#for key: StringName in commands:
