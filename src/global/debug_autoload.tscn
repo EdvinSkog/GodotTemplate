@@ -16,6 +16,25 @@ bg_color = Color(0.14044744, 0.14044747, 0.14044738, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_6p1mf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icodk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sxjr"]
+
+[sub_resource type="GDScript" id="GDScript_2sxym"]
+resource_name = "Argument Popup"
+script/source = "extends Window
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sxym"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2sxym"]
+
 [node name="Debug" type="Node" unique_id=1736634377]
 process_mode = 3
 script = ExtResource("1_ewqeh")
@@ -79,6 +98,48 @@ caret_blink = true
 caret_force_displayed = true
 right_icon = ExtResource("2_6p1mf")
 icon_expand_mode = 1
+
+[node name="ContextWindow" type="Window" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" unique_id=458677488]
+unique_name_in_owner = true
+disable_3d = true
+oversampling_override = 1.0
+position = Vector2i(1, 70)
+wrap_controls = true
+borderless = true
+unfocusable = true
+popup_window = true
+mouse_passthrough = true
+popup_wm_hint = true
+minimize_disabled = true
+maximize_disabled = true
+theme_override_styles/embedded_border = SubResource("StyleBoxFlat_icodk")
+theme_override_styles/embedded_unfocused_border = SubResource("StyleBoxFlat_6sxjr")
+script = SubResource("GDScript_2sxym")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit/ContextWindow" unique_id=187382034]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_behavior_recursive = 1
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2sxym")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit/ContextWindow/PanelContainer" unique_id=989253171]
+layout_mode = 2
+
+[node name="ContextItems" type="ItemList" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit/ContextWindow/PanelContainer/VBoxContainer" unique_id=1785411091]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2sxym")
+allow_search = false
+auto_width = true
+auto_height = true
+text_overrun_behavior = 0
+wraparound_items = false
 
 [node name="LogLabel" type="Label" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer" unique_id=1732421151]
 unique_name_in_owner = true

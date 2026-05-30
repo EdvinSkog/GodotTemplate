@@ -121,13 +121,15 @@ class Command:
 	var type: Variant.Type
 	var description: String
 	var condition: Callable
+	var argument_recommends: Array
 	
-	func _init(_key: StringName, _function: Callable, _type: Variant.Type = TYPE_NIL, _description: String = "", _condition: Callable = func()->bool: return true) -> void:
+	func _init(_key: StringName, _function: Callable, _type: Variant.Type = TYPE_NIL, _description: String = "", _condition: Callable = func()->bool: return true, _argument_recommends := []) -> void:
 		key = _key
 		function = _function
 		type = _type
 		description = _description
 		condition = _condition
+		argument_recommends = _argument_recommends
 		add()
 	
 	func add() -> void:
@@ -144,7 +146,7 @@ class Command:
 		condition_errors.clear()
 		var arg_cond := condition_error("Correct argument size of " + str(condition.get_argument_count()), 
 		condition.get_argument_count() == arguments.size())
-		#condition_error("Incorrect type", Debug.cast_value(arguments[0]) == type)
+		
 		var custom_conditions: Dictionary[String, bool]
 		
 		if !arg_cond or arguments.is_empty():
@@ -189,6 +191,13 @@ func _input(event: InputEvent) -> void:
 			set_query(last_queries.back())
 	
 		if event.is_action_pressed("console_text_completion_accept"):
+			if %ContextItems.visible and %ContextItems.is_anything_selected():
+				var context_idx : int = %ContextItems.get_selected_items()[0]
+				
+				set_query(key + " " + %ContextItems.get_item_text(context_idx), false)
+				#var idx := item_list.get_selected_items()[0]
+				#set_query(item_list.get_item_metadata(idx))
+				return
 			if item_list.is_anything_selected():
 				var idx := item_list.get_selected_items()[0]
 				set_query(item_list.get_item_metadata(idx))
@@ -226,6 +235,7 @@ func _enable_console(option: bool) -> void:
 	#set_process_input(option)
 	set_process_unhandled_input(option)
 	set_process(option)
+	%ContextWindow.visible = false
 	for controller: Node in get_tree().get_nodes_in_group(&"controller"):
 		controller.set_process_unhandled_input(!option)
 	await get_tree().process_frame
@@ -284,6 +294,7 @@ func check_command(prompt: String) -> bool:
 	
 	var clear_func := func clear() -> void:
 		%ErrorLog.text = ""
+		%ContextWindow.hide()
 	
 	if prompt.is_empty(): 
 		clear_func.call()
@@ -305,8 +316,24 @@ func check_command(prompt: String) -> bool:
 	for error: String in command.condition_errors.keys():
 		var prefix: String = "[color=green]" if command.condition_errors[error] else "[color=red]"
 		%ErrorLog.text += prefix + error + "\n"
+	
+
+	update_context_window(command.argument_recommends)
+		
 	return validation
 	#%ErrorLog.text += "\n" + str(command.condition_errors)
+
+func update_context_window(arr: Array) -> void:
+	if arr.is_empty():
+		%ContextWindow.hide()
+		return
+	%ContextWindow.show()
+	%ContextWindow.position.x = 35 + (line_edit.caret_column * 9.5)
+	%ContextItems.clear()
+	for text: String in arr:
+		%ContextItems.add_item(text)
+	if arguments.size() > 0:
+		search_item_list(%ContextItems, arguments[0])
 
 
 
@@ -315,15 +342,18 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 	
 
 func _search_command(query: String) -> void:
-	for i in item_list.item_count:
-		var text := item_list.get_item_text(i).to_lower()
+	search_item_list(%ItemList, query)
+	
+	check_command(query)
+
+static func search_item_list(_item_list: ItemList, query: String) -> void:
+	for i in _item_list.item_count:
+		var text := _item_list.get_item_text(i).to_lower()
 
 		if text.begins_with(query):
-			item_list.select(i)
-			item_list.ensure_current_is_visible()
+			_item_list.select(i)
+			_item_list.ensure_current_is_visible()
 			break
-	check_command(query)
-	
 	##FIXME to use ItemList's own incremental search
 	#for key: StringName in commands:
 		#if key.contains(current_search):

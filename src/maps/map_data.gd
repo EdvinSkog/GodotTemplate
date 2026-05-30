@@ -3,11 +3,15 @@ class_name MapData extends Resource
 
 ## If empty, use file name minus "_map_data" and extension
 @export var key: StringName:
-	get = get_key
+	get = get_key,
+	set = set_key
 @export_file("*.tscn") var scene_path: String
 
 #TODO: Add flags or other data to be saved within the map
 #var saved_dictionary: Dictionary[StringName, Variant]
+
+func set_key(val: StringName) -> void:
+	key = val
 
 func get_key() -> StringName:
 	if !key.is_empty(): return key

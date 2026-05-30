@@ -4,8 +4,8 @@ extends Node
 
 
 ## Wrapper for new Command
-func n(_key: StringName, _function: Callable, _type: Variant.Type, _description_: String = "", _condition: Callable = _empty ) -> void:
-	Debug.Command.new(_key, _function, _type, _description_, _condition)
+func n(_key: StringName, _function: Callable, _type: Variant.Type, _description_: String = "", _condition: Callable = _empty, _rec_args := []) -> void:
+	Debug.Command.new(_key, _function, _type, _description_, _condition, _rec_args)
 
 @warning_ignore_start("unused_parameter", "untyped_declaration")
 func create_commands() -> void:
@@ -15,9 +15,9 @@ func create_commands() -> void:
 	TYPE_STRING_NAME,
 	"Load into a different map.",
 	func(arg = "") -> Dictionary[String, bool]:
-		return {"Map exists." = Data.maps.has(arg)}
+		return {"Map exists." = Data.maps.has(arg)},
+	Data.maps.keys()
 	)
-	
 	n(
 	&"volume",
 	func(_v: float) -> void: Audio.set_global_volume(&"Master", _v), 
