@@ -150,7 +150,9 @@ class Command:
 		var custom_conditions: Dictionary[String, bool]
 		
 		if !arg_cond or arguments.is_empty():
-			custom_conditions = condition.call()
+			while arguments.size() < condition.get_argument_count():
+				arguments.append("")
+			custom_conditions = condition.callv(arguments)
 		else:
 			custom_conditions = condition.callv(arguments)
 		condition_errors.merge(custom_conditions)
@@ -168,15 +170,18 @@ class Command:
 	func check_error_log() -> bool:
 		var check := condition_errors.values().all(func(val: bool) -> bool: return val)
 		return check
+	
+	func run(_arguments: Array) -> void:
+		var converted_args: Array
+		for arg: String in _arguments:
+			var converted_arg: Variant = Debug.cast_value(arg, type)
+			converted_args.append(converted_arg)
+		function.callv(converted_args)
 #endregion
 
 #region Inputs
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("console"):
-		line_edit.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_DISABLED
-		%Console.visible = !%Console.visible
-		return
-	
+
 	if is_console_enabled():
 		if event.is_action_pressed("ui_up"):
 			if last_queries.is_empty(): return
@@ -204,12 +209,6 @@ func _input(event: InputEvent) -> void:
 				#line_edit.text = 
 				
 	
-	#WARNING: Potential performance problems
-	for number in range(1, 13):
-		var event_name: String = "debug_"
-		event_name += str(number)
-		if event.is_action_pressed(event_name):
-			call_debug_action(number)
 
 func call_debug_action(idx: int) -> void:
 	idx = clampi(idx, 1, 12)
@@ -232,7 +231,7 @@ func _on_console_visibility_changed() -> void:
 	_enable_console(%Console.visible)
 
 func _enable_console(option: bool) -> void:
-	#set_process_input(option)
+	set_process_input(option)
 	set_process_unhandled_input(option)
 	set_process(option)
 	%ContextWindow.visible = false
@@ -241,7 +240,7 @@ func _enable_console(option: bool) -> void:
 	await get_tree().process_frame
 	line_edit.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_ENABLED
 	if option:
-		
+		check_command(line_edit.text)
 		line_edit.grab_focus()
 		line_edit.grab_click_focus()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -281,7 +280,7 @@ func run_command(prompt: String) -> void:
 	var command := commands[key]
 
 	if check_command(prompt):
-		command.function.callv(arguments)
+		command.run(arguments)
 		cmdlog(key + " successful.")
 	else:
 		cmdlog("Validation failed.")
@@ -364,3 +363,7 @@ func cmdlog(text: String) -> void:
 	#print_rich("[color=white]", text)
 	%LogLabel.text = text
 #endregion
+
+
+func _on_exit_button_pressed() -> void:
+	%Console.hide()

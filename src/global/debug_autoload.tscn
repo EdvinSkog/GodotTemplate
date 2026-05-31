@@ -5,6 +5,26 @@
 [ext_resource type="PackedScene" uid="uid://oqghk5jenbra" path="res://src/tools/freecam.tscn" id="2_ebb43"]
 [ext_resource type="Script" uid="uid://dbknin2x537ei" path="res://src/tools/commands.gd" id="4_2sxym"]
 
+[sub_resource type="GDScript" id="GDScript_icodk"]
+resource_name = "Inputs"
+script/source = "extends Node
+
+# Always processed even if the rest is not.
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed(\"console\"):
+		#line_edit.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_DISABLED
+		%Console.visible = !%Console.visible
+		return
+
+	#WARNING: Potential performance problems
+	for number in range(1, 13):
+		var event_name: String = \"debug_\"
+		event_name += str(number)
+		if event.is_action_pressed(event_name):
+			Debug.call_debug_action(number)
+"
+
 [sub_resource type="SystemFont" id="SystemFont_ewqeh"]
 font_names = PackedStringArray("Courier New")
 
@@ -38,6 +58,10 @@ bg_color = Color(0, 0, 0, 1)
 [node name="Debug" type="Node" unique_id=1736634377]
 process_mode = 3
 script = ExtResource("1_ewqeh")
+
+[node name="Inputs" type="Node" parent="." unique_id=650479889]
+process_mode = 3
+script = SubResource("GDScript_icodk")
 
 [node name="Commands" type="Node" parent="." unique_id=1579977924]
 script = ExtResource("4_2sxym")
@@ -162,10 +186,14 @@ focus_next = NodePath("../../LineEdit")
 focus_previous = NodePath("../../LineEdit")
 focus_mode = 1
 focus_behavior_recursive = 1
+max_columns = 2
+same_column_width = true
+fixed_column_width = 500
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1776718807]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.55
 mouse_filter = 0
 
 [node name="ErrorLog" type="RichTextLabel" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1899231]
@@ -174,6 +202,15 @@ layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 
+[node name="ExitButton" type="Button" parent="CanvasLayer/Console/PanelContainer" unique_id=2083177586]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+action_mode = 0
+text = "X"
+
 [connection signal="visibility_changed" from="CanvasLayer/Console" to="." method="_on_console_visibility_changed"]
 [connection signal="text_changed" from="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="CanvasLayer/Console/PanelContainer/ExitButton" to="." method="_on_exit_button_pressed"]

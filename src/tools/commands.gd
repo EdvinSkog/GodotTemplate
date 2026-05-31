@@ -50,7 +50,13 @@ func create_commands() -> void:
 	&"time_scale",
 	Engine.set_time_scale, 
 	TYPE_FLOAT,
-	"Set the overall time scale of the engine.")
+	"Set the overall time scale of the engine.",
+	func(arg: String = "1.0") -> Dictionary[String, bool]:
+
+		var arg_f := arg.to_float()
+		return { "Float between 0.0 to 3.0" = arg_f == clampf(arg_f, 0, 3) and arg.is_valid_float()}
+
+	)
 	
 	n(
 	&"noclip",
@@ -65,13 +71,38 @@ func create_commands() -> void:
 	
 	n(
 	&"tp",
-	_not_implemented, 
-	TYPE_VECTOR2,
-	"[Not Implemented] Teleport.",
-	func(argument: Variant = Vector3(1,1,1)) -> Dictionary[String, bool]:
+	func(x: float, y: float, z: float) -> void:
+		for controller in get_tree().get_nodes_in_group(&"controller"):
+			if controller is Node3D:
+				controller.global_position = Vector3(x,y,z)
+			elif controller is Node2D:
+				controller.global_position = Vector2(x,y)
+		, 
+	TYPE_FLOAT,
+	"Teleport. X and Y if 2D. X, Y, and Z if 3D.",
+	func(arg1: String, arg2: String, arg3: String) -> Dictionary[String, bool]:
+		
+		var controllers := get_tree().get_nodes_in_group(&"controller")
+		var cond := controllers.all(
+			func(type) -> bool:
+				return type is Node3D or type is Node2D
+			
+		)
+		return {
+			"X, Y, Z float values." = arg1.is_valid_float() and arg2.is_valid_float() and arg3.is_valid_float(),
+			"Controller is a Node3D or Node2D." = cond,
+			"Single controller" = get_tree().get_node_count_in_group(&"controller")
+		}
+	)
 	
-		return _not_implemented()
-
+	n(
+	&"hud",
+	func() -> void:
+		Scene.global_gui.visible = !Scene.global_gui.visible, 
+	TYPE_BOOL,
+	"Toggle the global HUD."
+	#func() -> Dictionary[String, bool]:
+		#return { }
 	)
 	
 	n(
