@@ -196,7 +196,7 @@ func _input(event: InputEvent) -> void:
 			set_query(last_queries.back())
 	
 		if event.is_action_pressed("console_text_completion_accept"):
-			if %ContextItems.visible and %ContextItems.is_anything_selected():
+			if %ContextWindow.visible and %ContextItems.is_anything_selected():
 				var context_idx : int = %ContextItems.get_selected_items()[0]
 				
 				set_query(key + " " + %ContextItems.get_item_text(context_idx), false)
