@@ -121,6 +121,7 @@ class Command:
 	var type: Variant.Type
 	var description: String
 	var condition: Callable
+	var condition_errors: Dictionary[String, bool]
 	var argument_recommends: Array
 	
 	func _init(_key: StringName, _function: Callable, _type: Variant.Type = TYPE_NIL, _description: String = "", _condition: Callable = func()->bool: return true, _argument_recommends := []) -> void:
@@ -159,7 +160,7 @@ class Command:
 		
 		return check_error_log()
 		
-	var condition_errors: Dictionary[String, bool]
+	
 
 	## Sets and Updates a condition's state
 	func condition_error(message: String, cond: bool = false) -> bool:

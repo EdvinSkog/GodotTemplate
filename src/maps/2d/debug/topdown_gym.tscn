@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://crnvhap5ucr6f"]
 
 [ext_resource type="Texture2D" uid="uid://ckc38wl6uowmc" path="res://assets/textures/grass/256x256_grass_a.png" id="1_1x7oc"]
+[ext_resource type="Script" uid="uid://7dbo5dp3s21v" path="res://src/maps/2d/debug/topdown_gym.gd" id="1_y5h7i"]
 [ext_resource type="PackedScene" uid="uid://cadfas1mgfubj" path="res://src/systems/movement/topdown/topdown_controller.tscn" id="2_1foud"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kbnq7"]
@@ -13,6 +14,7 @@ orientation = 2
 size = Vector2(299, 216)
 
 [node name="TopdownGym" type="Node2D" unique_id=75698644]
+script = ExtResource("1_y5h7i")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1322729151]
 texture_filter = 1
