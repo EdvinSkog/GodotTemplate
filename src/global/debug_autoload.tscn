@@ -13,7 +13,7 @@ script/source = "extends Node
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed(\"console\"):
-		line_edit.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_DISABLED
+		#line_edit.focus_behavior_recursive = Control.FOCUS_BEHAVIOR_DISABLED
 		%Console.visible = !%Console.visible
 		return
 
