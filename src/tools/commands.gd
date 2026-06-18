@@ -42,7 +42,7 @@ func create_commands() -> void:
 	"Swap to free cam.",
 	func() -> Dictionary[String, bool]:
 		
-		return _has_controller()
+		return _empty()
 
 	)
 	

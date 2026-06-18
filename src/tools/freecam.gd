@@ -5,6 +5,7 @@ extends Node
 # References
 var _original_camera_2d: Camera2D
 var _original_camera_3d: Camera3D
+var _original_mouse_mode: Input.MouseMode
 @onready var camera_2d: Camera2D = %Camera2D
 @onready var camera_3d: Camera3D = %Camera3D
 
@@ -14,6 +15,10 @@ func _ready() -> void:
 		func() -> void:
 		toggle.call_deferred(false)
 		)
+
+func _process(_delta: float) -> void:
+	# Risky?
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func is_active() -> bool:
 	return camera_3d.current or camera_2d.is_current() 
@@ -32,10 +37,11 @@ func toggle(option: bool) -> void:
 
 	for controller: Node in get_tree().get_nodes_in_group(&"controller"):
 			controller.set_process_unhandled_input(!option)
+	_original_mouse_mode = Input.mouse_mode
 	if option:
 		process_mode = Node.PROCESS_MODE_ALWAYS
 	else:
-		
+		Input.mouse_mode = _original_mouse_mode
 		process_mode = Node.PROCESS_MODE_DISABLED
 	
 	_handle_2d(option_2d)
