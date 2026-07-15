@@ -2,7 +2,6 @@ class_name TopDownController extends CharacterBody2D
 
 
 var speed := 300.0
-var sprint_modifier: float = 3
 
 
 var sprinting: bool = false
@@ -13,6 +12,8 @@ var direction: Vector2
 
 @export_category("Parameters")
 @export_range(0.00, 1, 0.01) var turn_speed: float = 0.2
+@export_range(1, 10) var sprint_modifier: float = 3
+
 
 func _ready() -> void:
 	_setup.call_deferred()

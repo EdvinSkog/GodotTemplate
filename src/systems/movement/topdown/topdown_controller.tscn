@@ -2,6 +2,19 @@
 
 [ext_resource type="Script" uid="uid://vfkb1kkyuklj" path="res://src/systems/movement/topdown/topdown_controller.gd" id="1_uwo75"]
 
+[sub_resource type="Gradient" id="Gradient_kfc7j"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0730659, 0.517192, 0.9269341)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yf5fn"]
+gradient = SubResource("Gradient_kfc7j")
+width = 512
+height = 256
+fill = 3
+fill_from = Vector2(1, 0.5)
+fill_to = Vector2(0, 0.5)
+
 [sub_resource type="BoxMesh" id="BoxMesh_uwo75"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_cqobq"]
@@ -22,12 +35,26 @@ radius = 25.019993
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_uwo75")
+sprint_modifier = 1.5
 
 [node name="CameraRemote" type="RemoteTransform2D" parent="." unique_id=1077853994]
+update_rotation = false
 update_scale = false
 
 [node name="Hand" type="Node2D" parent="." unique_id=472551597]
 position = Vector2(19, 15)
+
+[node name="PointLight2D" type="PointLight2D" parent="Hand" unique_id=175472042]
+position = Vector2(313, -4)
+rotation = 3.1415925
+energy = 0.1
+range_layer_max = 4
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.29411766)
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_yf5fn")
+texture_scale = 1.2
 
 [node name="SampleHandMesh" type="MeshInstance2D" parent="Hand" unique_id=918992089]
 position = Vector2(8, -4.000002)
