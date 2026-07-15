@@ -31,6 +31,7 @@ DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Audio="*res://src/global/audio_autoload.tscn"
 Player="*res://src/global/player_autoload.tscn"
 Scene="*res://src/global/scene_autoload.tscn"
+InputManager="*uid://bmhbtngh8t404"
 Debug="*uid://dtmc72qtrlk8l"
 
 [debug]
