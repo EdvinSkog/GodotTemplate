@@ -63,9 +63,20 @@ func _ready() -> void:
 		#func(val: CustomCursor) -> bool: return val != null
 	#):
 		#cursor.start()
-
+var _updating_inputs: bool = false
 func update_based_on_priority() -> void:
-	get_enabled_layers().front().enable()
+	if _updating_inputs: return
+	_updating_inputs = true
+	var _layers := get_enabled_layers()
+	var highest_priority_layer: InputLayer = _layers.pop_front()
+	for remaining_input in _layers:
+		remaining_input.disable()
+
+	
+	await get_tree().process_frame # To prevent duplicate calls
+	highest_priority_layer.enable()
+	_updating_inputs = false
+	
 	
 
 ## Reset to normal OS-cursor

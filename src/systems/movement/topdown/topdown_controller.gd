@@ -7,6 +7,7 @@ var sprint_modifier: float = 3
 
 var sprinting: bool = false
 var direction: Vector2
+var look_target: Vector2
 
 ## Gets attached to the CameraRemote node so as to follow this controller.
 @export var camera: Camera2D
@@ -35,6 +36,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("interact"):
 		_handle_interact()
+	look_target = get_global_mouse_position()
 
 func _handle_move() -> void:
 	# Speed
@@ -53,7 +55,7 @@ func _handle_move() -> void:
 
 
 func _handle_head() -> void:
-	var target: Vector2 = get_global_mouse_position()
+	var target: Vector2 = look_target
 	if turn_speed <= 0.00:
 		look_at(target)
 		return
