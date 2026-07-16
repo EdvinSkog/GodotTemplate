@@ -42,7 +42,7 @@ gdscript/warnings/untyped_declaration=1
 
 [dialogue_manager]
 
-runtime/state_autoload_shortcuts=["SceneManager", "AudioManager"]
+runtime/state_autoload_shortcuts=["Scene", "Audio"]
 runtime/balloon_path="res://src/systems/dialogue/balloons/basic_dialogue_balloon.tscn"
 
 [display]
