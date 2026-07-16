@@ -2,31 +2,12 @@
 
 [ext_resource type="Script" uid="uid://by5dfsfuy6buj" path="res://src/global/inputs/input_manager.gd" id="1_srfyq"]
 [ext_resource type="Script" uid="uid://r2b4ubujx4h2" path="res://src/global/inputs/custom_cursor.gd" id="2_waeo1"]
-[ext_resource type="Texture2D" uid="uid://k3ajmgaqxouq" path="res://assets/icons/editor/folder_3d.svg" id="3_waeo1"]
 [ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="5_jthhy"]
-[ext_resource type="Texture2D" uid="uid://duc1pyscjirk8" path="res://assets/icons/editor/database.svg" id="5_rqlr5"]
-[ext_resource type="Texture2D" uid="uid://cqf6c8regegjo" path="res://assets/icons/editor/folder_grey.svg" id="5_waeo1"]
-[ext_resource type="Texture2D" uid="uid://bj55ldktdyt4y" path="res://assets/icons/editor/chess_pawn.svg" id="7_rqlr5"]
 
 [sub_resource type="Resource" id="Resource_srfyq"]
 resource_name = "defaultcursor"
 script = ExtResource("2_waeo1")
-textures = Array[Texture2D]([ExtResource("5_waeo1"), ExtResource("3_waeo1")])
-delay = 0.5
-loop_is_clamped = true
-metadata/_custom_type_script = "uid://r2b4ubujx4h2"
-
-[sub_resource type="Resource" id="Resource_g7mks"]
-resource_name = "pointcursor"
-script = ExtResource("2_waeo1")
-textures = Array[Texture2D]([ExtResource("5_rqlr5")])
-shape = 2
-metadata/_custom_type_script = "uid://r2b4ubujx4h2"
-
-[sub_resource type="Resource" id="Resource_k3noq"]
-script = ExtResource("2_waeo1")
-textures = Array[Texture2D]([ExtResource("7_rqlr5")])
-shape = 2
+hotspot = null
 metadata/_custom_type_script = "uid://r2b4ubujx4h2"
 
 [node name="InputManager" type="Node" unique_id=667248635]
@@ -37,16 +18,6 @@ unique_name_in_owner = true
 
 [node name="DefaultInputLayer" type="Node" parent="." unique_id=481037556]
 script = ExtResource("5_jthhy")
-custom_cursors = Array[ExtResource("2_waeo1")]([SubResource("Resource_srfyq"), SubResource("Resource_g7mks")])
-reset_arrow_shape = true
-mouse_mode = 0
-metadata/_custom_type_script = "uid://dyokexikysct1"
-
-[node name="ActiveInputLayer" type="Node" parent="." unique_id=2114381404]
-script = ExtResource("5_jthhy")
-priority = 1
-groups_affected = Array[StringName]([&"controller"])
-custom_cursors = Array[ExtResource("2_waeo1")]([SubResource("Resource_k3noq")])
-reset_arrow_shape = true
+custom_cursors = Array[ExtResource("2_waeo1")]([SubResource("Resource_srfyq")])
 mouse_mode = 0
 metadata/_custom_type_script = "uid://dyokexikysct1"

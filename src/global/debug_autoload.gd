@@ -235,6 +235,7 @@ func _enable_console(option: bool) -> void:
 	set_process_input(option)
 	set_process_unhandled_input(option)
 	set_process(option)
+	$InputLayer.set_enabled.call_deferred(option)
 	%ContextWindow.visible = false
 	for controller: Node in get_tree().get_nodes_in_group(&"controller"):
 		controller.set_process_unhandled_input(!option)
@@ -244,9 +245,6 @@ func _enable_console(option: bool) -> void:
 		check_command(line_edit.text)
 		line_edit.grab_focus()
 		line_edit.grab_click_focus()
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		Input.mouse_mode = Player.mouse_mode
 
 func _process(_delta: float) -> void:
 	if is_console_enabled():

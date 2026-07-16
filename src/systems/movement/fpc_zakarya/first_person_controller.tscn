@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hynhkebmrw52" path="res://src/systems/movement/fpc_zakarya/first_person_controller.gd" id="1_0t4e8"]
 [ext_resource type="PackedScene" uid="uid://dw0v86vxny6wb" path="res://src/systems/interaction/interacter_3d.tscn" id="2_hr6nv"]
+[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="3_dxxkg"]
 
 [sub_resource type="Animation" id="Animation_gh776"]
 resource_name = "RESET"
@@ -449,3 +450,10 @@ unique_name_in_owner = true
 volume_db = -18.0
 pitch_scale = 0.55
 max_polyphony = 2
+
+[node name="FpsInputLayer" type="Node" parent="." unique_id=397353887]
+script = ExtResource("3_dxxkg")
+priority = 1
+groups_affected = Array[StringName]([&"controller"])
+mouse_mode = 2
+metadata/_custom_type_script = "uid://dyokexikysct1"

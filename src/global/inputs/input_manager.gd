@@ -9,31 +9,31 @@ var enabled_layers: Array[InputLayer]:
 
 
 func _ready() -> void:
+	var project_setting_cursor: String = ProjectSettings.get_setting("display/mouse_cursor/custom_image")
+	assert(project_setting_cursor == "", "Utilize InputManager's default input layer for custom cursors instead.")
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	
-
-#func start_default_custom_cursors() -> void:
-	#for cursor: CustomCursor in custom_cursor_for_shapes.values().filter(
-		#func(val: CustomCursor) -> bool: return val != null
-	#):
-		#cursor.start()
 
 var _updating_inputs: bool = false
+
 func update_based_on_priority() -> void:
 	if _updating_inputs: return
-	_updating_inputs = true
 	
+	_updating_inputs = true
+	var prev_mode := Input.mouse_mode
+	if is_mouse_visible(): Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	var _layers := enabled_layers.duplicate()
-	print(_layers)
 	var highest_priority_layer: InputLayer = _layers.pop_front()
-	print("High:", highest_priority_layer.name)
+	var affected_cursor_shapes: Array[Input.CursorShape] = []
+	if highest_priority_layer and highest_priority_layer.keep_unaffected_shapes:
+		affected_cursor_shapes = highest_priority_layer.get_affected_shapes()
 	for remaining_input: InputLayer in _layers:
-		remaining_input.disable()
+		remaining_input.disable(affected_cursor_shapes)
 	
 	
 	
 	await get_tree().process_frame # To prevent duplicate calls
 	if highest_priority_layer:
+		if highest_priority_layer.mouse_mode == -1: Input.mouse_mode = prev_mode
 		highest_priority_layer.enable()
 	_updating_inputs = false
 	
@@ -55,3 +55,6 @@ func get_enabled_layers() -> Array[InputLayer]:
 		func(a: InputLayer, b: InputLayer) -> bool: return a.priority > b.priority
 	)
 	return _filtered_layers
+
+func is_mouse_visible() -> bool:
+	return Input.mouse_mode == Input.MOUSE_MODE_VISIBLE or Input.mouse_mode == Input.MOUSE_MODE_CONFINED
