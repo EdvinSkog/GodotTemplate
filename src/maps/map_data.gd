@@ -1,3 +1,4 @@
+@icon("res://assets/icons/editor/map.svg")
 @tool
 class_name MapData extends Resource
 

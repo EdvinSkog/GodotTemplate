@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://dtmc72qtrlk8l"]
 
 [ext_resource type="Script" uid="uid://2giidhj43wyn" path="res://src/global/debug_autoload.gd" id="1_ewqeh"]
-[ext_resource type="Texture2D" uid="uid://b6rgr2033yjgt" path="res://assets/icons/editor/handler.svg" id="2_6p1mf"]
 [ext_resource type="PackedScene" uid="uid://oqghk5jenbra" path="res://src/tools/freecam.tscn" id="2_ebb43"]
 [ext_resource type="Script" uid="uid://dbknin2x537ei" path="res://src/tools/commands.gd" id="4_2sxym"]
+[ext_resource type="Texture2D" uid="uid://cufuuk8lotyeq" path="res://assets/icons/editor/arrow_right_from_line.svg" id="4_icodk"]
+[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="5_icodk"]
+[ext_resource type="Script" uid="uid://r2b4ubujx4h2" path="res://src/global/inputs/custom_cursor.gd" id="6_ausw8"]
+[ext_resource type="Texture2D" uid="uid://bwafrkyuu6efj" path="res://assets/icons/editor/cursor.svg" id="7_opwou"]
 
 [sub_resource type="GDScript" id="GDScript_icodk"]
 resource_name = "Inputs"
@@ -54,6 +57,12 @@ func _ready() -> void:
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2sxym"]
+
+[sub_resource type="Resource" id="Resource_icodk"]
+script = ExtResource("6_ausw8")
+textures = Array[Texture2D]([ExtResource("7_opwou")])
+hotspot = null
+metadata/_custom_type_script = "uid://r2b4ubujx4h2"
 
 [node name="Debug" type="Node" unique_id=1736634377]
 process_mode = 3
@@ -120,7 +129,7 @@ clear_button_enabled = true
 deselect_on_focus_loss_enabled = false
 caret_blink = true
 caret_force_displayed = true
-right_icon = ExtResource("2_6p1mf")
+right_icon = ExtResource("4_icodk")
 icon_expand_mode = 1
 
 [node name="ContextWindow" type="Window" parent="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" unique_id=458677488]
@@ -205,6 +214,14 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 action_mode = 0
 text = "X"
+
+[node name="InputLayer" type="Node" parent="." unique_id=577034361]
+script = ExtResource("5_icodk")
+priority = 100
+custom_cursors = Array[ExtResource("6_ausw8")]([SubResource("Resource_icodk")])
+mouse_mode = 0
+enable_on_ready = false
+metadata/_custom_type_script = "uid://dyokexikysct1"
 
 [connection signal="visibility_changed" from="CanvasLayer/Console" to="." method="_on_console_visibility_changed"]
 [connection signal="text_changed" from="CanvasLayer/Console/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]

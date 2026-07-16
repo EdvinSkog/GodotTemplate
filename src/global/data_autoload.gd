@@ -48,7 +48,7 @@ func _store_resource_into_list(list: Dictionary, folder_path: String, property_k
 
 
 static func load_resource_list(folder_path: String, autoname: bool = false) -> Array[Resource]:
-	var arr: Array = get_all_file_paths(folder_path)
+	var arr: Array[String] = get_all_file_paths(folder_path)
 	var loaded_arr: Array[Resource]
 	for each in arr:
 		var resource : Resource = ResourceLoader.load(each)

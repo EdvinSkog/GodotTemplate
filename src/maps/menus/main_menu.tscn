@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c65mj8h0nper4" path="res://src/maps/menus/main_menu.gd" id="1_tfsnc"]
 [ext_resource type="PackedScene" uid="uid://mydth38oqmq6" path="res://src/user_interface/screens/settings_screen.tscn" id="2_q4n6u"]
 
-[node name="MainMenu" type="Control" unique_id=1815472537]
+[node name="MainMenu" type="Control" unique_id=1815472537 groups=["menu"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

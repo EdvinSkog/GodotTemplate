@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bmywfuevlp0mk" path="res://src/user_interface/screens/pause_screen.gd" id="1_7j5qp"]
 [ext_resource type="Script" uid="uid://snkwqpwojvds" path="res://src/user_interface/screens/pause_handler.gd" id="2_hmc51"]
+[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="3_hmc51"]
 
 [sub_resource type="Gradient" id="Gradient_7j5qp"]
 offsets = PackedFloat32Array(0)
@@ -20,6 +21,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7j5qp")
+
+[node name="InputLayer" type="Node" parent="." unique_id=384061004]
+process_mode = 2
+script = ExtResource("3_hmc51")
+priority = 99
+mouse_mode = 0
+enable_on_ready = false
+metadata/_custom_type_script = "uid://dyokexikysct1"
 
 [node name="PauseHandler" type="Node" parent="." unique_id=1912358430]
 process_mode = 3

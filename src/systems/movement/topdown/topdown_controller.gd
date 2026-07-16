@@ -1,5 +1,6 @@
 class_name TopDownController extends CharacterBody2D
 
+static var ref: TopDownController
 
 var speed := 300.0
 var sprint_modifier: float = 3
@@ -7,6 +8,7 @@ var sprint_modifier: float = 3
 
 var sprinting: bool = false
 var direction: Vector2
+var look_target: Vector2
 
 ## Gets attached to the CameraRemote node so as to follow this controller.
 @export var camera: Camera2D
@@ -15,12 +17,11 @@ var direction: Vector2
 @export_range(0.00, 1, 0.01) var turn_speed: float = 0.2
 
 func _ready() -> void:
+	ref = self
 	_setup.call_deferred()
 
 func _setup() -> void:
 	$CameraRemote.remote_path = camera.get_path()
-	Player.toppc = self
-	Player.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _physics_process(_delta: float) -> void:
 	_handle_move()
@@ -35,6 +36,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("interact"):
 		_handle_interact()
+	look_target = get_global_mouse_position()
 
 func _handle_move() -> void:
 	# Speed
@@ -53,7 +55,7 @@ func _handle_move() -> void:
 
 
 func _handle_head() -> void:
-	var target: Vector2 = get_global_mouse_position()
+	var target: Vector2 = look_target
 	if turn_speed <= 0.00:
 		look_at(target)
 		return
