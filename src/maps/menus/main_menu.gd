@@ -20,6 +20,5 @@ func _on_settings_returned() -> void:
 
 
 
-
 func _toggle_pause_handler(option: bool) -> void:
 	Scene.pause_screen.handler.enabled = option

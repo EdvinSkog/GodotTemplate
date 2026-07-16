@@ -33,7 +33,7 @@ func _setup() -> void:
 #region Map Management
 
 func get_maps() -> Dictionary[StringName, MapData]:
-	return Data.maps
+	return _map_list
 
 func load_map(key: StringName) -> void:
 	if !get_maps().has(key):
@@ -48,7 +48,7 @@ func set_map(new_map: Node) -> void:
 	if map.get_parent() == null:
 		map_holder.add_child(map)
 	else:
-		map.reparent(map_holder)
+		map.reparent.call_deferred(map_holder)
 	map_changed.emit()
 	
 

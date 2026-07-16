@@ -1,3 +1,4 @@
+@icon("res://assets/icons/editor/pause.svg")
 class_name PauseHandler extends Handler
 
 var enabled: bool = true

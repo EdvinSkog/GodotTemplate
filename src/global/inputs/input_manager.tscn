@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bmhbtngh8t404"]
+
+[ext_resource type="Script" uid="uid://by5dfsfuy6buj" path="res://src/global/inputs/input_manager.gd" id="1_srfyq"]
+[ext_resource type="Script" uid="uid://r2b4ubujx4h2" path="res://src/global/inputs/custom_cursor.gd" id="2_waeo1"]
+[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="5_jthhy"]
+
+[sub_resource type="Resource" id="Resource_srfyq"]
+resource_name = "defaultcursor"
+script = ExtResource("2_waeo1")
+hotspot = null
+metadata/_custom_type_script = "uid://r2b4ubujx4h2"
+
+[node name="InputManager" type="Node" unique_id=667248635]
+script = ExtResource("1_srfyq")
+
+[node name="CustomCursorOrphanTimers" type="Node" parent="." unique_id=280449380]
+unique_name_in_owner = true
+
+[node name="DefaultInputLayer" type="Node" parent="." unique_id=481037556]
+script = ExtResource("5_jthhy")
+custom_cursors = Array[ExtResource("2_waeo1")]([SubResource("Resource_srfyq")])
+mouse_mode = 0
+metadata/_custom_type_script = "uid://dyokexikysct1"

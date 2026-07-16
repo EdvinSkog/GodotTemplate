@@ -55,10 +55,14 @@ layout_mode = 2
 
 [node name="ButtonStart" type="Button" parent="VSplitContainer/ButtonContainer" unique_id=1658999774]
 layout_mode = 2
+focus_next = NodePath("../ButtonSettings")
+mouse_default_cursor_shape = 2
 text = "START"
 
 [node name="ButtonSettings" type="Button" parent="VSplitContainer/ButtonContainer" unique_id=455688245]
 layout_mode = 2
+focus_next = NodePath("../ButtonStart")
+mouse_default_cursor_shape = 2
 text = "SETTINGS"
 
 [connection signal="pressed" from="VSplitContainer/ButtonContainer/ButtonStart" to="." method="_on_button_start_pressed"]

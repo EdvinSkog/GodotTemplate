@@ -36,7 +36,7 @@ func _process(_delta: float) -> void:
 		ray.target_position = camera.project_local_ray_normal(mousePos) * 10
 #
 		if ray.is_colliding():
-			var area := ray.get_collider()
+			var _area := ray.get_collider()
 			#if area is ClickableComponent:
 			#	area.module.on_snapview_raycast_hit(ray)
 
