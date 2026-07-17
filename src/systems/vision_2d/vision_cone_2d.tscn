@@ -4,8 +4,7 @@
 [ext_resource type="Script" uid="uid://caxskym88ov7q" path="res://src/systems/vision_2d/vision_cone_2d.gd" id="1_rnxi6"]
 [ext_resource type="Texture2D" uid="uid://cgal13bpkdkbb" path="res://src/systems/vision_2d/cone_gradient_texture.tres" id="2_14cxv"]
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_14cxv"]
-points = PackedVector2Array(0, 0, 1024, 512, 1024, -512)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_m5ng1"]
 
 [sub_resource type="Gradient" id="Gradient_qtisr"]
 interpolation_mode = 2
@@ -20,10 +19,27 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8, 0.90000004)
 
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_m5ng1"]
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_2xmut"]
+
+[sub_resource type="Gradient" id="Gradient_14cxv"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.5924242, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_14cxv"]
+gradient = SubResource("Gradient_14cxv")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.8)
+metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_14cxv"]
 radius = 82.0
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_14cxv"]
+points = PackedVector2Array(0, 0, 1024, 512, 1024, -512)
 
 [node name="VisionCone2D" type="Node2D" unique_id=461830071 node_paths=PackedStringArray("canvas_group")]
 script = ExtResource("1_rnxi6")
@@ -32,9 +48,9 @@ canvas_group = NodePath("CanvasGroup")
 [node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=145948485]
 unique_name_in_owner = true
 
-[node name="VisionConeLight2D" type="PointLight2D" parent="CanvasGroup" unique_id=1070926000 node_paths=PackedStringArray("collision_shape_node")]
-texture_filter = 6
-texture_repeat = 2
+[node name="FovVisionConeLight2D" type="PointLight2D" parent="CanvasGroup" unique_id=1070926000]
+unique_name_in_owner = true
+scale = Vector2(1, 2)
 energy = 1.1
 blend_mode = 2
 range_layer_max = 4
@@ -44,10 +60,10 @@ shadow_item_cull_mask = 3
 texture = ExtResource("2_14cxv")
 texture_scale = 2.0
 script = ExtResource("1_lsxkw")
-collision_shape = SubResource("ConvexPolygonShape2D_14cxv")
-collision_shape_node = NodePath("../../DetectionArea/CollisionCone")
+collision_shape = SubResource("ConvexPolygonShape2D_m5ng1")
 
 [node name="VisionConeLight2D2" type="PointLight2D" parent="CanvasGroup" unique_id=2058106252]
+visible = false
 energy = 1.1
 blend_mode = 2
 range_layer_max = 4
@@ -55,43 +71,33 @@ range_item_cull_mask = 3
 texture = SubResource("GradientTexture2D_g4v7s")
 script = ExtResource("1_lsxkw")
 unaffected_by_params = true
-collision_shape = SubResource("ConvexPolygonShape2D_m5ng1")
+collision_shape = SubResource("ConvexPolygonShape2D_2xmut")
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1032823730]
+unique_name_in_owner = true
 collision_layer = 3
 collision_mask = 3
 audio_bus_override = true
 audio_bus_name = &"Sfx"
+
+[node name="Polygon2D" type="Polygon2D" parent="DetectionArea" unique_id=1263453408]
+unique_name_in_owner = true
+clip_children = 1
+light_mask = 7
+visibility_layer = 7
+antialiased = true
+texture = SubResource("GradientTexture2D_14cxv")
+texture_offset = Vector2(1280, 1280)
+texture_scale = Vector2(0.1, 0.1)
 
 [node name="CollisionShape2DCircle" type="CollisionShape2D" parent="DetectionArea" unique_id=1839023415]
 shape = SubResource("CircleShape2D_14cxv")
 
 [node name="CollisionCone" type="CollisionShape2D" parent="DetectionArea" unique_id=1939477448]
 unique_name_in_owner = true
+visible = false
 scale = Vector2(2, 1)
 shape = SubResource("ConvexPolygonShape2D_14cxv")
-
-[node name="CenterRay" type="RayCast2D" parent="DetectionArea" unique_id=1452291236]
-unique_name_in_owner = true
-target_position = Vector2(2048, 0)
-collide_with_areas = true
-
-[node name="OuterDownRay" type="RayCast2D" parent="DetectionArea" unique_id=532279545]
-unique_name_in_owner = true
-rotation = 0.7853982
-target_position = Vector2(2048, 0)
-collide_with_areas = true
-
-[node name="InnerDownRay" type="RayCast2D" parent="DetectionArea" unique_id=246953054]
-unique_name_in_owner = true
-target_position = Vector2(2048, 0)
-collide_with_areas = true
-
-[node name="UpRay" type="RayCast2D" parent="DetectionArea" unique_id=382019033]
-unique_name_in_owner = true
-rotation = -0.7853982
-target_position = Vector2(2048, 0)
-collide_with_areas = true
 
 [node name="CollPoly" type="CollisionPolygon2D" parent="DetectionArea" unique_id=678328173]
 unique_name_in_owner = true

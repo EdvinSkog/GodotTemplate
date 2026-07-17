@@ -31,6 +31,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+
 	if event.is_action_pressed("sprint"):
 		sprinting = true
 	if event.is_action_released("sprint"):

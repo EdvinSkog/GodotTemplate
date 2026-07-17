@@ -14,8 +14,9 @@ const BASE_WIDTH: float = 0.5
 @export_range(0.05, 1) var width: float = BASE_WIDTH:
 	set = set_width
 
-const RANGE: float = 2048
-
+const RANGE: float = 1024
+const FOV := 270.0
+const MAX_RAYS: int = 7
 
 func set_strength(val: float) -> void:
 	if !is_node_ready(): await ready
@@ -42,44 +43,66 @@ func get_affected_lights() -> Array[VisionConeLight2D]:
 			return !light.unaffected_by_params
 	)
 
-func _process(_delta: float) -> void:
+func _ready() -> void:
+	create_scan_rays()
+
+
+func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint(): return
 	update_detection_shapes()
-	
-func update_detection_shapes() -> void:
-	# TODO Clean up this spaghetti
-	var size: Vector2 = Vector2(1024, 512)
-	#if !%RayCast2D.is_colliding():
-		#%CollisionCone.scale.x = %RayCast2D.target_position.x / size.x
-		#return
-	
-	var dist := get_ray_distance(%CenterRay)
-	%CollisionCone.scale.x = dist / size.x 
-	%CollisionCone.scale.y = dist / size.y 
-	
-	
-	%UpRay.rotation_degrees += 1 if %UpRay.is_colliding() else -1
-	%UpRay.rotation_degrees = clampf(%UpRay.rotation_degrees, -45, -1)
-	scan_rotate(%InnerDownRay, 5, %OuterDownRay.rotation_degrees, true)
-	scan_rotate(%OuterDownRay, %InnerDownRay.rotation_degrees, 45)
 
-	
-	var down_factor := get_normalized_angle(%OuterDownRay.rotation)
-	var up_factor := get_normalized_angle(-%UpRay.rotation)
-	var x_size: float = get_x_size_from_ray(%CenterRay)
-	var up_y_size: float = -clampf(x_size * up_factor, 70, x_size)
-	var down_y_size: float = clampf(x_size * down_factor, 70, x_size)
-	%CollPoly.polygon = [
-		Vector2(x_size, up_y_size),
-		Vector2(x_size, -50),
-		Vector2(x_size, 50),
-		Vector2(x_size, down_y_size),
-		Vector2.ZERO
-	]
-	
-	# Maybe: dynamically create new rays going each direction until max degree is reached
-	
-	
+var scanning: bool = true
+var base_angle : float = 45
+
+var ray_index : int = 0
+
+func update_detection_shapes() -> void:
+	set_active_rays()
+	%CollPoly.polygon = get_points()
+
+func get_points() -> PackedVector2Array:
+	var points := PackedVector2Array()
+	points.append(Vector2.ZERO)
+	scan_rays.sort_custom(func(a: RayCast2D, b: RayCast2D) -> bool:
+		return a.rotation < b.rotation
+	)
+	for ray in scan_rays:
+		if !ray.enabled:
+			continue
+
+		var global_point := ray.get_collision_point() if ray.is_colliding() else ray.to_global(ray.target_position)
+		var local_point : Vector2 = %CollPoly.to_local(global_point)
+
+		if points.is_empty() or points[-1].distance_to(local_point) > 1.0:
+			points.append(local_point)
+	points.append(Vector2.ZERO)
+	return points
+
+@onready var scan_rays: Array[RayCast2D] = []
+
+func create_scan_rays(amount: int = MAX_RAYS) -> void:
+	scan_rays.clear()
+
+	for i in amount:
+		var ray := RayCast2D.new()
+
+		ray.enabled = false
+		ray.target_position = Vector2.RIGHT * RANGE
+
+		var t := 0.0 if amount == 1 else float(i) / float(amount - 1)
+		ray.rotation_degrees = lerp(-FOV * 0.5, FOV * 0.5, t)
+		ray.name = str(ray.rotation_degrees) + "Ray"
+		%DetectionArea.add_child(ray)
+		scan_rays.append(ray)
+
+func set_active_rays(count: int = scan_rays.size()) -> void:
+	count = clampi(count, 0, scan_rays.size())
+
+	for i in scan_rays.size():
+		scan_rays[i].enabled = i < count
+
+
+
 ## Angle is radian
 func get_normalized_angle(angle: float) -> float:
 	const MIN_ANGLE = deg_to_rad(1.0)
@@ -92,14 +115,6 @@ func get_ray_distance(ray: RayCast2D) -> float:
 	
 	return global_position.distance_to(coll_point)
 
-func get_x_size_from_ray(ray: RayCast2D) -> float:
-	return RANGE * inverse_lerp(1, RANGE, get_ray_distance(ray))
-
-func scan_rotate(ray: RayCast2D, min_angle: float, max_angle: float, inwards: bool = false) -> void:
-	var rate: float = 1
-	if inwards: rate = -1
-	ray.rotation_degrees += (-rate if ray.is_colliding() else rate)
-	ray.rotation_degrees = clampf(ray.rotation_degrees, min_angle, max_angle)
 
 func _on_detection_area_entered(area: Area2D) -> void:
 	detected.emit(area)
