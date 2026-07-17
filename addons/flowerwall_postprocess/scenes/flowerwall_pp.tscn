@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://dxlwhj47enyqa" path="res://addons/flowerwall_postprocess/scripts/config ui scripts/fl_pp_presets.gd" id="2_aii1a"]
 [ext_resource type="Script" uid="uid://tog6nmrph15b" path="res://addons/flowerwall_postprocess/scripts/config ui scripts/fl_pp_ui_slider.gd" id="8_orrbg"]
 [ext_resource type="Script" uid="uid://c5emn1tatcw1r" path="res://addons/flowerwall_postprocess/scripts/config ui scripts/fl_pp_ui_toggle.gd" id="9_30wqw"]
+[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="12_2g1mu"]
+[ext_resource type="Script" uid="uid://r2b4ubujx4h2" path="res://src/global/inputs/custom_cursor.gd" id="13_u8rfk"]
+[ext_resource type="Texture2D" uid="uid://bwafrkyuu6efj" path="res://assets/icons/editor/cursor.svg" id="14_bkmk7"]
 [ext_resource type="Material" uid="uid://dxood0vjcbocr" path="res://addons/flowerwall_postprocess/shaders/dithering_shader.material" id="26_aii1a"]
 [ext_resource type="Material" uid="uid://4i77uq4ydsm3" path="res://addons/flowerwall_postprocess/shaders/blurx_shader.material" id="27_yx2vx"]
 [ext_resource type="Material" uid="uid://dmlrlguxujoq" path="res://addons/flowerwall_postprocess/shaders/crt_shader.material" id="28_aii1a"]
@@ -17,6 +20,13 @@ font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_4uar2"]
 font_size = 20
+
+[sub_resource type="Resource" id="Resource_f4cb3"]
+resource_name = "DebugCursor"
+script = ExtResource("13_u8rfk")
+textures = Array[Texture2D]([ExtResource("14_bkmk7")])
+hotspot = null
+metadata/_custom_type_script = "uid://r2b4ubujx4h2"
 
 [node name="flowerwall_pp" type="Control" unique_id=1286452348 node_paths=PackedStringArray("flowerwall_crt_config_ui", "dither", "preblur_x", "preblur_y", "post_bloom", "crt", "presets")]
 layout_mode = 3
@@ -510,6 +520,13 @@ preblur_x_mat = NodePath("../../../preblur_x/x_blur")
 preblur_y_mat = NodePath("../../../preblur_y/y_blur")
 crt_mat = NodePath("../../../CRT/crt_shader")
 bloom_mat = NodePath("../../../post_bloom/bloom")
+
+[node name="InputLayer" type="Node" parent="." unique_id=703550439]
+script = ExtResource("12_2g1mu")
+priority = 98
+custom_cursors = Array[ExtResource("13_u8rfk")]([SubResource("Resource_f4cb3")])
+mouse_mode = 0
+metadata/_custom_type_script = "uid://dyokexikysct1"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="value_changed" from="UI/FlowerwallCrtConfigUi/Options/Downscaling/downscale_slider" to="." method="_on_downscale_slider_value_changed"]

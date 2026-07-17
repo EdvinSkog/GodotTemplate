@@ -59,6 +59,7 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2sxym"]
 
 [sub_resource type="Resource" id="Resource_icodk"]
+resource_name = "DebugCursor"
 script = ExtResource("6_ausw8")
 textures = Array[Texture2D]([ExtResource("7_opwou")])
 hotspot = null

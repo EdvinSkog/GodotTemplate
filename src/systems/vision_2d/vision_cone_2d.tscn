@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dy8gloru33o1o"]
+
+[ext_resource type="Script" uid="uid://bip8ek65y2oim" path="res://src/systems/vision_2d/vision_cone_light.gd" id="1_lsxkw"]
+[ext_resource type="Script" uid="uid://caxskym88ov7q" path="res://src/systems/vision_2d/vision_cone_2d.gd" id="1_rnxi6"]
+[ext_resource type="Texture2D" uid="uid://cgal13bpkdkbb" path="res://src/systems/vision_2d/cone_gradient_texture.tres" id="2_14cxv"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_14cxv"]
+points = PackedVector2Array(0, 0, 503, 253, 1024, 512, 1024, 0, 1024, -512, 528, -252)
+
+[sub_resource type="Gradient" id="Gradient_qtisr"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.9130435, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g4v7s"]
+gradient = SubResource("Gradient_qtisr")
+width = 164
+height = 164
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.90000004)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_m5ng1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_14cxv"]
+radius = 82.0
+
+[node name="VisionCone2D" type="Node2D" unique_id=461830071 node_paths=PackedStringArray("canvas_group")]
+script = ExtResource("1_rnxi6")
+canvas_group = NodePath("CanvasGroup")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=145948485]
+unique_name_in_owner = true
+
+[node name="VisionConeLight2D" type="PointLight2D" parent="CanvasGroup" unique_id=1070926000 node_paths=PackedStringArray("collision_shape_node")]
+texture_filter = 6
+texture_repeat = 2
+energy = 1.1
+blend_mode = 2
+range_layer_max = 4
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_item_cull_mask = 3
+texture = ExtResource("2_14cxv")
+texture_scale = 2.0
+script = ExtResource("1_lsxkw")
+collision_shape = SubResource("ConvexPolygonShape2D_14cxv")
+collision_shape_node = NodePath("../../DetectionArea/CollisionCone")
+
+[node name="VisionConeLight2D2" type="PointLight2D" parent="CanvasGroup" unique_id=2058106252]
+energy = 1.1
+blend_mode = 2
+range_layer_max = 4
+range_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_g4v7s")
+script = ExtResource("1_lsxkw")
+unaffected_by_params = true
+collision_shape = SubResource("ConvexPolygonShape2D_m5ng1")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1032823730]
+collision_layer = 3
+collision_mask = 3
+audio_bus_override = true
+audio_bus_name = &"Sfx"
+
+[node name="CollisionShape2DCircle" type="CollisionShape2D" parent="DetectionArea" unique_id=1839023415]
+shape = SubResource("CircleShape2D_14cxv")
+
+[node name="CollisionCone" type="CollisionShape2D" parent="DetectionArea" unique_id=1939477448]
+unique_name_in_owner = true
+shape = SubResource("ConvexPolygonShape2D_14cxv")
+
+[node name="RayCast2D" type="RayCast2D" parent="DetectionArea" unique_id=1452291236]
+unique_name_in_owner = true
+target_position = Vector2(1024, 0)
+collide_with_areas = true
+
+[node name="DownRayCast2D" type="RayCast2D" parent="DetectionArea" unique_id=532279545]
+unique_name_in_owner = true
+rotation = 0.5235988
+target_position = Vector2(1255.5112, 338.60938)
+collide_with_areas = true
+
+[node name="UpRayCast2D" type="RayCast2D" parent="DetectionArea" unique_id=382019033]
+unique_name_in_owner = true
+rotation = 0.5235988
+target_position = Vector2(324.32733, -1120.2485)
+collide_with_areas = true
+
+[connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_entered"]

@@ -2,21 +2,9 @@
 
 [ext_resource type="Script" uid="uid://vfkb1kkyuklj" path="res://src/systems/movement/topdown/topdown_controller.gd" id="1_uwo75"]
 [ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="2_kfc7j"]
+[ext_resource type="PackedScene" uid="uid://dy8gloru33o1o" path="res://src/systems/vision_2d/vision_cone_2d.tscn" id="2_whpx7"]
 [ext_resource type="Script" uid="uid://r2b4ubujx4h2" path="res://src/global/inputs/custom_cursor.gd" id="3_xcsm2"]
 [ext_resource type="Texture2D" uid="uid://bcn3d5d4wqh47" path="res://assets/icons/editor/cross.svg" id="4_whpx7"]
-
-[sub_resource type="Gradient" id="Gradient_kfc7j"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.0730659, 0.517192, 0.9269341)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_yf5fn"]
-gradient = SubResource("Gradient_kfc7j")
-width = 512
-height = 256
-fill = 3
-fill_from = Vector2(1, 0.5)
-fill_to = Vector2(0, 0.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uwo75"]
 
@@ -40,10 +28,11 @@ textures = Array[Texture2D]([ExtResource("4_whpx7")])
 hotspot = null
 metadata/_custom_type_script = "uid://r2b4ubujx4h2"
 
-[node name="TopDownController" type="CharacterBody2D" unique_id=1322041233 groups=["controller"]]
+[node name="TopDownController" type="CharacterBody2D" unique_id=1322041233 node_paths=PackedStringArray("vision_cone") groups=["controller"]]
 motion_mode = 1
 platform_on_leave = 2
 script = ExtResource("1_uwo75")
+vision_cone = NodePath("Hand/VisionCone2D")
 sprint_modifier = 1.5
 
 [node name="CameraRemote" type="RemoteTransform2D" parent="." unique_id=1077853994]
@@ -53,17 +42,8 @@ update_scale = false
 [node name="Hand" type="Node2D" parent="." unique_id=472551597]
 position = Vector2(19, 15)
 
-[node name="PointLight2D" type="PointLight2D" parent="Hand" unique_id=175472042]
-position = Vector2(313, -4)
-rotation = 3.1415925
-energy = 0.1
-range_layer_max = 4
-range_item_cull_mask = 3
-shadow_enabled = true
-shadow_color = Color(0, 0, 0, 0.29411766)
-shadow_item_cull_mask = 3
-texture = SubResource("GradientTexture2D_yf5fn")
-texture_scale = 1.2
+[node name="VisionCone2D" parent="Hand" unique_id=461830071 instance=ExtResource("2_whpx7")]
+position = Vector2(-19, -15)
 
 [node name="SampleHandMesh" type="MeshInstance2D" parent="Hand" unique_id=918992089]
 position = Vector2(8, -4.000002)
@@ -86,3 +66,5 @@ groups_affected = Array[StringName]([&"controller"])
 custom_cursors = Array[ExtResource("3_xcsm2")]([SubResource("Resource_alkyp")])
 mouse_mode = 3
 metadata/_custom_type_script = "uid://dyokexikysct1"
+
+[connection signal="detected" from="Hand/VisionCone2D" to="." method="_on_vision_cone_2d_detected"]

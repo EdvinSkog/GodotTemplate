@@ -26,7 +26,7 @@ func _ready() -> void:
 	should_enable_bloom()
 	flowerwall_crt_config_ui.visible = false
 	presets._on_preset_selected(default_selection) #TODO: illegal function call
-
+	$InputLayer.set_enabled.call_deferred(false)
 #Open Menu
 func _unhandled_key_input(event: InputEvent) -> void:
 	if !enable_config_input:
@@ -35,10 +35,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == KEY_F1:
 			
 			flowerwall_crt_config_ui.visible = !flowerwall_crt_config_ui.visible
-			if flowerwall_crt_config_ui.visible:
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			else:
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			$InputLayer.set_enabled(flowerwall_crt_config_ui.visible)
+			
 
 func should_enable_dither() -> void:
 	if DITHERING_SHADER.get("shader_parameter/downscaling_strength") > 1.0: 

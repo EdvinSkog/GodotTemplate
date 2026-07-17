@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cffvj0p3cp5ks"
-path="res://.godot/imported/folder_2d.svg-601050e7916ca57730c412d9db79826f.ctex"
+uid="uid://c0xqa7ijvrft1"
+path="res://.godot/imported/eye.svg-3e695afa7dc1fda4970e8e8bc899bf51.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/icons/editor/folder_2d.svg"
-dest_files=["res://.godot/imported/folder_2d.svg-601050e7916ca57730c412d9db79826f.ctex"]
+source_file="res://assets/icons/editor/2d/eye.svg"
+dest_files=["res://.godot/imported/eye.svg-3e695afa7dc1fda4970e8e8bc899bf51.ctex"]
 
 [params]
 
