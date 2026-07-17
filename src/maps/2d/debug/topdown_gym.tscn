@@ -135,6 +135,25 @@ shape = SubResource("RectangleShape2D_pifl0")
 occluder = SubResource("OccluderPolygon2D_7pesn")
 occluder_light_mask = 3
 
+[node name="StaticBody2D3" type="StaticBody2D" parent="Layout" unique_id=454908894]
+position = Vector2(857, 1402)
+rotation = -1.6334604
+collision_layer = 3
+collision_mask = 3
+
+[node name="SampleWall" type="MeshInstance2D" parent="Layout/StaticBody2D3" unique_id=1920214525]
+position = Vector2(-61.99997, 24.31251)
+scale = Vector2(1588.0001, 168.62498)
+mesh = SubResource("BoxMesh_wp87m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Layout/StaticBody2D3" unique_id=1606913577]
+position = Vector2(-60.5, 24)
+shape = SubResource("RectangleShape2D_pifl0")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Layout/StaticBody2D3" unique_id=1902473324]
+occluder = SubResource("OccluderPolygon2D_7pesn")
+occluder_light_mask = 3
+
 [node name="FogOfWarCanvasGroup" type="CanvasGroup" parent="." unique_id=533884226]
 light_mask = 2
 material = SubResource("ShaderMaterial_g4v7s")

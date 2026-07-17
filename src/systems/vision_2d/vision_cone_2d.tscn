@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cgal13bpkdkbb" path="res://src/systems/vision_2d/cone_gradient_texture.tres" id="2_14cxv"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_14cxv"]
-points = PackedVector2Array(0, 0, 503, 253, 1024, 512, 1024, 0, 1024, -512, 528, -252)
+points = PackedVector2Array(0, 0, 1024, 512, 1024, -512)
 
 [sub_resource type="Gradient" id="Gradient_qtisr"]
 interpolation_mode = 2
@@ -68,23 +68,33 @@ shape = SubResource("CircleShape2D_14cxv")
 
 [node name="CollisionCone" type="CollisionShape2D" parent="DetectionArea" unique_id=1939477448]
 unique_name_in_owner = true
+scale = Vector2(2, 1)
 shape = SubResource("ConvexPolygonShape2D_14cxv")
 
-[node name="RayCast2D" type="RayCast2D" parent="DetectionArea" unique_id=1452291236]
+[node name="CenterRay" type="RayCast2D" parent="DetectionArea" unique_id=1452291236]
 unique_name_in_owner = true
-target_position = Vector2(1024, 0)
+target_position = Vector2(2048, 0)
 collide_with_areas = true
 
-[node name="DownRayCast2D" type="RayCast2D" parent="DetectionArea" unique_id=532279545]
+[node name="OuterDownRay" type="RayCast2D" parent="DetectionArea" unique_id=532279545]
 unique_name_in_owner = true
-rotation = 0.5235988
-target_position = Vector2(1255.5112, 338.60938)
+rotation = 0.7853982
+target_position = Vector2(2048, 0)
 collide_with_areas = true
 
-[node name="UpRayCast2D" type="RayCast2D" parent="DetectionArea" unique_id=382019033]
+[node name="InnerDownRay" type="RayCast2D" parent="DetectionArea" unique_id=246953054]
 unique_name_in_owner = true
-rotation = 0.5235988
-target_position = Vector2(324.32733, -1120.2485)
+target_position = Vector2(2048, 0)
 collide_with_areas = true
+
+[node name="UpRay" type="RayCast2D" parent="DetectionArea" unique_id=382019033]
+unique_name_in_owner = true
+rotation = -0.7853982
+target_position = Vector2(2048, 0)
+collide_with_areas = true
+
+[node name="CollPoly" type="CollisionPolygon2D" parent="DetectionArea" unique_id=678328173]
+unique_name_in_owner = true
+polygon = PackedVector2Array(2048, -1024, 2048, -100, 2048, 100, 2048, 1024, 0, 0)
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_entered"]

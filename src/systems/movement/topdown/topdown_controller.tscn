@@ -43,6 +43,7 @@ update_scale = false
 position = Vector2(19, 15)
 
 [node name="VisionCone2D" parent="Hand" unique_id=461830071 instance=ExtResource("2_whpx7")]
+unique_name_in_owner = true
 position = Vector2(-19, -15)
 
 [node name="SampleHandMesh" type="MeshInstance2D" parent="Hand" unique_id=918992089]
