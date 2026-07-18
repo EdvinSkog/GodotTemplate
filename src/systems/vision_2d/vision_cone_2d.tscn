@@ -50,7 +50,6 @@ unique_name_in_owner = true
 
 [node name="FovVisionConeLight2D" type="PointLight2D" parent="CanvasGroup" unique_id=1070926000]
 unique_name_in_owner = true
-scale = Vector2(1, 2)
 energy = 1.1
 blend_mode = 2
 range_layer_max = 4
@@ -104,3 +103,4 @@ unique_name_in_owner = true
 polygon = PackedVector2Array(2048, -1024, 2048, -100, 2048, 100, 2048, 1024, 0, 0)
 
 [connection signal="area_entered" from="DetectionArea" to="." method="_on_detection_area_entered"]
+[connection signal="area_exited" from="DetectionArea" to="." method="_on_detection_area_exited"]

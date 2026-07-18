@@ -15,7 +15,8 @@ const BASE_WIDTH: float = 0.5
 	set = set_width
 
 const RANGE: float = 1024
-const FOV := 270.0
+const FOV := 90.0
+const STARTING_ACTIVE_RAYS: int = 7
 const MAX_RAYS: int = 7
 
 func set_strength(val: float) -> void:
@@ -45,6 +46,7 @@ func get_affected_lights() -> Array[VisionConeLight2D]:
 
 func _ready() -> void:
 	create_scan_rays()
+	set_active_rays(STARTING_ACTIVE_RAYS)
 
 
 func _physics_process(delta: float) -> void:
@@ -57,7 +59,7 @@ var base_angle : float = 45
 var ray_index : int = 0
 
 func update_detection_shapes() -> void:
-	set_active_rays()
+	
 	%CollPoly.polygon = get_points()
 
 func get_points() -> PackedVector2Array:
@@ -72,7 +74,8 @@ func get_points() -> PackedVector2Array:
 
 		var global_point := ray.get_collision_point() if ray.is_colliding() else ray.to_global(ray.target_position)
 		var local_point : Vector2 = %CollPoly.to_local(global_point)
-
+		local_point.x = roundf(local_point.x)
+		local_point.y = roundf(local_point.y)
 		if points.is_empty() or points[-1].distance_to(local_point) > 1.0:
 			points.append(local_point)
 	points.append(Vector2.ZERO)
@@ -98,10 +101,33 @@ func create_scan_rays(amount: int = MAX_RAYS) -> void:
 func set_active_rays(count: int = scan_rays.size()) -> void:
 	count = clampi(count, 0, scan_rays.size())
 
-	for i in scan_rays.size():
-		scan_rays[i].enabled = i < count
+	for ray in scan_rays:
+		ray.enabled = false
 
+	if count == 0:
+		return
 
+	var center := scan_rays.size() / 2
+	var enabled := 1
+
+	scan_rays[center].enabled = true
+
+	var left := 0
+	var right := scan_rays.size() - 1
+
+	while enabled < count:
+		if left < center:
+			scan_rays[left].enabled = true
+			enabled += 1
+			left += 1
+
+			if enabled >= count:
+				break
+
+		if right > center:
+			scan_rays[right].enabled = true
+			enabled += 1
+			right -= 1
 
 ## Angle is radian
 func get_normalized_angle(angle: float) -> float:
@@ -118,3 +144,7 @@ func get_ray_distance(ray: RayCast2D) -> float:
 
 func _on_detection_area_entered(area: Area2D) -> void:
 	detected.emit(area)
+
+
+func _on_detection_area_exited(area: Area2D) -> void:
+	pass

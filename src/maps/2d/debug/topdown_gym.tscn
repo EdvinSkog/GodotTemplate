@@ -4,31 +4,23 @@
 [ext_resource type="Script" uid="uid://7dbo5dp3s21v" path="res://src/maps/2d/debug/topdown_gym.gd" id="1_y5h7i"]
 [ext_resource type="PackedScene" uid="uid://cadfas1mgfubj" path="res://src/systems/movement/topdown/topdown_controller.tscn" id="2_1foud"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="2_a6wc2"]
+[ext_resource type="Script" uid="uid://5g8yquw3afkq" path="res://src/systems/movement/topdown/topdown_obstacle.gd" id="4_7pesn"]
 [ext_resource type="Texture2D" uid="uid://dv2sks7fh6w2e" path="res://assets/icons/editor/icon.svg" id="4_a6wc2"]
 [ext_resource type="Shader" uid="uid://cyphu5xc3j2qd" path="res://src/systems/vision_2d/hidden_layer_shader.gdshader" id="5_fsb6a"]
 [ext_resource type="Texture2D" uid="uid://cqx2j8hwlicrh" path="res://assets/pp_shaders/dithering_pattern.png" id="6_7pesn"]
 [ext_resource type="Texture2D" uid="uid://bsckilxj2nx8i" path="res://assets/textures/90680-zazu.png" id="6_b1ge6"]
 [ext_resource type="Script" uid="uid://c04oobke8aieu" path="res://src/systems/vision_2d/fog_of_war_canvas_group.gd" id="6_wp87m"]
+[ext_resource type="Script" uid="uid://cb57w603fw0du" path="res://src/systems/movement/topdown/topdown_player_camera.gd" id="11_xo2h7"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kbnq7"]
 size = Vector2(500, 500)
 orientation = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_1foud"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1foud"]
-size = Vector2(299, 216)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_g4v7s"]
-polygon = PackedVector2Array(-149, 102, -152, -107, 147, -111, 144, 102)
-
-[sub_resource type="BoxMesh" id="BoxMesh_wp87m"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pifl0"]
-size = Vector2(1595, 168)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7pesn"]
-polygon = PackedVector2Array(-848, 111, -851, -57, 732, -49, 734, 109)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_g4v7s"]
+vertices = PackedVector2Array(-644.5, -3581.1719, -618.5, 1618.5313, -1992.6406, 905.5078, -2164.7031, 779.03125, -2197.4766, 407.47656, -3822.3203, -5.75, -3815.7422, -277.47656, -6117.6406, -3590.8203, -4252.1406, -442.6328, -6099.3516, 1539.4219, -4265.2734, 250.59375, -2347.5234, 925.97656, -2302.75, 1594.2188, -3962.3203, 762.09375, -3899.039, 253.70313, -3971.7578, 417.57813, -1940.5, 1599.4531)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 4), PackedInt32Array(7, 0, 4, 6), PackedInt32Array(7, 6, 8), PackedInt32Array(9, 7, 8, 10), PackedInt32Array(11, 12, 9, 13), PackedInt32Array(14, 5, 4), PackedInt32Array(14, 4, 15, 10), PackedInt32Array(1, 16, 2), PackedInt32Array(3, 2, 11, 13), PackedInt32Array(13, 9, 10, 15)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-6218, -3691, -545, -3681, -518, 1720, -6199, 1638)])
+agent_radius = 100.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
 shader = ExtResource("5_fsb6a")
@@ -46,26 +38,44 @@ cap_bottom = false
 resource_name = "TestEnemy"
 script/source = "extends CharacterBody2D
 
-@export var speed: float = 200.0
-
 @export var target: Node2D
+@export var movement_speed: float = 4.0
+@onready var navigation_agent: NavigationAgent2D = get_node(\"NavigationAgent2D\")
 
-
-func _physics_process(_delta: float) -> void:
-	# Calculate direction and distance to target
-	var target_position := target.global_position
-	var distance_to_target: float = global_position.distance_to(target_position)
+func _ready() -> void:
+	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	set_movement_target(target.global_position)
 	
-	# Only move if we are not already at the target position
-	if distance_to_target > 5.0:
-		velocity = global_position.direction_to(target_position) * speed
-		move_and_slide()
+func set_movement_target(movement_target: Vector2):
+	navigation_agent.set_target_position(movement_target)
+	while true:
+		await get_tree().create_timer(2).timeout
+		set_movement_target(target.global_position)
+
+func _physics_process(delta):
+	# Do not query when the map has never synchronized and is empty.
+	if NavigationServer2D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
+		return
+	if navigation_agent.is_navigation_finished():
+		return
+
+	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
+	var new_velocity: Vector2 = global_position.direction_to(next_path_position) * movement_speed
+	if navigation_agent.avoidance_enabled:
+		navigation_agent.set_velocity(new_velocity)
 	else:
-		velocity = Vector2.ZERO
+		_on_velocity_computed(new_velocity)
+	
+func _on_velocity_computed(safe_velocity: Vector2):
+	velocity = safe_velocity
+	move_and_slide()
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b1ge6"]
 radius = 32.824234
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 91.86392
 
 [node name="TopdownGym" type="Node2D" unique_id=75698644]
 script = ExtResource("1_y5h7i")
@@ -100,59 +110,29 @@ scale = Vector2(11.324, 12.664001)
 mesh = SubResource("PlaneMesh_kbnq7")
 texture = ExtResource("1_1x7oc")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Layout" unique_id=1127780443]
-position = Vector2(-5, -148)
-collision_layer = 3
-collision_mask = 3
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Layout" unique_id=1395126844]
+position = Vector2(3039, -138)
+navigation_polygon = SubResource("NavigationPolygon_g4v7s")
 
-[node name="SampleWall" type="MeshInstance2D" parent="Layout/StaticBody2D" unique_id=1149020286]
-scale = Vector2(300.75, 217.25)
-mesh = SubResource("BoxMesh_1foud")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layout/StaticBody2D" unique_id=1940397566]
-position = Vector2(-0.49999237, 0)
-shape = SubResource("RectangleShape2D_1foud")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Layout/StaticBody2D" unique_id=735196358]
-occluder = SubResource("OccluderPolygon2D_g4v7s")
-occluder_light_mask = 3
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Layout" unique_id=675625751]
-position = Vector2(25, 429)
-collision_layer = 3
-collision_mask = 3
-
-[node name="SampleWall" type="MeshInstance2D" parent="Layout/StaticBody2D2" unique_id=90594730]
-position = Vector2(-61.99997, 24.31251)
-scale = Vector2(1588.0001, 168.62498)
-mesh = SubResource("BoxMesh_wp87m")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layout/StaticBody2D2" unique_id=27364995]
-position = Vector2(-60.5, 24)
-shape = SubResource("RectangleShape2D_pifl0")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Layout/StaticBody2D2" unique_id=787921334]
-occluder = SubResource("OccluderPolygon2D_7pesn")
-occluder_light_mask = 3
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Layout" unique_id=454908894]
-position = Vector2(857, 1402)
+[node name="Polygon2D" type="Polygon2D" parent="Layout/NavigationRegion2D" unique_id=428916144]
+position = Vector2(-4080, -18.999985)
 rotation = -1.6334604
-collision_layer = 3
-collision_mask = 3
+color = Color(1, 0.79607844, 0.7137255, 0.81960785)
+polygon = PackedVector2Array(-164.88855, -93.8761, 284.0254, -57.166626, 179.48367, 174.15479, -7.4932404, 157.86963, -178.38748, 95.45117)
+uv = PackedVector2Array(200, -1807.9999, 552.0001, -1799.9999, 552, -1320, 344, -1320, 192, -1320)
+script = ExtResource("4_7pesn")
 
-[node name="SampleWall" type="MeshInstance2D" parent="Layout/StaticBody2D3" unique_id=1920214525]
-position = Vector2(-61.99997, 24.31251)
-scale = Vector2(1588.0001, 168.62498)
-mesh = SubResource("BoxMesh_wp87m")
+[node name="TopdownPolygon" type="Polygon2D" parent="Layout/NavigationRegion2D" unique_id=903116034]
+position = Vector2(-3074, 591)
+polygon = PackedVector2Array(-791, 72, -795, -74, 785, -83, 800, 87)
+script = ExtResource("4_7pesn")
+metadata/_custom_type_script = "uid://5g8yquw3afkq"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layout/StaticBody2D3" unique_id=1606913577]
-position = Vector2(-60.5, 24)
-shape = SubResource("RectangleShape2D_pifl0")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Layout/StaticBody2D3" unique_id=1902473324]
-occluder = SubResource("OccluderPolygon2D_7pesn")
-occluder_light_mask = 3
+[node name="TopdownPolygon2" type="Polygon2D" parent="Layout/NavigationRegion2D" unique_id=1416578697]
+position = Vector2(-2133, 1776)
+polygon = PackedVector2Array(-108, -756, 48, -765, 167, 819, -2, 826)
+script = ExtResource("4_7pesn")
+metadata/_custom_type_script = "uid://5g8yquw3afkq"
 
 [node name="FogOfWarCanvasGroup" type="CanvasGroup" parent="." unique_id=533884226]
 light_mask = 2
@@ -175,37 +155,46 @@ scale = Vector2(1.0000002, 1)
 texture = ExtResource("4_a6wc2")
 
 [node name="Node2D" type="CharacterBody2D" parent="FogOfWarCanvasGroup" unique_id=1365058410 node_paths=PackedStringArray("target")]
-position = Vector2(-61.823116, 82.9039)
+position = Vector2(-107.102036, 64.22775)
 scale = Vector2(1.0000002, 1)
 collision_layer = 0
 script = SubResource("GDScript_g4v7s")
-speed = 50.0
 target = NodePath("../../Entities/TopDownController")
+movement_speed = 200.0
 
 [node name="Sprite2D3" type="Sprite2D" parent="FogOfWarCanvasGroup/Node2D" unique_id=2051483460]
 light_mask = 2
-position = Vector2(-4.7683716e-07, 6.9506223e-06)
-scale = Vector2(0.38666436, 0.43565527)
+position = Vector2(0, 5.722046e-06)
+scale = Vector2(0.38666436, 0.4356553)
 texture = ExtResource("6_b1ge6")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="FogOfWarCanvasGroup/Node2D" unique_id=1033123089]
+target_desired_distance = 150.0
+path_metadata_flags = 0
+simplify_path = true
+max_speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FogOfWarCanvasGroup/Node2D" unique_id=1585012144]
 shape = SubResource("CircleShape2D_b1ge6")
+
+[node name="Area2D" type="Area2D" parent="FogOfWarCanvasGroup/Node2D" unique_id=1286229572]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FogOfWarCanvasGroup/Node2D/Area2D" unique_id=576716047]
+shape = SubResource("CircleShape2D_g4v7s")
 
 [node name="Entities" type="Node2D" parent="." unique_id=1894548300]
 
 [node name="TopDownController" parent="Entities" unique_id=1322041233 node_paths=PackedStringArray("camera") instance=ExtResource("2_1foud")]
 up_direction = Vector2(0, 1)
-turn_speed = null
 camera = NodePath("../Camera2D")
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Entities/TopDownController" unique_id=1485892700]
-update_rotation = false
-update_scale = false
 
 [node name="Camera2D" type="Camera2D" parent="Entities" unique_id=1123175491]
 unique_name_in_owner = true
 position = Vector2(34, -157)
-zoom = Vector2(0.25, 0.25)
+ignore_rotation = false
 position_smoothing_enabled = true
-rotation_smoothing_enabled = true
+position_smoothing_speed = 15.0
 editor_draw_limits = true
+script = ExtResource("11_xo2h7")
