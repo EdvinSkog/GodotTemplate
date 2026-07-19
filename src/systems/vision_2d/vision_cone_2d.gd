@@ -45,11 +45,12 @@ func get_affected_lights() -> Array[VisionConeLight2D]:
 	)
 
 func _ready() -> void:
+	if Engine.is_editor_hint(): return
 	create_scan_rays()
 	set_active_rays(STARTING_ACTIVE_RAYS)
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Engine.is_editor_hint(): return
 	update_detection_shapes()
 
