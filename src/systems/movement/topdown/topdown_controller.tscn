@@ -36,6 +36,7 @@ vision_cone = NodePath("Hand/VisionCone2D")
 sprint_modifier = 1.5
 
 [node name="CameraRemote" type="RemoteTransform2D" parent="." unique_id=1077853994]
+unique_name_in_owner = true
 update_rotation = false
 update_scale = false
 

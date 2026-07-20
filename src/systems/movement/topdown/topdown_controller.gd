@@ -15,6 +15,7 @@ var look_target: Vector2 = Vector2.UP
 
 @export_category("Parameters")
 @export_range(0.00, 1, 0.01) var turn_speed: float = 0.2
+@export_range(0, 1) var snap_to_mouse_threshold : float = 0.4
 @export_range(1, 10) var sprint_modifier: float = 3
 
 
@@ -23,7 +24,7 @@ func _ready() -> void:
 	_setup.call_deferred()
 
 func _setup() -> void:
-	$CameraRemote.remote_path = camera.get_path()
+	%CameraRemote.remote_path = camera.get_path()
 
 func _physics_process(_delta: float) -> void:
 	_handle_head()
@@ -68,9 +69,9 @@ func _handle_head() -> void:
 		return
 
 	var angle := get_angle_to(target) # Radians
-	if angle > 0.4:
+	if angle > snap_to_mouse_threshold:
 		rotate(1 * turn_speed)
-	elif angle < -0.4:
+	elif angle < -snap_to_mouse_threshold:
 		rotate(-1 * turn_speed)
 	else:
 		rotate(angle)
