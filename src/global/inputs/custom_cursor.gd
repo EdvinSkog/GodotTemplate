@@ -17,9 +17,18 @@ signal stopped
 @export_group("Extra")
 @export var shape: Input.CursorShape = Input.CURSOR_ARROW
 
+## If not modified, uses project setting as default.
+@export var hotspot: Vector2 = DEFAULT_HOTSPOT
+## Useful for usage of a single viewport or drawable texture.
+@export var force_frame_by_frame_update: bool = false
+
+## Taken from ProjectSettings
+static var DEFAULT_HOTSPOT: Vector2 = ProjectSettings.get_setting("display/mouse_cursor/custom_image_hotspot")
+
+
 ## A timer node to be assigned by an InputLayer
 var timer: Timer
-var enabled: bool = false
+var _active: bool = false
 
 func validate_textures() -> bool:
 	if textures == null: return false
@@ -33,8 +42,10 @@ var _initialized: bool = false
 func start() -> void:
 	assert(validate_textures(), "Custom cursor's texture failed validation.")
 	if !_initialized: initialize()
-	enabled = true
-	if delay <= 0:
+	_active = true
+	if !is_animated():
+		next_anim_step() # Single call.
+	elif delay <= 0:
 		pass # Frame-by-frame, handled by InputLayer
 	elif textures.size() > 1:
 		assert(timer != null)
@@ -53,7 +64,7 @@ func initialize() -> void:
 	else:
 		Input.set_custom_mouse_cursor(textures[0], shape)
 	Input.mouse_mode = prev_mouse_mode
-	if timer == null:
+	if timer == null and is_animated():
 		timer = Timer.new()
 		timer.wait_time = delay
 		InputManager.orphan_timers.add_child(timer)
@@ -75,12 +86,20 @@ func next_anim_step() -> void:
 	if _index >= textures.size() - 1:
 		if loop_is_clamped:
 			textures.reverse()
-		_index = 1 # we skip first element because it repeats.
+			_index = 1 # we skip first element because it repeats.
+		else:
+			_index = 0
 	else:
 		_index += 1
 
 func stop() -> void:
 	Input.set_custom_mouse_cursor(null, shape)
-	enabled = false
-	timer.stop()
+	_active = false
+	if timer: timer.stop()
 	stopped.emit()
+
+func is_animated() -> bool:
+	return textures.size() > 1 or force_frame_by_frame_update
+
+func is_active() -> bool:
+	return _active

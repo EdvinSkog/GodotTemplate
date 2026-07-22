@@ -28,13 +28,15 @@ func update_based_on_priority() -> void:
 	var highest_priority_layer: InputLayer = _layers.pop_front()
 	print("High:", highest_priority_layer.name)
 	for remaining_input: InputLayer in _layers:
-		remaining_input.disable()
+		remaining_input.deactivate(affected_cursor_shapes)
+
 	
 	
 	
 	await get_tree().process_frame # To prevent duplicate calls
 	if highest_priority_layer:
-		highest_priority_layer.enable()
+		if highest_priority_layer.mouse_mode == -1: Input.mouse_mode = prev_mode
+		highest_priority_layer.activate()
 	_updating_inputs = false
 	
 	

@@ -1,8 +1,9 @@
 @icon("res://assets/icons/editor/joypad.svg")
 class_name InputLayer extends Node
 
-signal enabled
-signal disabled
+signal updated_enabled(val: bool)
+signal deactivated
+signal activated
 
 ## Higher priority means this InputLayer will enable before other layers.
 ## If tied with another layer, last one called is the one that enables.
@@ -33,31 +34,22 @@ var _enabled: bool = false:
 	get = is_enabled
 
 
-func has_custom_cursor() -> bool:
-	return !custom_cursors.is_empty()
-
 func _ready() -> void:
 	process_priority = 10
 	set_process(false)
+	InputManager.layers.append(self)
 	if has_custom_cursor():
 		for cursor in custom_cursors:
 			_setup_cursor(cursor)
-
-	InputManager.layers.append(self)
 	set_enabled.call_deferred(enable_on_ready)
-	await get_tree().process_frame
-	
-	
-	InputManager.update_based_on_priority()
 
 func _setup_cursor(custom_cursor: CustomCursor) -> void:
 	if custom_cursor.textures.size() == 1:
 		_single_frame_cursors.append(custom_cursor)
 		custom_cursor.initialize.call_deferred()
 		return
-	if custom_cursor.delay <= 0:
+	if custom_cursor.delay <= 0 or custom_cursor.force_frame_by_frame_update:
 		_frame_by_frame_cursors.append(custom_cursor)
-		set_process(true)
 	else:
 		_timer_delayed_cursors.append(custom_cursor)
 		_timer = Timer.new()
@@ -67,22 +59,25 @@ func _setup_cursor(custom_cursor: CustomCursor) -> void:
 		_timer.timeout.connect(custom_cursor.next_anim_step)
 	custom_cursor.initialize.call_deferred()
 
+func has_custom_cursor() -> bool:
+	return !custom_cursors.is_empty()
+
 func _process(_delta: float) -> void:
 	for cursor in _frame_by_frame_cursors:
 		cursor.next_anim_step()
 
+## Updates priority as well
 func set_enabled(option: bool) -> void:
 	_enabled = option
 	if option: enable()
 	else: disable()
 
-func disable() -> void:
-	toggle_group_inputs(false)
-	if has_custom_cursor(): 
-		custom_cursors.all(func(cursor: CustomCursor) -> void: cursor.stop())
-	disabled.emit()
 
-func enable() -> void:
+func activate() -> void:
+	if !_enabled:
+		push_warning("Activated ", name, " without being enabled.")
+	set_process(true)
+	toggle_group_inputs(true)
 	if has_custom_cursor():
 		for cursor in custom_cursors:
 			cursor.start()
@@ -90,8 +85,19 @@ func enable() -> void:
 		Input.set_custom_mouse_cursor(null)
 	if mouse_mode != -1:
 		Input.set_deferred(&"mouse_mode", mouse_mode)
-	toggle_group_inputs(true)
-	enabled.emit()
+	activated.emit()
+
+func deactivate(only_disable_certain_shapes: Array[Input.CursorShape] = []) -> void:
+	set_process(false)
+	toggle_group_inputs(false)
+	if has_custom_cursor():
+		for cursor in custom_cursors:
+			if only_disable_certain_shapes.is_empty():
+				cursor.stop() # We stop all cursors
+			elif only_disable_certain_shapes.has(cursor.shape): 
+				cursor.stop() # We stop certain cursors
+	deactivated.emit()
+
 
 func is_enabled() -> bool:
 	return _enabled
