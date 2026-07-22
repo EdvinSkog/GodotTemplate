@@ -66,8 +66,8 @@ func _process(_delta: float) -> void:
 ## Updates priority as well
 func set_enabled(option: bool) -> void:
 	_enabled = option
-	if option: enable()
-	else: disable()
+	if option: activate()
+	else: deactivate()
 	InputManager.update_based_on_priority()
 
 

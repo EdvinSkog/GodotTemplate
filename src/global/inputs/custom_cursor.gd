@@ -19,12 +19,6 @@ signal stopped
 @export var shape: Input.CursorShape = Input.CURSOR_ARROW
 ## If not modified, uses project setting as default.
 @export var hotspot: Vector2 = DEFAULT_HOTSPOT
-
-## Taken from ProjectSettings
-static var DEFAULT_HOTSPOT: Vector2 = ProjectSettings.get_setting("display/mouse_cursor/custom_image_hotspot")
-
-## If not modified, uses project setting as default.
-@export var hotspot: Vector2 = DEFAULT_HOTSPOT
 ## Useful for usage of a single viewport or drawable texture.
 @export var force_frame_by_frame_update: bool = false
 
