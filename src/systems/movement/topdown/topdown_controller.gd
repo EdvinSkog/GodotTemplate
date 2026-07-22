@@ -1,5 +1,6 @@
 class_name TopDownController extends CharacterBody2D
 
+static var ref: TopDownController
 
 var speed := 300.0
 var sprint_modifier: float = 3
@@ -16,12 +17,11 @@ var look_target: Vector2
 @export_range(0.00, 1, 0.01) var turn_speed: float = 0.2
 
 func _ready() -> void:
+	ref = self
 	_setup.call_deferred()
 
 func _setup() -> void:
 	$CameraRemote.remote_path = camera.get_path()
-	Player.toppc = self
-	Player.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _physics_process(_delta: float) -> void:
 	_handle_move()

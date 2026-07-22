@@ -6,6 +6,7 @@
 
 class_name FirstPersonController extends CharacterBody3D
 
+static var ref: FirstPersonController
 
 ## The settings for the character's movement and feel.
 @export_category("Character")
@@ -101,7 +102,7 @@ var mouse_input : Vector2 = Vector2(0,0)
 #region Setup
 
 func _ready() -> void:
-	Player.fpc = self
+	ref = self
 	
 	Scene.map_changed.connect(_on_map_changed)
 	# If the controller is rotated in a certain direction for game design purposes, redirect this rotation into the head.
@@ -129,8 +130,6 @@ func toggle_active(option: bool, enable_cam: bool = true) -> void:
 		CAMERA.current = option
 	immobile = !option
 	if option:
-		Player.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Input.set_mouse_mode(Player.mouse_mode)
 		if jumping_enabled:
 			jumping_enabled = false
 			await get_tree().create_timer(0.3).timeout 
@@ -138,7 +137,6 @@ func toggle_active(option: bool, enable_cam: bool = true) -> void:
 		show()
 	else:
 		hide()
-		Player.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func check_controls() -> void: # If you add a control, you might want to add a check for it here.

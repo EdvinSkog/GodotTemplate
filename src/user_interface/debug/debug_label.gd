@@ -3,7 +3,7 @@ extends Control
 @export_enum("Game", "Player") var what_script := 0
 @export var what_property: String
 @export var custom_text: String
-var selected_script
+var selected_script: Node
 var expression: Expression = Expression.new()
 
 @onready var label_value: Label = $LabelValue

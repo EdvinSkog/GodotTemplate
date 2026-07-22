@@ -1,6 +1,7 @@
 @icon("res://assets/icons/editor/cursor.svg")
 class_name CustomCursor extends Resource
 
+
 signal started
 signal stopped
 
@@ -16,6 +17,11 @@ signal stopped
 @export var loop_is_clamped: bool = false
 @export_group("Extra")
 @export var shape: Input.CursorShape = Input.CURSOR_ARROW
+## If not modified, uses project setting as default.
+@export var hotspot: Vector2 = DEFAULT_HOTSPOT
+
+## Taken from ProjectSettings
+static var DEFAULT_HOTSPOT: Vector2 = ProjectSettings.get_setting("display/mouse_cursor/custom_image_hotspot")
 
 ## If not modified, uses project setting as default.
 @export var hotspot: Vector2 = DEFAULT_HOTSPOT
@@ -47,11 +53,9 @@ func start() -> void:
 		next_anim_step() # Single call.
 	elif delay <= 0:
 		pass # Frame-by-frame, handled by InputLayer
-	elif textures.size() > 1:
+	else:
 		assert(timer != null)
 		timer.start()
-	else:
-		next_anim_step.call_deferred()
 	started.emit()
 
 ## This is needed so as to avoid
@@ -70,19 +74,20 @@ func initialize() -> void:
 		InputManager.orphan_timers.add_child(timer)
 		timer.timeout.connect(next_anim_step)
 	_initialized = true
+	
 ## To be called by timer's timeout signal.
 var _index: int = 0:
 	set(val):
 		val = clampi(val, 0, textures.size() - 1)
 		_index = val
 
-func next_anim_step() -> void:
+func next_anim_step(has_to_match_shape: bool = true) -> void:
 	var stored_shape := Input.get_current_cursor_shape()
+	if stored_shape != shape and has_to_match_shape: return
 	if textures.is_empty():
 		Input.set_custom_mouse_cursor(null, shape)
 	else:
-		Input.set_custom_mouse_cursor(textures[_index], shape)
-	
+		Input.set_custom_mouse_cursor(textures[_index], shape, hotspot)
 	if _index >= textures.size() - 1:
 		if loop_is_clamped:
 			textures.reverse()
