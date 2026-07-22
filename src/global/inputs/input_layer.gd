@@ -68,6 +68,7 @@ func set_enabled(option: bool) -> void:
 	_enabled = option
 	if option: activate()
 	else: deactivate()
+	updated_enabled.emit(option)
 	InputManager.update_based_on_priority()
 
 
