@@ -18,9 +18,10 @@ func create_commands() -> void:
 		return {"Map exists." = Data.maps.has(arg)},
 	Data.maps.keys()
 	)
+	
 	n(
 	&"volume",
-	func(_v: float) -> void: Audio.set_global_volume(&"Master", _v), 
+	func(_v: float) -> void: Audio.set_bus_volume(&"Master", _v), 
 	TYPE_FLOAT,
 	"Change the Master volume.",
 	func(argument: Variant = "") -> Dictionary[String, bool]:
