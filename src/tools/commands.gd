@@ -25,7 +25,10 @@ func create_commands() -> void:
 	TYPE_FLOAT,
 	"Change the Master volume.",
 	func(argument: Variant = "") -> Dictionary[String, bool]:
-		return {"AudioServer has 'Master' Bus." = AudioServer.get_bus_index("Master") != -1}
+		return {
+			"Argument is float" = argument.is_valid_float(),
+			"AudioServer has 'Master' Bus." = AudioServer.get_bus_index("Master") != -1
+		}
 	)
 	
 	
