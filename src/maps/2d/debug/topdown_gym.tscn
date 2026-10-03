@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://7dbo5dp3s21v" path="res://src/maps/2d/debug/topdown_gym.gd" id="1_y5h7i"]
 [ext_resource type="PackedScene" uid="uid://cadfas1mgfubj" path="res://src/systems/movement/topdown/topdown_controller.tscn" id="2_1foud"]
 [ext_resource type="Texture2D" uid="uid://di0itwrc07ana" path="res://assets/textures/skybox/skyfinal_0.png" id="2_a6wc2"]
-[ext_resource type="Texture2D" uid="uid://bfdfjq7o80mrk" path="res://assets/textures/Concrete032_1K-JPG_Color.jpg" id="3_xo2h7"]
 [ext_resource type="Script" uid="uid://5g8yquw3afkq" path="res://src/systems/movement/topdown/topdown_obstacle.gd" id="4_7pesn"]
 [ext_resource type="Texture2D" uid="uid://dv2sks7fh6w2e" path="res://assets/icons/editor/icon.svg" id="4_a6wc2"]
 [ext_resource type="Shader" uid="uid://cyphu5xc3j2qd" path="res://src/systems/vision_2d/hidden_layer_shader.gdshader" id="5_fsb6a"]
@@ -261,7 +260,7 @@ position = Vector2(-902.91266, 208.73788)
 rotation = -0.4399013
 scale = Vector2(250.15742, 622.3573)
 mesh = SubResource("BoxMesh_g4v7s")
-texture = ExtResource("3_xo2h7")
+texture = ExtResource("7_sb041")
 
 [node name="ForegroundFarLayer" type="CanvasLayer" parent="." unique_id=1215459097]
 layer = 21
