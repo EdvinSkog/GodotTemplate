@@ -6,7 +6,10 @@
 script = ExtResource("1_32cek")
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=1767643061]
+bus = &"Music"
 
 [node name="Voice" type="AudioStreamPlayer" parent="." unique_id=527213940]
+bus = &"Voice"
 
 [node name="Ambience" type="AudioStreamPlayer" parent="." unique_id=1773749973]
+bus = &"Ambience"
