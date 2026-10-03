@@ -11,6 +11,7 @@ static var commands: Dictionary[StringName, Command]
 @onready var line_edit: LineEdit = %LineEdit
 
 static func cast_value(value: String, type: Variant.Type) -> Variant:
+#region General use-case
 	match type:
 		TYPE_INT:
 			return value.to_int()
@@ -44,6 +45,24 @@ static func cast_warning(type: Variant.Type) -> String:
 		_:
 			return ""
 
+func get_argument_types(callable: Callable) -> Array[Variant.Type]:
+	if not callable.is_valid() or callable.is_custom():
+		return []
+
+	var object := callable.get_object()
+	if object == null:
+		return []
+
+	for method in object.get_method_list():
+		if method.name == callable.get_method():
+			var types: Array[Variant.Type] = []
+			for argument: Variant in method.args:
+				types.append(argument.type)
+			return types
+			
+	return []
+
+#endregion
 func _enter_tree() -> void:
 	%Console.visible = false
 
@@ -284,6 +303,7 @@ func run_command(prompt: String) -> void:
 	else:
 		cmdlog("Validation failed.")
 
+# Current
 var key: String
 var arguments: Array
 
