@@ -1,4 +1,5 @@
-class_name GroupProcessHandler extends Handler
+@icon("res://addons/at-icons/node/dot_grid.svg")
+class_name GroupProcessHandler extends Node
 
 
 

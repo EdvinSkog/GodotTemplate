@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SequenceTweenEffect" format=3 uid="uid://d1qskjmle0k5j"]
+
+[ext_resource type="Script" uid="uid://bd5g2ul5bepe4" path="res://src/user_interface/tween/effects/sequence_tween_effect.gd" id="1_sequence"]
+[ext_resource type="Script" uid="uid://b5fjt3hsp5nk" path="res://src/user_interface/tween/effects/entrance_tween_effect.gd" id="2_entrance"]
+[ext_resource type="Script" uid="uid://bn3mc1p37mdrv" path="res://src/user_interface/tween/effects/tween_effect.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="SlideUp"]
+script = ExtResource("2_entrance")
+from_offset = Vector2(0, 0)
+from_offset_ratio = Vector2(0, 1)
+from_alpha = 1.0
+duration = 0.4
+transition = 7
+
+[sub_resource type="Resource" id="Pop"]
+script = ExtResource("2_entrance")
+from_offset = Vector2(0, 0)
+from_scale = Vector2(0.85, 0.85)
+from_alpha = 1.0
+transition = 2
+
+[resource]
+script = ExtResource("1_sequence")
+steps = Array[ExtResource("3_effect")]([SubResource("SlideUp"), SubResource("Pop")])

@@ -73,7 +73,9 @@ folder_colors={
 "res://data/": "blue",
 "res://src/application/": "yellow",
 "res://src/systems/": "orange",
-"res://src/user_interface/": "teal"
+"res://src/user_interface/": "teal",
+"res://src/world/maps/2d/": "blue",
+"res://src/world/maps/3d/": "red"
 }
 
 [global_group]
