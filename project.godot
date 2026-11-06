@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Ed's Template"
-run/main_scene="uid://crnvhap5ucr6f"
+run/main_scene="uid://cwij3bn2l5cmq"
 config/features=PackedStringArray("4.7", "Forward Plus")
 run/max_fps=144
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -62,7 +62,7 @@ script/templates_search_path="res://src/tools/script_templates"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/at-icons/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
 
 [file_customization]
 

@@ -1,2 +1,2 @@
-@icon("res://assets/icons/editor/chess_pawn.svg")
+@icon("res://addons/at-icons/node/chess_pawn.svg")
 class_name Entity extends Node

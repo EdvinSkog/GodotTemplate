@@ -1,4 +1,4 @@
-@icon("res://assets/icons/editor/2d/eye.svg")
+@icon("res://addons/at-icons/node2d/field_of_view.svg")
 @tool
 class_name VisionCone2D extends Node2D
 
