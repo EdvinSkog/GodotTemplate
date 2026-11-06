@@ -21,6 +21,7 @@ func play_sfx(path: String, volume_modifier: float = 0) -> void:
 	sfx.volume_db = 0 + volume_modifier
 	add_child(sfx)
 
+#region Playing
 # Uses paths, not AudioStream.
 func play_music(song_name: StringName, volume_modifier: float = 0, fade_time: float = 0.1) -> void:
 
@@ -58,14 +59,86 @@ func stop_music(fade_time: float = 0.1) -> void:
 	tween.tween_property(music_player, "volume_db", -40, fade_time)
 	await tween.finished
 	music_player.stop()
+#endregion
 
-func set_global_volume(bus_name: String, amount: float) -> void:
+#region Volume
+
+# Linear (0 to 1)
+var bus_origin_volumes: Dictionary[StringName, float] = {}
+
+# Db
+var bus_stored_db_volumes: Dictionary[StringName, float] = {}
+
+
+## Is a normalized value that the player shall modify in settings
+func set_bus_origin_volume(bus_name: String, amount: float) -> void:
 	var bus_index := AudioServer.get_bus_index(bus_name)
-	amount = linear_to_db(amount)
-	AudioServer.set_bus_volume_db(bus_index, amount)
+	if bus_index < 0: 
+		push_warning("Tried changing origin volume of non-existent bus: ", bus_name)
+		return
+	amount = clampf(amount, 0, 1) #Maybe 0 to 2?
+	bus_origin_volumes.get_or_add(bus_name, amount)
+	bus_origin_volumes[bus_name] = amount
+	_update_bus_volume(bus_name)
 
-# Relative increases/decrease by db amount
-func change_music_volume(db: float, fade_time: float = 0) -> void:
-	db = 0 + db
-	var tween := get_tree().create_tween()
-	tween.tween_property(music_player, "volume_db", db, fade_time)
+# Is linear
+func get_bus_origin_volume(bus_name: StringName) -> float:
+	if bus_origin_volumes.has(bus_name):
+		return bus_origin_volumes.get(bus_name)
+	return 1.0
+
+#NOTE: rename to set_bus_volume
+var volume_tween: Tween
+func set_bus_volume(bus_name: StringName, db: float, fade_time: float = 0.0) -> void:
+	var bus_index := AudioServer.get_bus_index(bus_name)
+	
+	bus_stored_db_volumes.get_or_add(bus_name, db)
+	bus_stored_db_volumes[bus_name] = db
+	assert(!is_nan(db))
+	
+	#debug_volumes(bus_name, db)
+	
+	# Lambda for easier tweening
+	var set_volume := func(val: float) -> void:
+		AudioServer.set_bus_volume_db(bus_index, val + linear_to_db(get_bus_origin_volume(bus_name)))
+	
+	
+	if fade_time > 0:
+		var current_volume := get_bus_volume(bus_name)
+		
+		volume_tween = get_tree().create_tween()
+		volume_tween.set_ease(Tween.EASE_OUT)
+		volume_tween.tween_method(set_volume, current_volume, db, fade_time)
+	else:
+		set_volume.call(db)
+	
+
+## Returns the real as db
+func get_bus_volume(bus_name: StringName) -> float:
+	var bus_index := AudioServer.get_bus_index(bus_name)
+	return AudioServer.get_bus_volume_db(bus_index)
+
+func mute_bus(bus_name: StringName, option: bool = true) -> void:
+	var idx := AudioServer.get_bus_index(bus_name)
+	AudioServer.set_bus_mute(idx, option)
+
+## Volume without modifed origin applied
+func get_stored_db_volume(bus_name: StringName) -> float:
+	if bus_stored_db_volumes.has(bus_name):
+		return bus_stored_db_volumes.get(bus_name)
+	return 0.0
+# +=
+func modify_bus_volume(bus_name: StringName, amount: float, fade_time: float = 0) -> void:
+	set_bus_volume(bus_name, get_bus_volume(bus_name) + amount, fade_time)
+
+func _update_bus_volume(bus_name: StringName) -> void:
+	#var bus_index := AudioServer.get_bus_index(bus_name)
+	set_bus_volume(bus_name, get_stored_db_volume(bus_name))
+
+func debug_volumes(bus_name: StringName, db_set: float) -> void:
+	if !OS.is_debug_build(): return
+	print("\n" + bus_name + " Audio")
+	print_rich("[color=beige]db volume stored: ", db_set)
+	print_rich("[color=beige]origin modified: ", get_bus_origin_volume(bus_name))
+	print_rich("[color=beige]real volume: ", get_bus_volume(bus_name))
+#endregion
