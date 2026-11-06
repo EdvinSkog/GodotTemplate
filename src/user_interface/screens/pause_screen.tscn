@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bmywfuevlp0mk" path="res://src/user_interface/screens/pause_screen.gd" id="1_7j5qp"]
 [ext_resource type="Script" uid="uid://snkwqpwojvds" path="res://src/user_interface/screens/pause_handler.gd" id="2_hmc51"]
-[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/global/inputs/input_layer.gd" id="3_hmc51"]
+[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/application/inputs/input_layer.gd" id="3_hmc51"]
 
 [sub_resource type="Gradient" id="Gradient_7j5qp"]
 offsets = PackedFloat32Array(0)

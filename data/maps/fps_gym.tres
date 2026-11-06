@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MapData" format=3 uid="uid://f5y3qkgnlduc"]
 
-[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/maps/map_data.gd" id="1_fjl5j"]
+[ext_resource type="Script" uid="uid://0bv2hcbpeubi" path="res://src/world/maps/map_data.gd" id="1_fjl5j"]
 
 [resource]
 script = ExtResource("1_fjl5j")

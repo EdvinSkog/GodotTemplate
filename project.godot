@@ -27,17 +27,18 @@ buses/default_bus_layout="res://src/default_bus_layout.tres"
 
 [autoload]
 
-Game="*res://src/global/game_autoload.tscn"
+Game="*res://src/application/flow/game_autoload.tscn"
 Data="*uid://bn30qajonp73d"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
-Audio="*res://src/global/audio_autoload.tscn"
-Player="*res://src/global/player_autoload.tscn"
-Scene="*res://src/global/scene_autoload.tscn"
+Audio="*res://src/application/audio/audio_autoload.tscn"
+Player="*res://src/systems/player_controller/player_autoload.tscn"
+Scene="*res://src/application/flow/scene_autoload.tscn"
 InputManager="*uid://bmhbtngh8t404"
 Debug="*uid://dtmc72qtrlk8l"
 
 [debug]
 
+gdscript/warnings/unused_parameter=0
 gdscript/warnings/untyped_declaration=1
 
 [dialogue_manager]
@@ -70,7 +71,7 @@ folder_colors={
 "res://addons/": "gray",
 "res://assets/": "purple",
 "res://data/": "blue",
-"res://src/global/": "yellow",
+"res://src/application/": "yellow",
 "res://src/systems/": "orange",
 "res://src/user_interface/": "teal"
 }

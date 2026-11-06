@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://cadfas1mgfubj"]
+
+[ext_resource type="Script" uid="uid://vfkb1kkyuklj" path="res://src/systems/player_controller/topdown/topdown_controller.gd" id="1_uwo75"]
+[ext_resource type="Script" uid="uid://dyokexikysct1" path="res://src/application/inputs/input_layer.gd" id="2_kfc7j"]
+[ext_resource type="PackedScene" uid="uid://dy8gloru33o1o" path="res://src/systems/vision_2d/vision_cone_2d.tscn" id="2_whpx7"]
+[ext_resource type="Script" uid="uid://r2b4ubujx4h2" path="res://src/application/inputs/custom_cursor.gd" id="3_xcsm2"]
+[ext_resource type="Texture2D" uid="uid://bcn3d5d4wqh47" path="res://assets/icons/editor/cross.svg" id="4_whpx7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwo75"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cqobq"]
+radius = 25.0
+height = 50.0
+
+[sub_resource type="Gradient" id="Gradient_uwo75"]
+offsets = PackedFloat32Array(0.974359)
+colors = PackedColorArray(0.8685025, 0.59860635, 0.29284808, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kfc7j"]
+gradient = SubResource("Gradient_uwo75")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cqobq"]
+radius = 25.019993
+
+[sub_resource type="Resource" id="Resource_alkyp"]
+script = ExtResource("3_xcsm2")
+textures = Array[Texture2D]([ExtResource("4_whpx7")])
+hotspot = null
+metadata/_custom_type_script = "uid://r2b4ubujx4h2"
+
+[node name="TopDownController" type="CharacterBody2D" unique_id=1322041233 node_paths=PackedStringArray("vision_cone") groups=["controller"]]
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_uwo75")
+vision_cone = NodePath("Hand/VisionCone2D")
+sprint_modifier = 1.5
+
+[node name="CameraRemote" type="RemoteTransform2D" parent="." unique_id=1077853994]
+unique_name_in_owner = true
+update_rotation = false
+update_scale = false
+
+[node name="Hand" type="Node2D" parent="." unique_id=472551597]
+position = Vector2(19, 15)
+
+[node name="VisionCone2D" parent="Hand" unique_id=461830071 instance=ExtResource("2_whpx7")]
+unique_name_in_owner = true
+position = Vector2(-19, -15)
+
+[node name="SampleHandMesh" type="MeshInstance2D" parent="Hand" unique_id=918992089]
+position = Vector2(8, -4.000002)
+scale = Vector2(16.5, 6.5)
+mesh = SubResource("BoxMesh_uwo75")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1205590419]
+
+[node name="SampleBodyMesh" type="MeshInstance2D" parent="Visuals" unique_id=1547516920]
+mesh = SubResource("SphereMesh_cqobq")
+texture = SubResource("GradientTexture1D_kfc7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=554111916]
+shape = SubResource("CircleShape2D_cqobq")
+
+[node name="InputLayer" type="Node" parent="." unique_id=1002329675]
+script = ExtResource("2_kfc7j")
+priority = 1
+groups_affected = Array[StringName]([&"controller"])
+custom_cursors = Array[ExtResource("3_xcsm2")]([SubResource("Resource_alkyp")])
+mouse_mode = 3
+metadata/_custom_type_script = "uid://dyokexikysct1"
+
+[connection signal="detected" from="Hand/VisionCone2D" to="." method="_on_vision_cone_2d_detected"]

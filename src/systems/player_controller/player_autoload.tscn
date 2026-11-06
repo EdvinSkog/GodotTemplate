@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b7bqfnnxlme3q"]
+
+[ext_resource type="Script" uid="uid://pdgie4yk33dy" path="res://src/systems/player_controller/player_autoload.gd" id="1_yujcj"]
+
+[node name="PlayerManager" type="Node" unique_id=846552328]
+script = ExtResource("1_yujcj")
+metadata/test = 0

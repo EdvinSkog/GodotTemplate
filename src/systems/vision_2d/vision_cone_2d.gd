@@ -108,7 +108,7 @@ func set_active_rays(count: int = scan_rays.size()) -> void:
 	if count == 0:
 		return
 
-	var center := scan_rays.size() / 2
+	var center := scan_rays.size() / 2.0
 	var enabled := 1
 
 	scan_rays[center].enabled = true
