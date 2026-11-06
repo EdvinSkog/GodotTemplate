@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MapDefinition" format=3 uid="uid://dwryifd7qymtd"]
+
+[ext_resource type="Script" uid="uid://cpdkg4iu1hdbp" path="res://src/application/flow/map_definition.gd" id="1_rvco1"]
+
+[resource]
+script = ExtResource("1_rvco1")
+scene_path = "uid://crnvhap5ucr6f"
+content_id = &"topdown"
+metadata/_custom_type_script = "uid://0bv2hcbpeubi"

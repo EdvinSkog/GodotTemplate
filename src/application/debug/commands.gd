@@ -15,8 +15,8 @@ func create_commands() -> void:
 	TYPE_STRING_NAME,
 	"Load into a different map.",
 	func(arg = "") -> Dictionary[String, bool]:
-		return {"Map exists." = Data.maps.has(arg)},
-	Data.maps.keys()
+		return {"Map exists." = Data.content.get_map(arg) != null},
+	Data.content.get_definitions_by_type(&"MapDefinition").map(func(map: MapDefinition) -> StringName: return map.content_id)
 	)
 	
 	n(

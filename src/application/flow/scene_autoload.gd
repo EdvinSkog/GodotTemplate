@@ -2,9 +2,9 @@ extends Node
 
 signal map_changed
 
-var _map_list: Dictionary[StringName, MapData]:
+var _map_list: Array[MapDefinition]:
 	get: 
-		return Data.maps
+		return Data.content.get_definitions_by_type(&"MapDefinition")
 
 ## References
 @onready var loading: LoadingManager = %LoadingManager
@@ -32,14 +32,14 @@ func _setup() -> void:
 
 #region Map Management
 
-func get_maps() -> Dictionary[StringName, MapData]:
+func get_maps() -> Array[MapDefinition]:
 	return _map_list
 
 func load_map(key: StringName) -> void:
-	if !get_maps().has(key):
+	var data: MapDefinition = Data.content.get_definition(key)
+	if data == null:
 		push_error("Could not find map data -> ", key)
 		return
-	var data: MapData = get_maps().get(key)
 	loading.load_scene_path(data.scene_path)
 
 func set_map(new_map: Node) -> void:

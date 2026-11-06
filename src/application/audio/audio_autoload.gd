@@ -1,16 +1,15 @@
 extends Node
 
-@onready var music_player: AudioStreamPlayer = $Music
-@onready var voice: AudioStreamPlayer = $Voice
-@onready var ambience: AudioStreamPlayer = $Ambience
+@onready var music_player: AudioStreamPlayer = %Music
+@onready var voice: AudioStreamPlayer = %Voice
+@onready var ambience: AudioStreamPlayer = %Ambience
 
-@export_dir var voice_folder_path: String = "res://assets/audio/voice"
 @onready var songlist: Dictionary[StringName, AudioStream]:
 	get:
-		return Game.ref_data.songs
+		return Data.songs
 @onready var voicelist: Dictionary[StringName, AudioStream]:
 	get:
-		return Game.ref_data.voices
+		return Data.voices
 
 
 ## Uses and instantiates the sound_effect class #TODO: Improve use cases
